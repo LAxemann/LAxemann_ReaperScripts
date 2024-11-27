@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.02
+Version 1.03
 
 //====================================================================================================================================================
 Summary:
@@ -27,6 +27,9 @@ Summary:
 
 //====================================================================================================================================================
 Installation:
+	If you've downloaded SlipView via ReaPack, all actions should be available and you're ready to go, jump to step 4.
+	Otherwise:
+	
 	1. Drag the contents of the .zip archive into AppData\Roaming\REAPER\Scripts
 		(You can get to the REAPER folder by clicking on "Options > Show resource path in explorer/finder")
 	
