@@ -54,7 +54,7 @@ local showOnlyOnDrag = checkStoredValue("ShowOnlyOnDrag", 0)
 local delay = checkStoredValue("Delay", 0)
 
 -- Open our humble UI
-local ret, userInput = reaper.GetUserInputs("SlipView settings", 6, "Primary Key (VK Code),Modifier Key (VK Code or empty),Restrict to neighbors,On new track (0 = no),Only when dragging content,Delay (s)", primaryKey .. "," .. modifierKey .. "," .. restrictToNeighbors .. "," .. createGhostTrack .. "," .. showOnlyOnDrag .. "," .. delay)
+local ret, userInput = reaper.GetUserInputs("SlipView settings", 6, "Primary Key (VK Code),Modifier Key (VK Code or empty),Restrict to neighbors (0=off),On new track (0=off),Only on content drag (0=off),Delay (s)", primaryKey .. "," .. modifierKey .. "," .. restrictToNeighbors .. "," .. createGhostTrack .. "," .. showOnlyOnDrag .. "," .. delay)
 
 if ret then
     -- Parse the input
