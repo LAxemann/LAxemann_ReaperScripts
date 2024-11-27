@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.00
+-- @version 1.01
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -27,6 +27,7 @@
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
 --@changelog
+--   1.01: Tweaked settings names
 --   1.00: Initial version  
 
 
