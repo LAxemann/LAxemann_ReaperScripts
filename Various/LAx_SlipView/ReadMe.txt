@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.0
+Version 1.02
 
 //====================================================================================================================================================
 Summary:
@@ -86,4 +86,9 @@ Known issues:
 		This can be fixed by sweeping the waveform around a bit. It's a "Reaper issue" and likely not really "fixable".
 			
 			
+			
+//====================================================================================================================================================
+Credits:
+- Andrej Novosad for the initial idea of finding a way to "preview" a full waveform, as well as testing!
+- Jamie Lee and Jon Kelliher for beta testing
 			

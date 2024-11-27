@@ -2,5 +2,5 @@
  Noindex: true
 ]]
 
-v1.00 - 
+v1.02 - 
 Initial release

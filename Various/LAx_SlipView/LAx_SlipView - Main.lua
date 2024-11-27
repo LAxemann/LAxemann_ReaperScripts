@@ -27,6 +27,7 @@
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
 --@changelog
+--   1.02: Updated credits for release
 --   1.01: Tweaked settings names
 --   1.00: Initial version  
 
