@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.03
+-- @version 1.10
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -27,6 +27,11 @@
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
 --@changelog
+--	 1.10: - Preview will only be shown if the cursor is within the arrange view
+--         - Preview will now carry over custom colors of items
+--         - Removed unused function
+--         - Fixed a small bug in settings
+--         - Trivial tidying-up of code 
 --   1.03: Updated ReadMe for release
 --   1.02: Updated credits for release
 --   1.01: Tweaked settings names
@@ -71,7 +76,19 @@ function is_key_down()
 	local onlyOnDrag = (tonumber(reaper.GetExtState("LAx_SlipView", "ShowOnlyOnDrag")) or 0) ~= 0 -- Default: 0 
 	local dragGate = not onlyOnDrag or isMouseClickOverSelectedItem()
 	
-    return ((primaryKeyDown and modifierKeyDown) and dragGate)
+    return ((primaryKeyDown and modifierKeyDown) and dragGate and isMouseInArrangeView())
+end
+
+
+----------------------------------------------------------------------------------------
+--[[ 
+    isMouseInArrangeView: Check if mouse cursor is in arrange view. (Thanks to X-Raym!)
+    Return1: True if cursor is in arrange view (bool)
+--]]
+function isMouseInArrangeView()
+	local window = reaper.BR_GetMouseCursorContext()
+	
+	return (window == "arrange")
 end
 
 
@@ -80,24 +97,6 @@ end
 function on_key_press()
 	gatherSelectedItemInfo()
 	createMainItems()
-end
-
-
-----------------------------------------------------------------------------------------
---[[ 
-    runAction: Runs a specified action and returns an error if its not found.
-    @arg1: actionName [String]
-    Returns: nil
---]]
-function runAction(actionName)
-	local actionID = reaper.NamedCommandLookup(actionName)
-	
-	if actionID ~= 0 then
-		reaper.Main_OnCommand(actionID, 0) 
-	else
-		reaper.ShowMessageBox(actionName .. "\nAction/script not found!", "Error", 0)
-		return
-	end		
 end
 
 
@@ -117,16 +116,16 @@ function createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhos
 	
 	local itemPos = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION")
 	local ghostItemStartOffset, ghostItemTargetPos, ghostItemLength, ghostItemPlayRate = calculateGhostItemValues(currentItem, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
-		  
+
 	 -- Create the ghost item and set values accordingly
 	local ghostItem = reaper.AddMediaItemToTrack(itemTrack)
 	reaper.SetMediaItemInfo_Value(ghostItem, "D_POSITION", ghostItemTargetPos)
 	reaper.SetMediaItemInfo_Value(ghostItem, "D_LENGTH", ghostItemLength)
 	reaper.SetMediaItemInfo_Value(ghostItem, "D_VOL", reaper.GetMediaItemInfo_Value(currentItem, "D_VOL"))
+	reaper.SetMediaItemInfo_Value(ghostItem, "I_CUSTOMCOLOR", reaper.GetMediaItemInfo_Value(currentItem, "I_CUSTOMCOLOR"))
 	reaper.SetMediaItemInfo_Value(ghostItem, "B_MUTE", 1)
 	reaper.SetMediaItemInfo_Value(ghostItem, "B_LOOPSRC", 1)
-	
-		  
+
 	-- Apply the original take
 	local take = reaper.GetActiveTake(currentItem)
 	local takeNumber = (createGhostTrack and 0) or reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
@@ -140,7 +139,6 @@ function createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhos
 		else
 			reaper.AddTakeToMediaItem(ghostItem)
 		end
-	
 	end
 	
 	if ghostTake then
@@ -182,12 +180,11 @@ function calculateGhostItemValues(selectedItem, itemPos, itemTrack, restrictToNe
 	local itemTakeSourceLength = reaper.GetMediaSourceLength(itemTakeSource) * playRateFactor
 
 	-- Get neighbor item positions. We do it before inserting the ghost item to avoid having to deal with changed indices
-	local rightNeighborStartPos, leftNeighborEndPos = 0
-	local leftNeighborEndPos = 0 -- 0 (Timeline start) by default
+	local rightNeighborStartPos = 0
+	local leftNeighborEndPos = 0
 	
 	if (restrictToNeighbors and (not createGhostTrack)) then
 		local selectedItemIndex = reaper.GetMediaItemInfo_Value(selectedItem, "IP_ITEMNUMBER")
-		--local rightNeighborItem = reaper.GetTrackMediaItem(itemTrack, selectedItemIndex + 1)
 		local rightNeighborItem = getNonClippingRightNeighbor(selectedItemIndex, itemTrack, reaper.GetMediaItemInfo_Value(selectedItem, "D_POSITION") + reaper.GetMediaItemInfo_Value(selectedItem, "D_LENGTH"))
 		
 		if rightNeighborItem then
@@ -444,6 +441,7 @@ function on_key_release()
 	reaper.UpdateArrange()
 end
 
+
 ----------------------------------------------------------------------------------------
 --[[ 
     cleanUp: Goes through all items + tracks and deletes temp ones
@@ -513,6 +511,7 @@ function cleanUp()
 	--local elapsedTime = reaper.time_precise() - startTime
 	--reaper.ShowConsoleMsg("Items:" .. tostring(numItems) .."\n" .. tostring(elapsedTime))
 end
+
 
 ----------------------------------------------------------------------------------------
 --[[ 

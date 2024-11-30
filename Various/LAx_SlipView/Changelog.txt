@@ -2,5 +2,9 @@
  Noindex: true
 ]]
 
-v1.02 - 
-Initial release
+--	 1.10: - Preview will only be shown if the cursor is within the arrange view
+--         - Preview will now carry over custom colors of items
+--         - Removed unused function
+--         - Fixed a small bug in settings
+--         - Trivial tidying-up of code 
+--   1.03: Updated ReadMe for release

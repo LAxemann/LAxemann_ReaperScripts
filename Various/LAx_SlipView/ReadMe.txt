@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.03
+Version 1.10
 
 //====================================================================================================================================================
 Summary:
@@ -94,4 +94,5 @@ Known issues:
 Credits:
 - Andrej Novosad for the initial idea of finding a way to "preview" a full waveform, as well as testing!
 - Jamie Lee and Jon Kelliher for beta testing
+- X-Raym for suggestions for and on improvements
 			

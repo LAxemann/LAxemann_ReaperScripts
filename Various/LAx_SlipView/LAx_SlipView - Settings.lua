@@ -29,7 +29,7 @@ end
 --]]
 function applyToggle(extStateString, originalValue, newValue, cmdID)
 	if tonumber(originalValue) ~= newValue then
-		if createGhostTrackToggleCmdID ~= "" then
+		if cmdID ~= "" then
 			local commandID = reaper.NamedCommandLookup(cmdID)
 			
 			if commandID ~= 0 then
