@@ -2,9 +2,13 @@
  Noindex: true
 ]]
 
+--	 1.11: - Added toggle state to main function
 --	 1.10: - Preview will only be shown if the cursor is within the arrange view
 --         - Preview will now carry over custom colors of items
 --         - Removed unused function
 --         - Fixed a small bug in settings
 --         - Trivial tidying-up of code 
 --   1.03: Updated ReadMe for release
+--   1.02: Updated credits for release
+--   1.01: Tweaked settings names
+--   1.00: Initial version  

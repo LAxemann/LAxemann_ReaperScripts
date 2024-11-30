@@ -27,6 +27,7 @@
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
 --@changelog
+--	 1.11: - Added toggle state to main function
 --	 1.10: - Preview will only be shown if the cursor is within the arrange view
 --         - Preview will now carry over custom colors of items
 --         - Removed unused function
@@ -543,6 +544,15 @@ end
 
 
 ----------------------------------------------------------------------------------------
+-- Sets the toggle state
+function setToggleState(state)
+  local _, _, sectionID, cmdID = reaper.get_action_context()
+  reaper.SetToggleCommandState(sectionID, cmdID, state or 0)
+  reaper.RefreshToolbar2(sectionID, cmdID)
+end
+
+
+----------------------------------------------------------------------------------------
 -- Main loop
 function main()
 	-- If the action is alrady running but the selection has changed, "refresh"
@@ -608,4 +618,6 @@ if sws_installed == -1 then
 end
 
 -- Run main routine
+setToggleState(1)
 main()
+reaper.atexit(setToggleState)
