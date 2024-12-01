@@ -2,6 +2,9 @@
  Noindex: true
 ]]
 
+--	 1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled
+--         - Toggle states should now update once the main routine starts
+--         - Lowered cleanup interval from 2 to 1s
 --	 1.13: - Added toolbar icons
 --	 1.12: - Preview will stay if the mouse cursor leaves the arrange window
 --	 1.11: - Added toggle state to main function

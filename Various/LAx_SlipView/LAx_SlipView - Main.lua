@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.13
+-- @version 1.14
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,9 @@
 --   [nomain] Changelog.txt
 --   [data] Toolbar_Icons/**/*.png
 --@changelog
+--	 1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled
+--         - Toggle states should now update once the main routine starts
+--         - Lowered cleanup interval from 2 to 1s
 --	 1.13: - Added toolbar icons
 --	 1.12: - Preview will stay if the mouse cursor leaves the arrange window
 --	 1.11: - Added toggle state to main function
@@ -40,7 +43,6 @@
 --   1.02: Updated credits for release
 --   1.01: Tweaked settings names
 --   1.00: Initial version  
-
 
 
 -- Get ExtState and Reaper settings
@@ -67,7 +69,7 @@ local ghostItemName = "--SV--TEMP--"
 local ghostTrackName = "--SV--TEMP--"
 
 local lastCleanUp = reaper.time_precise()
-local cleanUpInterval = 2
+local cleanUpInterval = 1
 
 
 ----------------------------------------------------------------------------------------
@@ -279,11 +281,16 @@ end
 ----------------------------------------------------------------------------------------
 -- Creates the Ghost Items and Ghost Tracks based on the gathered data
 function createMainItems()
-	-- Check if auto-crossfade is enabled, disable temporarily if so
+	-- Check if auto-crossfade and overlap trimming is enabled, disable temporarily if so
 	local isAutoCrossfadeEnabled = reaper.GetToggleCommandState(40041)
+	local isOverlapTrimmingEnabled = reaper.GetToggleCommandState(41117)
 	
 	if isAutoCrossfadeEnabled == 1 then
 		reaper.Main_OnCommand(41119, 0)
+	end
+	
+	if isOverlapTrimmingEnabled == 1 then
+		reaper.Main_OnCommand(41121, 0)
 	end
 	
 	-- Check for settings
@@ -321,9 +328,13 @@ function createMainItems()
 			table.insert(ghostItems, ghostItem)
 		end
 
-		-- Re-enable crossfade if applicable
+		-- Re-enable crossfade and trimming if applicable
 		if isAutoCrossfadeEnabled == 1 then
 			reaper.Main_OnCommand(41118, 0)
+		end
+		
+		if isOverlapTrimmingEnabled == 1 then
+			reaper.Main_OnCommand(41120, 0)
 		end
 	end
 	
@@ -547,7 +558,48 @@ end
 
 
 ----------------------------------------------------------------------------------------
--- Sets the toggle state
+--[[ 
+    checkStoredValue: Checks a stored ExtState value and returns it, returns a default value if original return was nil
+    @arg1: valueID [String]
+    @arg2: default [Any]
+    Returns: stored value or nil
+--]]
+function checkStoredValue(valueID, defaultValue)
+	local returnValue = tonumber(reaper.GetExtState("LAx_SlipView", valueID))
+	
+	if returnValue == nil then
+		returnValue = defaultValue
+	end
+	
+	return returnValue
+end
+
+
+----------------------------------------------------------------------------------------
+-- Sets toggle state of toggle actions if they've been registered
+function setToggleFunctionsToggleState()
+	local createGhostTrack = (tonumber(reaper.GetExtState("LAx_SlipView", "createGhostTrack")) or 0) -- Default: 0 
+	local restrictToNeighbors = (tonumber(reaper.GetExtState("LAx_SlipView", "RestrictToNeighbors")) or 0) -- Default: 0 
+	
+	local restrictToNeighborsToggleCmdID = checkStoredValue("RestrictToNeighborsToggleCmdID", "")
+	local createGhostTrackToggleCmdID = checkStoredValue("CreateGhostTrackToggleCmdID", "")
+	
+	local commandID = -1
+	
+	if createGhostTrackToggleCmdID ~= "" then
+		commandID = reaper.NamedCommandLookup(createGhostTrackToggleCmdID)
+		reaper.SetToggleCommandState(0, commandID, createGhostTrack)
+	end
+	
+	if restrictToNeighborsToggleCmdID ~= "" then
+		commandID = reaper.NamedCommandLookup(restrictToNeighborsToggleCmdID)
+		reaper.SetToggleCommandState(0, commandID, restrictToNeighbors)
+	end
+end
+
+
+----------------------------------------------------------------------------------------
+-- Sets a toggle state
 function setToggleState(state)
   local _, _, sectionID, cmdID = reaper.get_action_context()
   reaper.SetToggleCommandState(sectionID, cmdID, state or 0)
@@ -621,6 +673,7 @@ if sws_installed == -1 then
 end
 
 -- Run main routine
+setToggleFunctionsToggleState()
 setToggleState(1)
 main()
 reaper.atexit(setToggleState)
