@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.17
+-- @version 1.18
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,7 @@
 --   [nomain] Changelog.txt
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--	 1.18: - Fixed: Crash when using SlipView on a completely empty item
 --	 1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
 --	 1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
 --	 1.15: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
@@ -124,7 +125,12 @@ function createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhos
 	end 
 	
 	local itemPos = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION")
-	local ghostItemStartOffset, ghostItemTargetPos, ghostItemLength, ghostItemPlayRate = calculateGhostItemValues(currentItem, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
+	local itemTake = reaper.GetActiveTake(currentItem)
+	if not itemTake then
+		return
+	end
+	
+	local ghostItemStartOffset, ghostItemTargetPos, ghostItemLength, ghostItemPlayRate = calculateGhostItemValues(currentItem, itemTake, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
 
 	 -- Create the ghost item and set values accordingly
 	local ghostItem = reaper.AddMediaItemToTrack(itemTrack)
@@ -179,8 +185,7 @@ end
     Return3: itemTakeSourceLength [Float]
     Return4: playRate [Float]
 --]]
-function calculateGhostItemValues(selectedItem, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
-	local take = reaper.GetActiveTake(selectedItem)
+function calculateGhostItemValues(selectedItem, take, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
 	local takeOffset = reaper.GetMediaItemTakeInfo_Value(take, "D_STARTOFFS") -- Basically how much the item would need to shift left
 	local playRate = reaper.GetMediaItemTakeInfo_Value(take,"D_PLAYRATE")
 	local playRateFactor = (1/playRate)
@@ -550,8 +555,13 @@ function hasSelectionChanged()
 	for i, item in ipairs(firstTrackItems) do	
 		if reaper.ValidatePtr(item, 'MediaItem*') then
 			local take = reaper.GetActiveTake(item)
-			local takeNumber = (createGhostTrack and 0) or reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
-			currentTakePseudoHash = currentTakePseudoHash + takeNumber
+			
+			if take then
+				local takeNumber = (createGhostTrack and 0) or reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
+				currentTakePseudoHash = currentTakePseudoHash + takeNumber
+			else
+				currentTakePseudoHash = currentTakePseudoHash + 0.5
+			end
 		end
 	end
 	
