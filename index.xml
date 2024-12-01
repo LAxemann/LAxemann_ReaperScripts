@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="LAxemann_ReaperScripts" commit="a381aa2bb4662d36f61bda6e929c4349917fd286">
+<index version="1" name="LAxemann_ReaperScripts" commit="2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b">
   <category name="Various/LAx_SlipView">
     <reapack name="LAx_SlipView - Main.lua" type="script" desc="Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.">
       <metadata>
@@ -82,6 +82,17 @@
         <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/a381aa2bb4662d36f61bda6e929c4349917fd286/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
         <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/a381aa2bb4662d36f61bda6e929c4349917fd286/Various/LAx_SlipView/ReadMe.txt</source>
         <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/a381aa2bb4662d36f61bda6e929c4349917fd286/Various/LAx_SlipView/Changelog.txt</source>
+      </version>
+      <version name="1.12" author="Leon 'LAxemann' Beilmann" time="2024-12-01T00:02:19Z">
+        <changelog><![CDATA[1.12: - Preview will stay if the mouse cursor leaves the arrange window
+1.11: - Added toggle state to main function
+1.10: - Preview will only be shown if the cursor is within the arrange view]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b/Various/LAx_SlipView/LAx_SlipView%20-%20Main.lua</source>
+        <source main="main" file="LAx_SlipView - Settings.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b/Various/LAx_SlipView/LAx_SlipView%20-%20Settings.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle On New Track.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20On%20New%20Track.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
+        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b/Various/LAx_SlipView/ReadMe.txt</source>
+        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/2f8f0db44f522f00f9d5c0eb88ee7187c4035c2b/Various/LAx_SlipView/Changelog.txt</source>
       </version>
     </reapack>
   </category>
