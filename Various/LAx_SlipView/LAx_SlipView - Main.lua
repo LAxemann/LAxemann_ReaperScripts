@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.12
+-- @version 1.13
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -26,7 +26,9 @@
 --   [main] LAx_SlipView - Toggle Restrict To Neighbors.lua
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
+--   [data] Toolbar_Icons/**/*.png
 --@changelog
+--	 1.13: - Added toolbar icons
 --	 1.12: - Preview will stay if the mouse cursor leaves the arrange window
 --	 1.11: - Added toggle state to main function
 --	 1.10: - Preview will only be shown if the cursor is within the arrange view

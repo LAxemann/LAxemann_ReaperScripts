@@ -2,6 +2,7 @@
  Noindex: true
 ]]
 
+--	 1.13: - Added toolbar icons
 --	 1.12: - Preview will stay if the mouse cursor leaves the arrange window
 --	 1.11: - Added toggle state to main function
 --	 1.10: - Preview will only be shown if the cursor is within the arrange view

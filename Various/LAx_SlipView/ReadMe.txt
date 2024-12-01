@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.12
+Version 1.13
 
 //====================================================================================================================================================
 Summary:
@@ -23,6 +23,7 @@ Summary:
 	- Supports multiple takes on one item. The selected take will have its preview shown.
 	- An activation delay can be set; Only if the keys are pressed longer than the delay the waveform preview will show up.
 	- The previews will automatically update if the selected items or takes change.
+	- Comes with custom toolbar icons.
 
 
 //====================================================================================================================================================
