@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.15
+-- @version 1.16
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -26,9 +26,9 @@
 --   [main] LAx_SlipView - Toggle Restrict To Neighbors.lua
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
---   [data] Toolbar_Icons/**/*.png
+--   [data] toolbar_icons/**/*.png
 --@changelog
---	 1.15: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
+--	 1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
 --	 1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled
 --         - Toggle states should now update once the main routine starts
 --         - Lowered cleanup interval from 2 to 1s
