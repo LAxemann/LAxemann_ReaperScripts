@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.18
+-- @version 1.19
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,7 @@
 --   [nomain] Changelog.txt
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--	 1.19: - Tweaked: Now also shows items properly in free item positioning
 --	 1.18: - Fixed: Crash when using SlipView on a completely empty item
 --	 1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
 --	 1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
@@ -138,6 +139,8 @@ function createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhos
 	reaper.SetMediaItemInfo_Value(ghostItem, "D_LENGTH", ghostItemLength)
 	reaper.SetMediaItemInfo_Value(ghostItem, "D_VOL", reaper.GetMediaItemInfo_Value(currentItem, "D_VOL"))
 	reaper.SetMediaItemInfo_Value(ghostItem, "I_CUSTOMCOLOR", reaper.GetMediaItemInfo_Value(currentItem, "I_CUSTOMCOLOR"))
+	reaper.SetMediaItemInfo_Value(ghostItem, "F_FREEMODE_Y", reaper.GetMediaItemInfo_Value(currentItem, "F_FREEMODE_Y"))
+	reaper.SetMediaItemInfo_Value(ghostItem, "F_FREEMODE_H", reaper.GetMediaItemInfo_Value(currentItem, "F_FREEMODE_H"))
 	reaper.SetMediaItemInfo_Value(ghostItem, "B_MUTE", 1)
 	reaper.SetMediaItemInfo_Value(ghostItem, "B_LOOPSRC", 1)
 

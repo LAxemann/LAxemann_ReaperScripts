@@ -2,6 +2,7 @@
  Noindex: true
 ]]
 
+--   1.19: - Tweaked: Now also shows items properly in free item positioning
 --	 1.18: - Fixed: Crash when using SlipView on a completely empty item
 --   1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
 --   1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
