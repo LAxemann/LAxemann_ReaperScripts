@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.11
+-- @version 1.12
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -27,6 +27,7 @@
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
 --@changelog
+--	 1.12: - Preview will stay if the mouse cursor leaves the arrange window
 --	 1.11: - Added toggle state to main function
 --	 1.10: - Preview will only be shown if the cursor is within the arrange view
 --         - Preview will now carry over custom colors of items
@@ -77,7 +78,7 @@ function is_key_down()
 	local onlyOnDrag = (tonumber(reaper.GetExtState("LAx_SlipView", "ShowOnlyOnDrag")) or 0) ~= 0 -- Default: 0 
 	local dragGate = not onlyOnDrag or isMouseClickOverSelectedItem()
 	
-    return ((primaryKeyDown and modifierKeyDown) and dragGate and isMouseInArrangeView())
+    return ((primaryKeyDown and modifierKeyDown) and dragGate)
 end
 
 
@@ -582,7 +583,7 @@ function main()
 			end
 			
 			-- Allow execution of the main function if delay time has passed
-			if delayTimeElapsed >= delay then
+			if delayTimeElapsed >= delay and isMouseInArrangeView() then
 				-- Key is pressed, and it wasn't pressed before
 				on_key_press()
 				key_was_pressed = true
