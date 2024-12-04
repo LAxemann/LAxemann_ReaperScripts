@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.19
+Version 1.20
 
 //====================================================================================================================================================
 Summary:
@@ -24,6 +24,7 @@ Summary:
 	- An activation delay can be set; Only if the keys are pressed longer than the delay the waveform preview will show up.
 	- The previews will automatically update if the selected items or takes change.
 	- Comes with custom toolbar icons.
+	- Supports free positioning and fixed lanes.
 
 
 //====================================================================================================================================================

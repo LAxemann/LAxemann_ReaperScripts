@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.19
+-- @version 1.20
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,7 @@
 --   [nomain] Changelog.txt
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
 --	 1.19: - Tweaked: Now also shows items properly in free item positioning
 --	 1.18: - Fixed: Crash when using SlipView on a completely empty item
 --	 1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
@@ -127,11 +128,16 @@ function createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhos
 	
 	local itemPos = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION")
 	local itemTake = reaper.GetActiveTake(currentItem)
+	
 	if not itemTake then
 		return
 	end
 	
-	local ghostItemStartOffset, ghostItemTargetPos, ghostItemLength, ghostItemPlayRate = calculateGhostItemValues(currentItem, itemTake, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
+	local itemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
+	local itemFreeModeStart = reaper.GetMediaItemInfo_Value(currentItem, "F_FREEMODE_Y")
+	local itemFreeModeEnd = itemFreeModeStart + reaper.GetMediaItemInfo_Value(currentItem, "F_FREEMODE_H")
+	
+	local ghostItemStartOffset, ghostItemTargetPos, ghostItemLength, ghostItemPlayRate = calculateGhostItemValues(currentItem, itemTake, itemPos, itemTrack, restrictToNeighbors, createGhostTrack, itemFixedLane, itemFreeModeStart, itemFreeModeEnd)
 
 	 -- Create the ghost item and set values accordingly
 	local ghostItem = reaper.AddMediaItemToTrack(itemTrack)
@@ -183,12 +189,15 @@ end
     @arg3: itemTrack [Track]
     @arg4: restrictToNeighbors [Bool]
     @arg5: createGhostTrack [Bool]
+    @arg6: itemFixedLane [Int]
+    @arg7: itemFreeModeStart [Float]
+    @arg8: itemFreeModeEnd [Float]
     Return1: ghostItemStartOffset [Float]
     Return2: ghostItemTargetPos [Float]
     Return3: itemTakeSourceLength [Float]
     Return4: playRate [Float]
 --]]
-function calculateGhostItemValues(selectedItem, take, itemPos, itemTrack, restrictToNeighbors, createGhostTrack)
+function calculateGhostItemValues(selectedItem, take, itemPos, itemTrack, restrictToNeighbors, createGhostTrack, itemFixedLane, itemFreeModeStart, itemFreeModeEnd)
 	local takeOffset = reaper.GetMediaItemTakeInfo_Value(take, "D_STARTOFFS") -- Basically how much the item would need to shift left
 	local playRate = reaper.GetMediaItemTakeInfo_Value(take,"D_PLAYRATE")
 	local playRateFactor = (1/playRate)
@@ -202,13 +211,13 @@ function calculateGhostItemValues(selectedItem, take, itemPos, itemTrack, restri
 	
 	if (restrictToNeighbors and (not createGhostTrack)) then
 		local selectedItemIndex = reaper.GetMediaItemInfo_Value(selectedItem, "IP_ITEMNUMBER")
-		local rightNeighborItem = getNonClippingRightNeighbor(selectedItemIndex, itemTrack, reaper.GetMediaItemInfo_Value(selectedItem, "D_POSITION") + reaper.GetMediaItemInfo_Value(selectedItem, "D_LENGTH"))
+		local rightNeighborItem = getNonClippingRightNeighbor(selectedItemIndex, itemTrack, reaper.GetMediaItemInfo_Value(selectedItem, "D_POSITION") + reaper.GetMediaItemInfo_Value(selectedItem, "D_LENGTH"), itemFixedLane, itemFreeModeStart, itemFreeModeEnd)
 		
 		if rightNeighborItem then
 			rightNeighborStartPos = reaper.GetMediaItemInfo_Value(rightNeighborItem, "D_POSITION")
 		end
 		
-		local leftNeighborItem = reaper.GetTrackMediaItem(itemTrack, selectedItemIndex - 1)
+		local leftNeighborItem = getNonClippingLeftNeighbor(selectedItemIndex, itemTrack, reaper.GetMediaItemInfo_Value(selectedItem, "D_POSITION") + reaper.GetMediaItemInfo_Value(selectedItem, "D_LENGTH"), itemFixedLane, itemFreeModeStart, itemFreeModeEnd)
 		
 		if leftNeighborItem then
 			local leftNeighborStartPos = reaper.GetMediaItemInfo_Value(leftNeighborItem, "D_POSITION")
@@ -365,24 +374,111 @@ end
 
 
 ----------------------------------------------------------------------------------------
--- Check if the mouse is clicked and a selected item is under the cursor
-function getNonClippingRightNeighbor(indexStart, track, itemEndPos)
+--[[ 
+    getNonClippingRightNeighbor: go through items to the right and check if the entire item isn't clipping inside of the original item
+    @arg1: indexStart [Int]
+    @arg2: track [Track]
+    @arg3: itemEndPos [Float]
+    @arg4: itemFixedLane [Int]
+    @arg5: itemFreeModeStart [Float]
+    @arg6: itemFreeModeEnd [Float]
+    Return1: non-clipping right neighbor or nil [Item]
+--]]
+function getNonClippingRightNeighbor(indexStart, track, itemEndPos, itemFixedLane, itemFreeModeStart, itemFreeModeEnd)
 	local nonClippingRightNeighbor = nil
 	
 	local itemsOnTrackCount = reaper.CountTrackMediaItems(track)
 
 	for i = indexStart + 1, itemsOnTrackCount - 1 do
 		local currentItem = reaper.GetTrackMediaItem(track, i)
-		local currentItemEnd = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION") + reaper.GetMediaItemInfo_Value(currentItem, "D_LENGTH")
+		local currentItemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
+		
+		-- No need to do further checks if the two items are not on the same fixed lane
+		if currentItemFixedLane == itemFixedLane then
+		
+			local itemsOverlap = doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
+			
+			if itemsOverlap then
+				local currentItemEnd = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION") + reaper.GetMediaItemInfo_Value(currentItem, "D_LENGTH")
 
-		-- Check if the current item's start position is greater than the reference item's end position
-		if currentItemEnd > itemEndPos then
-			nonClippingRightNeighbor = currentItem
-			break
+				-- Check if the current item's start position is greater than the reference item's end position
+				if currentItemEnd > itemEndPos then
+					nonClippingRightNeighbor = currentItem
+					break
+				end
+			end
 		end
 	end
 	
 	return nonClippingRightNeighbor
+end
+
+
+----------------------------------------------------------------------------------------
+--[[ 
+    getNonClippingLeftNeighbor: go through items to the left and check if the entire item isn't clipping inside of the original item
+    @arg1: indexStart [Int]
+    @arg2: track [Track]
+    @arg3: itemEndPos [Float]
+    @arg4: itemFixedLane [Int]
+    @arg5: itemFreeModeStart [Float]
+    @arg6: itemFreeModeEnd [Float]
+    Return1: non-clipping left neighbor or nil [Item]
+--]]
+function getNonClippingLeftNeighbor(indexStart, track, itemEndPos, itemFixedLane, itemFreeModeStart, itemFreeModeEnd)
+	local nonClippingLeftNeighbor = nil
+	
+	for i = indexStart - 1, 0, -1 do
+		local currentItem = reaper.GetTrackMediaItem(track, i)
+		local currentItemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
+		
+		-- No need to do further checks if the two items are not on the same fixed lane
+		if currentItemFixedLane == itemFixedLane then
+		
+			local itemsOverlap = doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
+			
+			if itemsOverlap then
+				nonClippingLeftNeighbor = currentItem
+				break
+			end
+		end
+	end
+	
+	return nonClippingLeftNeighbor
+end
+
+
+----------------------------------------------------------------------------------------
+--[[ 
+    doItemsOverlapInFreeMode: Check if two items would overlap vertically in free mode
+    @arg1: itemFreeModeStart [Float]
+    @arg2: itemFreeModeEnd [Float]
+    Return1: Whether items would overlap verticall or not [Bool]
+--]]
+----------------------------------------------------------------------------------------
+-- Check if the mouse is clicked and a selected item is under the cursor
+function doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, otherItem)
+	local currentItemFreeModeStart = reaper.GetMediaItemInfo_Value(otherItem, "F_FREEMODE_Y")
+	local currentItemFreeModeEnd = currentItemFreeModeStart + reaper.GetMediaItemInfo_Value(otherItem, "F_FREEMODE_H")
+	local doesOverlap = (itemFreeModeEnd > currentItemFreeModeStart and itemFreeModeStart < currentItemFreeModeEnd)
+	
+	--[[ D E B U G
+	reaper.ClearConsole()
+	reaper.ShowConsoleMsg(
+		"1 Start: " .. 
+		tostring(itemFreeModeStart) .. 
+		"\n1 End: " .. 
+		tostring(itemFreeModeEnd) ..
+		"\n2 Start: " .. 
+		tostring(currentItemFreeModeStart) ..
+		"\n2 End: " .. 
+		tostring(currentItemFreeModeEnd) ..
+		"\nOverlaps: " ..
+		tostring(doesOverlap)
+	)
+	--]]
+	
+	return doesOverlap
 end
 
 

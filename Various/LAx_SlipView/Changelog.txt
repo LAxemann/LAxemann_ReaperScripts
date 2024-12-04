@@ -2,6 +2,7 @@
  Noindex: true
 ]]
 
+--	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
 --   1.19: - Tweaked: Now also shows items properly in free item positioning
 --	 1.18: - Fixed: Crash when using SlipView on a completely empty item
 --   1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
