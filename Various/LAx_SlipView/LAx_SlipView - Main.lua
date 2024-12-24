@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.20
+-- @version 1.21
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,7 @@
 --   [nomain] Changelog.txt
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--	 1.21: - Fixed: Buggy new track creation if anything but the first take was selected
 --	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
 --	 1.19: - Tweaked: Now also shows items properly in free item positioning
 --	 1.18: - Fixed: Crash when using SlipView on a completely empty item
@@ -152,12 +153,13 @@ function createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhos
 
 	-- Apply the original take
 	local take = reaper.GetActiveTake(currentItem)
-	local takeNumber = (createGhostTrack and 0) or reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
+	local takeNumber = reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
 	local takeCount = (createGhostTrack and 1) or reaper.GetMediaItemNumTakes(currentItem)
 	local ghostTake
 	
+	local tempTakeNumber = (createGhostTrack and 0) or takeNumber
 	for i = 0, takeCount - 1 do
-		if (i == takeNumber) then
+		if (i == tempTakeNumber) then
 			ghostTake = reaper.AddTakeToMediaItem(ghostItem)
 			reaper.SetActiveTake(ghostTake)
 		else
@@ -656,15 +658,16 @@ function hasSelectionChanged()
 			local take = reaper.GetActiveTake(item)
 			
 			if take then
-				local takeNumber = (createGhostTrack and 0) or reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
+				local takeNumber = reaper.GetMediaItemTakeInfo_Value(take, "IP_TAKENUMBER")
 				currentTakePseudoHash = currentTakePseudoHash + takeNumber
 			else
-				currentTakePseudoHash = currentTakePseudoHash + 0.5
+				currentTakePseudoHash = currentTakePseudoHash + 0.5 --In case the item has no take
 			end
 		end
 	end
-	
+	--reaper.ClearConsole()
 	local totalSelectionCount = originalSelectionCount + #ghostItems
+	--reaper.ShowConsoleMsg(tostring("Current: " .. tostring(currentTakePseudoHash) .. "\nOriginal: " .. tostring(originalTakePseudoHash) .. "\n"))
 	return ((reaper.CountSelectedMediaItems(0) ~= totalSelectionCount) or (currentTakePseudoHash ~= originalTakePseudoHash))
 end
 
