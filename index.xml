@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="LAxemann_ReaperScripts" commit="d09fe7ec6467878aa676b0040dca6febe01f96d5">
+<index version="1" name="LAxemann_ReaperScripts" commit="c286bd688993d3248faade7a54cec264f227dabc">
   <category name="Various/LAx_SlipView">
     <reapack name="LAx_SlipView - Main.lua" type="script" desc="Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.">
       <metadata>
@@ -285,6 +285,32 @@
         <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/d09fe7ec6467878aa676b0040dca6febe01f96d5/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
         <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/d09fe7ec6467878aa676b0040dca6febe01f96d5/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
         <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/d09fe7ec6467878aa676b0040dca6febe01f96d5/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
+      </version>
+      <version name="1.22" author="Leon 'LAxemann' Beilmann" time="2025-01-06T16:11:48Z">
+        <changelog><![CDATA[1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
+1.21: - Fixed: Buggy new track creation if anything but the first take was selected
+1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
+1.19: - Tweaked: Now also shows items properly in free item positioning
+1.18: - Fixed: Crash when using SlipView on a completely empty item
+1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
+1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
+1.15: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
+1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/LAx_SlipView%20-%20Main.lua</source>
+        <source main="main" file="LAx_SlipView - Settings.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/LAx_SlipView%20-%20Settings.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle On New Track.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20On%20New%20Track.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
+        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/ReadMe.txt</source>
+        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/Changelog.txt</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_Main.png</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_Main.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/c286bd688993d3248faade7a54cec264f227dabc/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
       </version>
     </reapack>
   </category>
