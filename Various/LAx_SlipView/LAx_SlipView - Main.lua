@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.21
+-- @version 1.22
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,7 @@
 --   [nomain] Changelog.txt
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--	 1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
 --	 1.21: - Fixed: Buggy new track creation if anything but the first take was selected
 --	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
 --	 1.19: - Tweaked: Now also shows items properly in free item positioning
@@ -349,15 +350,15 @@ function createMainItems()
 			local ghostItem = createGhostItem(currentItem, itemTrack, restrictToNeighbors, createGhostTrack)
 			table.insert(ghostItems, ghostItem)
 		end
-
-		-- Re-enable crossfade and trimming if applicable
-		if isAutoCrossfadeEnabled == 1 then
-			reaper.Main_OnCommand(41118, 0)
-		end
-		
-		if isOverlapTrimmingEnabled == 1 then
-			reaper.Main_OnCommand(41120, 0)
-		end
+	end
+	
+	-- Re-enable crossfade and trimming if applicable
+	if isAutoCrossfadeEnabled == 1 then
+		reaper.Main_OnCommand(41118, 0)
+	end
+	
+	if isOverlapTrimmingEnabled == 1 then
+		reaper.Main_OnCommand(41120, 0)
 	end
 	
 	-- Restore selection of originally selected items and select all created Ghost Items

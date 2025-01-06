@@ -2,6 +2,7 @@
  Noindex: true
 ]]
 
+--	 1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
 --	 1.21: - Fixed: Buggy new track creation if anything but the first take was selected
 --	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
 --   1.19: - Tweaked: Now also shows items properly in free item positioning
