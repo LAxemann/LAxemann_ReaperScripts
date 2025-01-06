@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.22
+-- @version 1.23
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -28,6 +28,7 @@
 --   [nomain] Changelog.txt
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--	 1.23: - Tweaked: DummyVersion because last commit didn't sync for some reason
 --	 1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
 --	 1.21: - Fixed: Buggy new track creation if anything but the first take was selected
 --	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
