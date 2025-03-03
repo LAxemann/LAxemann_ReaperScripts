@@ -1,0 +1,29 @@
+ParentName,TrackName,Explanations
+,Animals,"As you can see, the track headers (ParentName, TrackName) don't have to be the first columns. They can also be separated by other columns, the script will detect their column index automatically."
+,Vehicles,"Animals and Vehicles have no parents and will therefore be ""Master folders"" in Reaper."
+Vehicles,Tanks,
+Vehicles,Planes,"Tanks, Planes and Cars have ""Vehicles"" as their parent and will therefore become children/subTracks of ""Vehicles""."
+Vehicles,Cars,
+Tanks,T-72,
+Tanks,M1A1,"The three tanks all have ""Tanks"" as their parent. ""Tanks"", in turn, has ""Vehicles"" as its parent. This creates a folder hierarchy."
+Tanks,Leo2,
+Planes,Su-25,
+Planes,A-10,
+Planes,Tornado,
+Cars,Car 2,
+Cars,Car 1,
+Cars,Car 3,
+Animals,Cute,
+Animals,Maybe less cute,
+Cute,Dogs,
+Dogs,Goodest boi,
+Dogs,Best girl,
+Cute,Cats,
+Cats,Meowy III,
+Cats,Chris P. Bacon,
+Maybe less cute,Angler fish,
+Maybe less cute,Spiders,
+Maybe less cute,Earworm,
+Spiders,15 legs,
+Spiders,8 legs,
+Spiders,22 legs,
