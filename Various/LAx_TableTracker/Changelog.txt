@@ -2,5 +2,6 @@
  Noindex: true
 ]]
 
+--   1.02: Added undo blocking
 --   1.01: Trying to get example CSV into the package :P
 --   1.00: Initial version  

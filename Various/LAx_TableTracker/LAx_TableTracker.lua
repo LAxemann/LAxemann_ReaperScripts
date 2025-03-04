@@ -1,6 +1,6 @@
 -- @description Allows it to import and continuously update tracks based on a CSV table encoded in plain UTF-8.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.01
+-- @version 1.02
 -- @about
 --   # About
 --	 TableTracker allows it to import and continuously manage tracks in Reaper based on .CSV files encoded in plain UTF-8.	
@@ -26,6 +26,7 @@
 --   [nomain] Example.csv
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--   1.02: Added undo blocking
 --   1.01: Trying to get example CSV into the package :P
 --   1.00: Initial version  
 
@@ -365,6 +366,8 @@ function main()
 	local csvData = readCSV(filetxt) 
 
 	if csvData then
+		reaper.Undo_BeginBlock()
+		
 		if considerExisting then
 			registerExistingTracks()
 		end
@@ -482,6 +485,7 @@ function main()
 		-- Update tracklist and arrange window
 		reaper.TrackList_AdjustWindows(false)
 		reaper.UpdateArrange()
+		reaper.Undo_EndBlock("LAx_TableTracker CSV import", -1)
 	end
 end
 
