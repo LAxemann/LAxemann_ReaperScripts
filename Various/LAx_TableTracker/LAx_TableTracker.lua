@@ -1,6 +1,6 @@
 -- @description Allows it to import and continuously update tracks based on a CSV table encoded in plain UTF-8.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.02
+-- @version 1.03
 -- @about
 --   # About
 --	 TableTracker allows it to import and continuously manage tracks in Reaper based on .CSV files encoded in plain UTF-8.	
@@ -26,6 +26,7 @@
 --   [nomain] Example.csv
 --   [data] toolbar_icons/**/*.png
 --@changelog
+--   1.03: Minor script improvement
 --   1.02: Added undo blocking
 --   1.01: Trying to get example CSV into the package :P
 --   1.00: Initial version  
@@ -416,8 +417,7 @@ function main()
 		end
 		
 		-- Sort master folders first. Leads to running through the table twice but sorting would be a nightmare otherwise.
-		for i, track in ipairs(trackIDAndParentNamePairs) do	
-			local pair = trackIDAndParentNamePairs[i]
+		for i, pair in ipairs(trackIDAndParentNamePairs) do	
 			local track = pair[1]
 			local parentName = pair[2]
 			
