@@ -2,6 +2,7 @@
  Noindex: true
 ]]
 
+--	 1.32: - Fixed: "On new track" functionality was not working properly
 --	 1.31: - Added: Transient snapping functionality (Optional)
 		   - Added: LAx_SlipView - Configure Shortcut.lua for easier shortcut configuration
 		   - Added: LAx_SlipView - Toggle Snap To Transients.lua

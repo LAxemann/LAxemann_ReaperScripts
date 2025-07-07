@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.31
+-- @version 1.32
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -39,15 +39,8 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.31
-      + Added: Transient snapping functionality (Optional)
-      + Added: LAx_SlipView - Configure Shortcut.lua for easier shortcut configuration
-      + Added: LAx_SlipView - Toggle Snap To Transients.lua
-      + Added: LAx_SlipView - Toggle Show Transient Guides.lua
-      + Tweaked: Switched to a more object-oriented coding structure, rewritten large chunks of the code
-      + Tweaked: A shortcut change no longer requires a restart of the script
-      + Fixed: Various issues if SlipView was run on empty items
-      + Known issue: If neither a track nor an item have a custom color, the preview item's color will be brown.
+    * v1.32
+      + Fixed: "On new track" functionality was not working properly
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false

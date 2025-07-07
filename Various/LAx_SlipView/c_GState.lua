@@ -498,7 +498,7 @@ function GState:createMainItems()
         local itemTrack = reaper.GetMediaItemTrack(currentItem)
 
         -- Create the Ghost Items, Also create a Ghost Track if specified in the settings
-        if createGhostTrack then
+        if self.settings.createGhostTrack then
             local ghostTrack = self.ghostTracks:createGhostTrack(itemTrack)
 
             local success = self.ghostItems:createGhostItem(currentItem, ghostTrack)
