@@ -16,7 +16,7 @@ local parentFolder = currentFolder:match("(.*)/[^/]+/?$") or currentFolder:match
 parentFolder = parentFolder:gsub("\\", "/")
 
 local sharedFolder = parentFolder .. sep .. "LAx_Shared" .. sep
-local sharedMainFile = sharedFolder .. "LAx_Shared"
+local sharedMainFile = sharedFolder .. "LAx_Shared - Main"
 sharedMainFile = sharedMainFile:gsub("\\", "/")
 
 if fileExists(sharedMainFile .. ".lua") then

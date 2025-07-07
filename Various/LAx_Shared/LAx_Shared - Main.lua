@@ -5,12 +5,11 @@
  Extensions: SWS, JS_ReaScript_API
  Version: 1.00
  Provides:
-  [main] *.lua
   **/*.lua
  About:
   # LAx_Shared
   
-  ## Contains functions shared between LAxemann Premium Scripts.
+  ## Contains functions shared between LAxemann Scripts.
 
 --[[
  * Changelog:
