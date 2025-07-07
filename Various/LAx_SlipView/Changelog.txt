@@ -2,6 +2,13 @@
  Noindex: true
 ]]
 
+--	 1.30: - Added: Transient snapping functionality (Optional)
+		   - Added: LAx_SlipView - Configure Shortcut.lua for easier shortcut configuration
+		   - Added: LAx_SlipView - Toggle Snap To Transients.lua
+		   - Added: LAx_SlipView - Toggle Show Transient Guides.lua
+		   - Tweaked: Switched to a more object-oriented coding structure, rewritten large chunks of the code
+		   - Tweaked: A shortcut change no longer requires a restart of the script
+		   - Fixed: Various issues if SlipView was run on empty items
 --	 1.23: - Tweaked: DummyVersion because last commit didn't sync for some reason
 --	 1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
 --	 1.21: - Fixed: Buggy new track creation if anything but the first take was selected

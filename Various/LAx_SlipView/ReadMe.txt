@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.23
+Version 1.30
 
 //====================================================================================================================================================
 Summary:
@@ -19,6 +19,7 @@ Summary:
 	- It can be set so that the preview will either stop at neighboring items or ignore them.
 	- If things get too cluttered, the preview can be created on an entirely new track.
 	- If the timeline or a neighboring item is in the way in either direction, it'll compensate towards the other direction.
+	- A "snap to transient" mode, including previewing the next transient(s) is available.
 	- Supports multiple items VERTICALLY: The first selected item of each track will have its preview shown.
 	- Supports multiple takes on one item. The selected take will have its preview shown.
 	- An activation delay can be set; Only if the keys are pressed longer than the delay the waveform preview will show up.
@@ -60,7 +61,8 @@ Usage:
 
 //====================================================================================================================================================
 Settings:
-	The script can be configured by opening the Action "Script: LAx_SlipView - Settings.lua"
+	The script's shortcut can easily be set using the Action "Script: LAx_SlipView - Configure Shortcut.lua"
+	The script's other settings can be configured by opening the Action "Script: LAx_SlipView - Settings.lua"
 	Here is an overview of VK Code for keybindings: https://asawicki.info/nosense/doc/devices/keyboard/key_codes.html
 		- Primary Key (VK Code) [Default: 18 (ALT)]
 			The primariy key (as a VK Code) for triggering the functionality
@@ -83,12 +85,23 @@ Settings:
 			The time the key(bindings) must be held before the functionality triggers.
 			Can be useful if you have other shortcuts using e.g. ALT and don't want to
 			constantly trigger the waveform preview when only tapping the key.
+			
+		- Snap to transients [Default: 0 (off)]
+			If set to 1, SlipView will snap to transients. The transient detection and
+			its settings are done by the default Reaper transient detection settings.
+			NOTE: Even with transient snapping enabled, you can still slip edit without
+			snapping by moving the mouse outside the area of the preview item.
+			
+		- Show transient guides [Default: 0 (off)]
+			If set to 1, SlipView will create Reaper's transient guides on the ghost items,
+			allowing you to see all transients it will snap to.
 
 
 //====================================================================================================================================================
 Known issues:
 	- If neighbor restriction is on and the waveform preview has to compensate to the left, the area behind the sample start might be blank.
 		This can be fixed by sweeping the waveform around a bit. It's a "Reaper issue" and likely not really "fixable".
+	- If neither a track nor an item have a custom color, the preview item's color will be brown.
 			
 			
 			

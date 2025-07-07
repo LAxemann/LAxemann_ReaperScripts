@@ -15,7 +15,7 @@ local extState = require("LAx_Shared_ExtState")
 
 ----------------------------------------------------------------------------------------
 local _, _, sectionID, cmdID = reaper.get_action_context()
-extState.toggleCommand("LAx_SlipView", "RestrictToNeighbors", sectionID, cmdID)
+extState.toggleCommand("LAx_SlipView", "SnapToTransients", sectionID, cmdID)
 
 -- Update save time
 reaper.SetExtState("LAx_SlipView", "LastSettingsUpdate", tostring(os.clock()), false)
