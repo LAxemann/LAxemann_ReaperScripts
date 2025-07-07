@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="LAxemann_ReaperScripts" commit="837855458c4383e15c1c16a767a13f2f61cc5f00">
+<index version="1" name="LAxemann_ReaperScripts" commit="148f378c11c886c3aaa9a1b29e042c365dfd819d">
+  <category name="Various/LAx_Shared">
+    <reapack name="LAx_Shared - Main.lua" type="script" desc="LAx_Shared">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 LAx_Shared\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Contains functions shared between LAxemann Scripts.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.00" author="Leon 'LAxemann' Beilmann" time="2025-07-07T09:14:40Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/LAx_Shared%20-%20Main.lua</source>
+        <source file="functions/LAx_Shared_Colors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Colors.lua</source>
+        <source file="functions/LAx_Shared_ExtState.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_ExtState.lua</source>
+        <source file="functions/LAx_Shared_Items.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Items.lua</source>
+        <source file="functions/LAx_Shared_Render.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Render.lua</source>
+        <source file="functions/LAx_Shared_Tables.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Tables.lua</source>
+        <source file="functions/LAx_Shared_Utility.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Utility.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Various/LAx_SlipView">
     <reapack name="LAx_SlipView - Main.lua" type="script" desc="Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.">
       <metadata>
