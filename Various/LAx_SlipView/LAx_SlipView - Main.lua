@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.30
+-- @version 1.31
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -39,7 +39,7 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.30
+    * v1.31
       + Added: Transient snapping functionality (Optional)
       + Added: LAx_SlipView - Configure Shortcut.lua for easier shortcut configuration
       + Added: LAx_SlipView - Toggle Snap To Transients.lua

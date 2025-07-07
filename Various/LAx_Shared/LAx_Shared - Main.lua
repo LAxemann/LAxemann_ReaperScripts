@@ -3,7 +3,7 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.00
+ Version: 1.01
  Provides:
   **/*.lua
  About:
@@ -13,7 +13,7 @@
 
 --[[
  * Changelog:
-    * v1.00
+    * v1.01
       + Initial release
 ]]
 ----------------------------------------------------------------------------------------
