@@ -23,7 +23,7 @@ if fileExists(sharedMainFile .. ".lua") then
     dofile(sharedMainFile .. ".lua")
     LAx_Shared_Installed = true
 else
-    reaper.ShowMessageBox("LAx_Shared package not found.\nPlease install it from the same repository as " ..
+    reaper.ShowMessageBox("LAx_ReaperScripts_Shared package not found.\nPlease install it from the same repository as " ..
                               LAx_ProductData.name .. ".\n\nReaPack will try to open the repository so you can install the LAx_Shared package.", LAx_ProductData.name .. ": Error", 0)
     reaper.ReaPack_BrowsePackages("LAxemann_ReaperScripts")
 

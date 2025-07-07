@@ -50,11 +50,6 @@
       + Known issue: If neither a track nor an item have a custom color, the preview item's color will be brown.
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
-if true then
-    reaper.ShowMessageBox("Hey!\nI'm currently rolling out v1.30 of SlipView and running into some issues. Please revert back to v 1.23 and check in a bit later. Sorry for any inconvenience!", "SlipView", 0)
-    return
-end
-
 LAx_Shared_Installed = false
 local currentFolder = (debug.getinfo(1).source:match("@?(.*[\\|/])"))
 currentFolder = currentFolder:gsub("\\", "/")
