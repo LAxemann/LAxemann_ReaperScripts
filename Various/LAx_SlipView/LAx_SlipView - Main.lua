@@ -30,6 +30,12 @@
 --   [main] LAx_SlipView - Toggle Show Transient Guides.lua
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
+--   [nomain] runShared.lua
+--   [nomain] c_GState.lua
+--   [nomain] c_GhostTracks.lua
+--   [nomain] c_GhostTrack.lua
+--   [nomain] c_GhostItems.lua
+--   [nomain] c_GhostItem.lua
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
