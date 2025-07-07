@@ -1,5 +1,5 @@
 --[[
- ReaScript Name: LAx_Shared
+ ReaScript Name: LAx_ReaperScripts_Shared
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
