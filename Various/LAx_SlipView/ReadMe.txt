@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.32
+Version 1.33
 
 //====================================================================================================================================================
 Summary:
@@ -36,7 +36,7 @@ Installation:
 	1. Drag the contents of the .zip archive into AppData\Roaming\REAPER\Scripts
 		(You can get to the REAPER folder by clicking on "Options > Show resource path in explorer/finder")
 	
-	2. Open the Actions List (Actions > Show actions list), click on "New action... > Load ReaScript..." and load all scripts this way.
+	2. Open the Actions List (Actions > Show actions list), click on "New action... > Load ReaScript..." and load all scripts named "LAx_SlipView - xyz.lua" this way.
 		The scripts should now be in the Actions List as with their respective file names.
 		
 	3. (Optional) Configure the script by opening the Action "Script: LAx_SlipView - Settings.lua"
@@ -61,39 +61,33 @@ Usage:
 
 //====================================================================================================================================================
 Settings:
-	The script's shortcut can easily be set using the Action "Script: LAx_SlipView - Configure Shortcut.lua"
-	The script's other settings can be configured by opening the Action "Script: LAx_SlipView - Settings.lua"
-	Here is an overview of VK Code for keybindings: https://asawicki.info/nosense/doc/devices/keyboard/key_codes.html
-		- Primary Key (VK Code) [Default: 18 (ALT)]
-			The primariy key (as a VK Code) for triggering the functionality
+	The script's settings can be configured by opening the Action "Script: LAx_SlipView - Settings.lua"
+		- Shortcut
+			Allows you to set up to two keys as a shortcut
 			
-		- Modifier Key (VK Code) [Default: none]
-			The modifier key (as a VK Code) for triggering the functionality. If this one is set, both the primary and modifier
-			keys must be pressed in order to trigger the functionality.
+		- Restrict to neighbors [Default: Off]
+			If checked, the waveform preview will not clip into the item's neighbors.
 			
-		- Restrict to neighbors [Default: 0 (off)]
-			If set to 1, the waveform preview will not clip into the item's neighbors.
-			
-		- On new track [Default: 0 (off)]
-			If set to 1, the waveform preview will be created on a new, separate track. 
+		- On new track [Default: Off]
+			If checked, the waveform preview will be created on a new, separate track. 
 			Can come in handy of the original track is very cluttered.
 			
-		- Only when dragging content [Default: 0 (off)]
-			If set to 1, the preview will only show when holding the click on a selected item.
+		- Only when dragging content [Default: Off]
+			If checked, the preview will only show when holding the click on a selected item.
 		
 		- Delay [Default: 0]
 			The time the key(bindings) must be held before the functionality triggers.
 			Can be useful if you have other shortcuts using e.g. ALT and don't want to
 			constantly trigger the waveform preview when only tapping the key.
 			
-		- Snap to transients [Default: 0 (off)]
-			If set to 1, SlipView will snap to transients. The transient detection and
+		- Snap to transients [Default: Off]
+			If checked, SlipView will snap to transients. The transient detection and
 			its settings are done by the default Reaper transient detection settings.
 			NOTE: Even with transient snapping enabled, you can still slip edit without
 			snapping by moving the mouse outside the area of the preview item.
 			
-		- Show transient guides [Default: 0 (off)]
-			If set to 1, SlipView will create Reaper's transient guides on the ghost items,
+		- Show transient guides [Default: Off]
+			If checked, SlipView will create Reaper's transient guides on the ghost items,
 			allowing you to see all transients it will snap to.
 
 

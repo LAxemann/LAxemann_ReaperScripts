@@ -14,12 +14,12 @@ end
 local extState = require("LAx_Shared_ExtState")
 local utility = require("LAx_Shared_Utility")
 
-if not utility.checkRequiredExtensions("LAx_SplipView", {"JS_VKeys_GetState", "CF_GetSWSVersion"}) then
+if not utility.checkRequiredExtensions("LAx_SplipView", { "JS_VKeys_GetState", "CF_GetSWSVersion", "ImGui_GetVersion" }) then
     return
 end
 
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     applyToggle: Checks if a toggle function command ID is stored. Triggers the command if yes, simply sets the new value if not
     @arg1: extStateString [String]
     @arg2: originalValue [String]
@@ -40,53 +40,222 @@ function applyToggle(extStateString, originalValue, newValue, cmdID)
     end
 end
 
-----------------------------------------------------------------------------------------
--- Check if values are already assigned
+-- Get settings
 local primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)
 local modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", "")
-local restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0)
+local restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) == 1
 local restrictToNeighborsToggleCmdID = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighborsToggleCmdID", "")
-local createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0)
+local createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) == 1
 local createGhostTrackToggleCmdID = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrackToggleCmdID", "")
-local showOnlyOnDrag = extState.getExtStateValue("LAx_SlipView", "ShowOnlyOnDrag", 0)
+local showOnlyOnDrag = extState.getExtStateValue("LAx_SlipView", "ShowOnlyOnDrag", 0) == 1
 local delay = extState.getExtStateValue("LAx_SlipView", "Delay", 0)
-local snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0)
+local snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) == 1
 local snapToTransientsToggleCmdID = extState.getExtStateValue("LAx_SlipView", "SnapToTransientsToggleCmdID", "")
-local showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0)
+local showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) == 1
 local showTransientGuidesToggleCmdID = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuidesToggleCmdID", "")
 
--- Open our humble UI
-local ret, userInput = reaper.GetUserInputs("SlipView settings", 8,
-    "Primary Key (VK Code),Modifier Key (VK Code or empty),Restrict to neighbors (0=off),On new track (0=off),Only on content drag (0=off),Delay (s),Snap to transients (0=off),Show transient guides(0=off)",
-    primaryKey .. "," .. modifierKey .. "," .. restrictToNeighbors .. "," .. createGhostTrack .. "," .. showOnlyOnDrag ..
-        "," .. delay .. "," .. snapToTransients .. "," .. showTransientGuides)
+-- Transfer settings for comparison
+local primaryKeyStart = primaryKey
+local modifierKeyStart = modifierKey
+local restrictToNeighborsStart = restrictToNeighbors
+local createGhostTrackStart = createGhostTrack
+local showOnlyOnDragStart = showOnlyOnDrag
+local delayStart = delay
+local snapToTransientsStart = snapToTransients
+local showTransientGuidesStart = showTransientGuides
+local primaryKeyChoice = nil
 
-if ret then
-    -- Parse the input
-    local primary_key, modifier_key, restrict_to_neighbors, create_ghost_track, show_only_on_drag, delay,
-        snap_to_transients, show_transient_guides = userInput:match(
-        "([^,]*),([^,]*),([01]),([01]),([01]),([^,]*),([01]),([01])")
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
+    wereSettingsUpdated: Checks whether or not settings were changed by comparing "starting" and "current" settings
+	@return1: Settings were change [Bool]
+--]]
+function wereSettingsUpdated()
+    if primaryKeyStart ~= primaryKey then return true end
+    if modifierKeyStart ~= modifierKey then return true end
+    if restrictToNeighborsStart ~= restrictToNeighbors then return true end
+    if createGhostTrackStart ~= createGhostTrack then return true end
+    if showOnlyOnDragStart ~= showOnlyOnDrag then return true end
+    if delayStart ~= delay then return true end
+    if snapToTransientsStart ~= snapToTransients then return true end
+    if showTransientGuidesStart ~= showTransientGuides then return true end
 
-    if primary_key then
-        -- Save the keybinding in ExtState
-        reaper.SetExtState("LAx_SlipView", "PrimaryKey", tostring(primary_key), true)
-        reaper.SetExtState("LAx_SlipView", "ModifierKey", tostring(modifier_key or ""), true)
-        applyToggle("RestrictToNeighbors", restrictToNeighbors, tonumber(restrict_to_neighbors),
-            restrictToNeighborsToggleCmdID)
-        applyToggle("CreateGhostTrack", createGhostTrack, tonumber(create_ghost_track), createGhostTrackToggleCmdID)
-        reaper.SetExtState("LAx_SlipView", "ShowOnlyOnDrag", tostring(show_only_on_drag), true)
-        reaper.SetExtState("LAx_SlipView", "Delay", tostring(delay), true)
-        applyToggle("SnapToTransients", snapToTransients, tonumber(snap_to_transients), snapToTransientsToggleCmdID)
-        applyToggle("ShowTransientGuides", showTransientGuides, tonumber(show_transient_guides),
-            showTransientGuidesToggleCmdID)
+    return false
+end
 
-        -- Update save time
-        reaper.SetExtState("LAx_SlipView", "LastSettingsUpdate", tostring(os.clock()), false)
+-- ImGui init
+package.path = package.path .. ";" .. reaper.ImGui_GetBuiltinPath() .. '/?.lua'
+local ImGui = require 'imgui' '0.9.3'
 
-        -- Confirm
-        reaper.ShowMessageBox("Settings saved successfully!", "LAx_SlipView info", 0)
-    else
-        reaper.ShowMessageBox("Invalid input!", "LAx_SlipView Error", 0)
+-- Menu ctx init
+local ctx = ImGui.CreateContext('My script')
+local windowName = LAx_ProductData.name .. " Settings"
+local guiW = 280
+local guiH = 280
+local isSettingShortcut = true
+local madePrimaryChoice = false
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
+    handleShortcutSetting: Checks whether or not settings were changed by comparing "starting" and "current" settings
+	@return1: Settings were change [Bool]
+--]]
+function handleShortcutSetting()
+    local keyState = reaper.JS_VKeys_GetState(0)
+
+    for i = 1, 255 do
+        if keyState:byte(i) ~= 0 then
+            -- Abort if ESC was pressed
+            if i == 27 then
+                return false
+            end
+
+            if not madePrimaryChoice then
+                primaryKeyChoice = i
+                primaryKey = i
+                madePrimaryChoice = true
+            else
+                if i ~= primaryKeyChoice then
+                    modifierKey = i
+                    return false
+                end
+            end
+        else
+            if i == primaryKeyChoice then
+                modifierKey = ""
+                return false
+            end
+        end
+    end
+
+    return true
+end
+
+----------------------------------------------------------------------------------------
+--[[
+    guiLoop: Main gui loop/defer function
+--]]
+function guiLoop()
+    local window_flags = ImGui.WindowFlags_NoResize | ImGui.WindowFlags_NoCollapse
+    local settingsWereUpdated = wereSettingsUpdated()
+
+    if settingsWereUpdated then
+        window_flags = window_flags | ImGui.WindowFlags_UnsavedDocument
+    end
+
+    ImGui.SetNextWindowSize(ctx, guiW, guiH, ImGui.Cond_Once)
+    local guiIsVisible, guiIsOpen = ImGui.Begin(ctx, windowName, true, window_flags)
+
+    if guiIsVisible then
+        -- Shortcut setting
+        ImGui.SeparatorText(ctx, "Shortcut")
+
+        if ImGui.Button(ctx, utility.getKeyNameFromDecimal(primaryKey, true) .. (modifierKey ~= "" and " + " or "") .. utility.getKeyNameFromDecimal(modifierKey, true)) then
+            ImGui.OpenPopup(ctx, 'Set shortcut')
+        end
+        ImGui.SetItemTooltip(ctx, 'Click to assign SlipView\'s shortcut.\nNote: Both "Windows" keys WILL cause trouble.')
+
+        local center_x, center_y = ImGui.Viewport_GetCenter(ImGui.GetWindowViewport(ctx))
+        ImGui.SetNextWindowPos(ctx, center_x, center_y, ImGui.Cond_Appearing, 0.5, 0.5)
+        if ImGui.BeginPopupModal(ctx, 'Set shortcut', nil, ImGui.WindowFlags_AlwaysAutoResize) then
+            isSettingShortcut = handleShortcutSetting()
+
+            if not isSettingShortcut then
+                ImGui.CloseCurrentPopup(ctx)
+                isSettingShortcut = true
+                madePrimaryChoice = false
+                primaryKeyChoice = nil
+            else
+                ImGui.Text(ctx,
+                    'Please press the desired shortcut (up to two keys).\nIn order to cancel, press the ESC key or click "Cancel"')
+
+                if ImGui.Button(ctx, 'Cancel', 120, 0) then
+                    ImGui.CloseCurrentPopup(ctx)
+                    isSettingShortcut = true
+                    madePrimaryChoice = false
+                    primaryKeyChoice = nil
+                end
+            end
+
+            ImGui.SetItemDefaultFocus(ctx)
+            ImGui.EndPopup(ctx)
+        end
+
+        ImGui.SeparatorText(ctx, "Settings")
+        
+        -- Bools
+        _, restrictToNeighbors = ImGui.Checkbox(ctx, "Restrict to neighbors", restrictToNeighbors)
+        ImGui.SetItemTooltip(ctx, 'If checked, the preview item will "stop" at the next item in each direction.')
+        _, createGhostTrack = ImGui.Checkbox(ctx, "Create previews on new tracks", createGhostTrack)
+        ImGui.SetItemTooltip(ctx, 'If checked, the preview item will be created on a new, temporary track.')
+        _, showOnlyOnDrag = ImGui.Checkbox(ctx, "Show preview only when dragging", showOnlyOnDrag)
+        ImGui.SetItemTooltip(ctx,
+            'If checked, the preview item will only appear once you actually start dragging the (clicked) mouse.')
+        _, snapToTransients = ImGui.Checkbox(ctx, "Snap to transients", snapToTransients)
+        ImGui.SetItemTooltip(ctx,
+            'If checked, the items will snap to transients.\nNote: Transient detection can be adjusted with Reaper\'s own settings.')
+        ImGui.SameLine(ctx)
+        if ImGui.Button(ctx, 'Settings##transients') then
+            reaper.Main_OnCommand(41208, 0) -- Transient detection sensitivity/threshold: Adjust...
+        end
+        ImGui.SetItemTooltip(ctx,
+            'Opens Reaper\'s default transient detection settings.\n(Command name: Transient detection sensitivity/threshold: Adjust...)')
+        _, showTransientGuides = ImGui.Checkbox(ctx, "Show transient guides", showTransientGuides)
+        ImGui.SetItemTooltip(ctx,
+            'If checked, Reaper will calculate "transient guides" for the preview item.\nNote: May take a while.')
+
+        -- Ints
+        ImGui.SetNextItemWidth(ctx, 100)
+        _, delay = ImGui.InputDouble(ctx, "Delay", math.max(delay, 0), 0.25, 0.75, "%.2f s")
+        ImGui.SetItemTooltip(ctx, 'How long the shortcut needs to be held before previews appear.')
+
+        -- Save button
+        if settingsWereUpdated then
+            ImGui.NewLine(ctx)
+            if ImGui.Button(ctx, 'Save changes') then
+                reaper.SetExtState("LAx_SlipView", "PrimaryKey", tostring(primaryKey), true)
+                reaper.SetExtState("LAx_SlipView", "ModifierKey", tostring(modifierKey or ""), true)
+                applyToggle("RestrictToNeighbors", restrictToNeighborsStart and 1 or 0, restrictToNeighbors and 1 or 0,
+                    restrictToNeighborsToggleCmdID)
+                applyToggle("CreateGhostTrack", createGhostTrackStart and 1 or 0, createGhostTrack and 1 or 0,
+                    createGhostTrackToggleCmdID)
+                reaper.SetExtState("LAx_SlipView", "ShowOnlyOnDrag", showOnlyOnDrag and "1" or "0", true)
+                reaper.SetExtState("LAx_SlipView", "Delay", tostring(delay), true)
+                applyToggle("SnapToTransients", snapToTransientsStart and 1 or 0, snapToTransients and 1 or 0,
+                    snapToTransientsToggleCmdID)
+                applyToggle("ShowTransientGuides", showTransientGuidesStart and 1 or 0, showTransientGuides and 1 or 0,
+                    showTransientGuidesToggleCmdID)
+
+                primaryKeyStart = primaryKey
+                modifierKeyStart = modifierKey
+                restrictToNeighborsStart = restrictToNeighbors
+                createGhostTrackStart = createGhostTrack
+                showOnlyOnDragStart = showOnlyOnDrag
+                delayStart = delay
+                snapToTransientsStart = snapToTransients
+                showTransientGuidesStart = showTransientGuides
+
+                -- Update save time
+                reaper.SetExtState("LAx_SlipView", "LastSettingsUpdate", tostring(os.clock()), false)
+            end
+        end
+
+        if settingsWereUpdated then
+            ImGui.SameLine(ctx)
+            if ImGui.GetTime(ctx) % 0.40 < 0.20 then
+                ImGui.Text(ctx, 'Unsaved changes')
+            end
+        end
+
+        ImGui.End(ctx)
+    end
+
+    -- Run loop while window is considered open
+    if guiIsOpen then
+        reaper.defer(guiLoop)
     end
 end
 
+guiLoop()

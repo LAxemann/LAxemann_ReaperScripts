@@ -7,7 +7,7 @@ local M = {}
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     isMouseClicked: Checks if mouse is clicked, return if not
 	@return1: IsMouseClicked [Bool]
 --]]
@@ -17,7 +17,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     openURL: Opens an URL in the default browser
 	@arg1: URL [String]
 --]]
@@ -33,7 +33,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     checkRequiredExtensions: Checks if all required extensions are installed
 	@arg1: ProductName [String]
 	@arg2: Extensions [Table of strings]
@@ -49,7 +49,7 @@ function M.checkRequiredExtensions(productName, requiredExtensions)
             -- JS
             if extensionName == "JS_VKeys_GetState" then
                 reaper.ShowMessageBox(productName ..
-                                          " requires the free JS_ReaScript API.\nReaPack will try to fetch the package. Right-click it and choose 'install'.",
+                    " requires the free JS_ReaScript API.\nReaPack will try to fetch the package. Right-click it and choose 'install'.",
                     productName .. ": Missing requirement", 0)
                 if reaper.ReaPack_GetRepositoryInfo and reaper.ReaPack_GetRepositoryInfo "ReaTeam Extensions" then
                     reaper.ReaPack_BrowsePackages [[^"js_ReaScriptAPI: API functions for ReaScripts"$ ^"ReaTeam Extensions"$]]
@@ -59,11 +59,20 @@ function M.checkRequiredExtensions(productName, requiredExtensions)
             -- SWS
             if extensionName == "CF_GetSWSVersion" then
                 local answer = reaper.MB(productName ..
-                                             " requires the free SWS extension for Reaper.\nWould you like to download it now?",
+                    " requires the free SWS extension for Reaper.\nWould you like to download it now?",
                     productName .. ": Missing requirement", 4)
                 if answer == 6 then
                     M.openURL("https://www.sws-extension.org/")
                 end
+            end
+
+            -- ImGui
+            if extensionName == "ImGui_GetVersion" then
+                reaper.ShowMessageBox(productName ..
+                    " requires the free ReaImGui extension.\nReaPack will try to fetch the package. Right-click it and choose 'install'.",
+                    productName .. ": Missing requirement", 0)
+
+                reaper.ReaPack_BrowsePackages [[^"ReaImGui: ReaScript binding for Dear ImGui"]]
             end
 
             -- Exit, at least one extension isn't installed
@@ -77,19 +86,19 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     toggleCommandState: Checks Toggles the command state of an action if it was previously registered in ExtState.
 	@arg1: ProductName [String]
 	@arg2: Extensions [Table of strings]
 	@return1: Toggle was successful [Bool]
 --]]
 function M.toggleCommandState(productName, extStateName)
-    local value = (tonumber(reaper.GetExtState(productName, extStateName)) or 0) -- Default: 0 
+    local value = (tonumber(reaper.GetExtState(productName, extStateName)) or 0) -- Default: 0
 
     local toggleCmdID = extState.getExtStateValue(productName, extStateName .. "ToggleCmdID", "")
 
-    if toggleCmdID ~= "" then
-        local commandID = reaper.NamedCommandLookup(toggleCmdID)
+    if toggleCmdID ~= 0 then
+        local commandID = reaper.NamedCommandLookup(tostring(toggleCmdID))
         reaper.SetToggleCommandState(0, commandID, value)
 
         return true
@@ -100,7 +109,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     interpolate: Linearly interpolates between two numbers Y based on an input X.
 	@arg1: Value [Float]
 	@arg2: Value XMin  [Float]
@@ -133,7 +142,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     simulateActionInMainHWND: Simulates an action in the main HWND, e.g. lifting a mouse button.
 	@arg1: Message [String]
 --]]
@@ -144,13 +153,13 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     getKeyNameFromDecimal: Tries to get a keyboard key name based on a decimal value.
         Returns an empty string if no matching key was found.
 	@arg1: Decimal [Integer]
 	@return1: KeyName [String]
 --]]
-function M.getKeyNameFromDecimal(decimal)
+function M.getKeyNameFromDecimal(decimal, returnOriginalIfNotFound)
     local OS = reaper.GetOS()
 
     if OS == "Win64" or OS == "Win32" then
@@ -163,6 +172,7 @@ function M.getKeyNameFromDecimal(decimal)
         map[18] = "LAlt"
         map[19] = "Pause"
         map[20] = "CapsLock"
+        map[32] = "Spacebar"
         map[33] = "Page up"
         map[34] = "Page down"
         map[35] = "End"
@@ -261,6 +271,9 @@ function M.getKeyNameFromDecimal(decimal)
         map[163] = "RCtrl"
         map[164] = "LAlt"
         map[165] = "RAlt"
+        map[186] = "Ü"
+        map[192] = "Ö"
+        map[222] = "Ä"
 
         local keyString = map[decimal]
         if keyString then
@@ -268,7 +281,7 @@ function M.getKeyNameFromDecimal(decimal)
         end
     end
 
-    return ""
+    return returnOriginalIfNotFound and tostring(decimal) or ""
 end
 
 return M

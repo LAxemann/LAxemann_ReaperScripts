@@ -3,26 +3,33 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.01
+ Version: 1.02
  Provides:
   **/*.lua
  About:
   # LAx_Shared
-  
+
   ## Contains functions shared between LAxemann Scripts.
 
 --[[
  * Changelog:
-    * v1.01
-      + Initial release
+    * v1.02
+      + getKeyNameFromDecimal: Optional second parameter to return a string of the original decimal if no fitting key name was found
+      + getKeyNameFromDecimal: Added some more key lookups
 ]]
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
--- Add subFolders to package paths (Also normalizing to / .. fn OS differences
+--[[
+    pathNorm: Add subFolders to package paths (Also normalizing to / .. fn OS differences
+    @arg1: Path [String]
+	@return1: Normalized path [String]
+--]]
 function pathNorm(path)
-    return path and path:gsub("\\", "/") or nil
+    return path and path:gsub("\\", "/") or ""
 end
 
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 local sep = package.config:sub(1, 1) -- OS path separator
 local currentFolder = pathNorm(debug.getinfo(1).source:match("@?(.*[\\|/])"))
 
@@ -32,7 +39,7 @@ local function addSubfoldersToPackagePath(rootPath)
 
     while true do
         local subFolder = pathNorm(reaper.EnumerateSubdirectories(rootPath, index))
-        if not subFolder then
+        if subFolder == "" then
             break
         end
 
@@ -51,7 +58,7 @@ addSubfoldersToPackagePath(currentFolder)
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     fileExists: Checks whether or not a file exists, case-insensitive
 	@return1: Whether the file exists [Bool]
 --]]
@@ -61,7 +68,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     runFile: Runs a file if it's found. If checkExtension is true, it'll expect the filename to be without suffix.
 	@arg1: path [String]
 	@arg2: checkExtension [Bool] (Optional)
@@ -92,9 +99,9 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     runAllFilesInFolder: Runs all files within a folder using runFile
-	@arg1: path [Folder]
+	@arg1: Folder path [String]
 --]]
 function runAllFilesInFolder(folder)
     -- Auto load all scripts in functions folder
@@ -113,7 +120,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     msg: Shortcut for reaper.ShowConsoleMsg()
 	@arg1: String [String]
 --]]
@@ -123,7 +130,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     msg: Shortcut for reaper.ShowConsoleMsg(tostring(ARG))
 	@arg1: arg [Any]
 --]]
@@ -133,7 +140,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     openURL: Opens an URL in the default browser
 	@arg1: URL [String]
 --]]

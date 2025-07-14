@@ -1,10 +1,10 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.32
+-- @version 1.33
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
---   This was meant with Slip Editing (using ALT to move the contents of an item without moving the item itself) in mind, 
+--   This was meant with Slip Editing (using ALT to move the contents of an item without moving the item itself) in mind,
 --   Key features:
 --   - Shows the full waveform of a selected media item when pressing a (bindable) key or key combination.
 --   - The waveform preview will be created relative to the media item for quick orientation within the waveform.
@@ -21,7 +21,7 @@
 --  JS_ReaScriptAPI, SWS Extension
 -- @links
 --  Website https://www.youtube.com/@LAxemann
--- @provides 
+-- @provides
 --   [main] LAx_SlipView - Settings.lua
 --   [main] LAx_SlipView - Toggle On New Track.lua
 --   [main] LAx_SlipView - Toggle Restrict To Neighbors.lua
@@ -39,8 +39,10 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.32
-      + Fixed: "On new track" functionality was not working properly
+    * v1.33
+      + Tweaked: Complete overhaul of the settings menu, now using ReImGui
+      + Tweaked: Keybind functionality is no available in the main settings
+      + Tweaked: Effectively disabled the dedicated shortcut action as its functionality was merged with main settings
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false
@@ -57,7 +59,7 @@ end
 local extState = require("LAx_Shared_ExtState")
 local utility = require("LAx_Shared_Utility")
 
-if not utility.checkRequiredExtensions("LAx_SplipView", {"JS_VKeys_GetState", "CF_GetSWSVersion"}) then
+if not utility.checkRequiredExtensions("LAx_SplipView", { "JS_VKeys_GetState", "CF_GetSWSVersion" }) then
     return
 end
 
@@ -69,7 +71,7 @@ runFile(currentFolder .. "c_GState", true)
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     versionCheck: Displays information on new version
 --]]
 function versionCheck(versionNumber)
@@ -77,8 +79,8 @@ function versionCheck(versionNumber)
         if extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 0) ~= 0 then
             local answer = reaper.ShowMessageBox(
                 "SlipView was updated to v1.30!\n\nNew main features:\n- Transient snap capability (Optional)\n" ..
-                    "- A new action for easy setting of the shortcut\n- New toolbar icons\n- An extensive code rewrite\n" ..
-                    "Make sure to check out and set up the new actions.\n\nWould you like to watch a quick video going over the new stuff?",
+                "- A new action for easy setting of the shortcut\n- New toolbar icons\n- An extensive code rewrite\n" ..
+                "Make sure to check out and set up the new actions.\n\nWould you like to watch a quick video going over the new stuff?",
                 "LAx_SlipView: Info", 4)
 
             if answer == 6 then
@@ -91,7 +93,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     setToggleFunctionsToggleState: Sets toggle state of toggle actions if they've been registered
 --]]
 function setToggleFunctionsToggleState()
@@ -103,7 +105,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     setToggleStatee: Sets a toggle state
 --]]
 function setToggleState(state)

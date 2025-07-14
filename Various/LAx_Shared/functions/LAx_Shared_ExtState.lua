@@ -8,7 +8,7 @@ local M = {}
     @arg1: extStateID [String]
     @arg2: valueID [String]
     @arg3: default [Any]
-    Returns: stored value or defaultValue
+    @return1: stored value or defaultValue [Float]
 --]]
 function M.getExtStateValue(extStateID, valueID, defaultValue)
     return tonumber(reaper.GetExtState(extStateID, valueID)) or defaultValue
@@ -31,7 +31,7 @@ function M.toggleCommand(productName, actionExtStateName, sectionID, cmdID)
 
     local newState = ((currentState == 0) and 1) or 0
 
-    reaper.SetExtState(productName, actionExtStateName, newState, true)
+    reaper.SetExtState(productName, actionExtStateName, tostring(newState), true)
     reaper.SetExtState(productName, actionExtStateName .. "ToggleCmdID", tostring(cmdID), true)
     reaper.SetToggleCommandState(sectionID, cmdID, newState)
     reaper.RefreshToolbar2(sectionID, cmdID)
