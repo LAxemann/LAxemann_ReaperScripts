@@ -52,6 +52,7 @@ local delay = extState.getExtStateValue("LAx_SlipView", "Delay", 0)
 local snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) == 1
 local snapToTransientsToggleCmdID = extState.getExtStateValue("LAx_SlipView", "SnapToTransientsToggleCmdID", "")
 local showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) == 1
+local dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) == 1
 local showTransientGuidesToggleCmdID = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuidesToggleCmdID", "")
 
 -- Transfer settings for comparison
@@ -63,6 +64,7 @@ local showOnlyOnDragStart = showOnlyOnDrag
 local delayStart = delay
 local snapToTransientsStart = snapToTransients
 local showTransientGuidesStart = showTransientGuides
+local dontDisableAutoCFStart = dontDisableAutoCF
 local primaryKeyChoice = nil
 
 ----------------------------------------------------------------------------------------
@@ -80,6 +82,7 @@ function wereSettingsUpdated()
     if delayStart ~= delay then return true end
     if snapToTransientsStart ~= snapToTransients then return true end
     if showTransientGuidesStart ~= showTransientGuides then return true end
+    if dontDisableAutoCFStart ~= dontDisableAutoCF then return true end
 
     return false
 end
@@ -92,7 +95,7 @@ local ImGui = require 'imgui' '0.9.3'
 local ctx = ImGui.CreateContext('My script')
 local windowName = LAx_ProductData.name .. " Settings"
 local guiW = 280
-local guiH = 280
+local guiH = 310
 local isSettingShortcut = true
 local madePrimaryChoice = false
 
@@ -184,7 +187,7 @@ function guiLoop()
         end
 
         ImGui.SeparatorText(ctx, "Settings")
-        
+
         -- Bools
         _, restrictToNeighbors = ImGui.Checkbox(ctx, "Restrict to neighbors", restrictToNeighbors)
         ImGui.SetItemTooltip(ctx, 'If checked, the preview item will "stop" at the next item in each direction.')
@@ -205,6 +208,9 @@ function guiLoop()
         _, showTransientGuides = ImGui.Checkbox(ctx, "Show transient guides", showTransientGuides)
         ImGui.SetItemTooltip(ctx,
             'If checked, Reaper will calculate "transient guides" for the preview item.\nNote: May take a while.')
+        _, dontDisableAutoCF = ImGui.Checkbox(ctx, "Don't disable auto-crossfade", dontDisableAutoCF)
+        ImGui.SetItemTooltip(ctx,
+            'NOTE: Not recommended!\nIf checked, SlipView will not temporarily disable auto-crossfade.')
 
         -- Ints
         ImGui.SetNextItemWidth(ctx, 100)
@@ -227,6 +233,8 @@ function guiLoop()
                     snapToTransientsToggleCmdID)
                 applyToggle("ShowTransientGuides", showTransientGuidesStart and 1 or 0, showTransientGuides and 1 or 0,
                     showTransientGuidesToggleCmdID)
+                reaper.SetExtState("LAx_SlipView", "DontDisableAutoCF", dontDisableAutoCF and "1" or "0", true)
+                reaper.SetExtState("LAx_SlipView", "Delay", tostring(delay), true)
 
                 primaryKeyStart = primaryKey
                 modifierKeyStart = modifierKey
@@ -236,6 +244,7 @@ function guiLoop()
                 delayStart = delay
                 snapToTransientsStart = snapToTransients
                 showTransientGuidesStart = showTransientGuides
+                dontDisableAutoCFStart = dontDisableAutoCF
 
                 -- Update save time
                 reaper.SetExtState("LAx_SlipView", "LastSettingsUpdate", tostring(os.clock()), false)

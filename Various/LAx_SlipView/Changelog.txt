@@ -2,7 +2,9 @@
  Noindex: true
 ]]
 
---	 1.33: - Tweaked: Complete overhaul of the settings menu, now using ReImGui
+--	 1.34: - Tweaked: Added the ability to not disable auto-crossfade (though it's not recommended)
+		   - Fixed: Performance drop when transient snap was on but the item had no snappable transients
+--	 1.33: - Tweaked: Complete overhaul of the settings menu, now using ReaImGui
 		   - Tweaked: Keybind functionality is no available in the main settings
 		   - Tweaked: Effectively disabled the dedicated shortcut action as its functionality was merged with main settings
 --	 1.32: - Fixed: "On new track" functionality was not working properly

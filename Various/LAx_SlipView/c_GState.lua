@@ -27,6 +27,7 @@ function GState:init(ghostItems, ghostTracks)
     self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0 -- Default: 0 
     self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0 -- Default: 0 
     self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~= 0 -- Default: 0 
+    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~= 0 -- Default: 0 
     self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~= 0 -- Default: 0 
 
     -- Main variables
@@ -49,6 +50,7 @@ function GState:init(ghostItems, ghostTracks)
     self.previousMouseMovementDirectionX = 0
     self.gotNextTransient = false
     self.transientGhostItemObject = nil
+    self.noTransientInCurrentDirection = false
 
     -- Arrays
     self.originalSelectedItems = {}
@@ -152,16 +154,24 @@ function GState:handleTransientSnap()
         return false
     end
 
-    if directionChange or not self.gotNextTransient then
-        self:resetTransientSnapVariables()
-        self.gotNextTransient = self.ghostItems:getNextTransientInDirection(mouseMovementDirectionX)
-        return false
+    if directionChange then
+        if State.noTransientInCurrentDirection then
+            return false
+        elseif not self.gotNextTransient then
+            self:resetTransientSnapVariables()
+            self.gotNextTransient = self.ghostItems:getNextTransientInDirection(mouseMovementDirectionX)
+            return false
+        end
     else
+        if self.noTransientInCurrentDirection or not self.ghostItems.transientTakeMarkerGhostItemObject then
+            return false
+        end
+
         local ghostItem = self.ghostItems.transientTakeMarkerGhostItemObject.item
         local take = reaper.GetActiveTake(ghostItem)
         local originalItemStartPosRelative = self.ghostItems.transientTakeMarkerGhostItemObject
                                                  .originalItemStartPosRelative
-        local idx, posOut = reaper.GetTakeStretchMarker(take, 0)
+        local _, posOut = reaper.GetTakeStretchMarker(take, 0)
         local distance = originalItemStartPosRelative - posOut *
                              self.ghostItems.transientTakeMarkerGhostItemObject.playRateFactor
 
@@ -216,6 +226,7 @@ function GState:resetTransientSnapVariables()
     self.ghostItems:refreshValues()
     self.transientGhostItemObject = nil
     self.arrangeView.allowUpdate = true
+    self.noTransientInCurrentDirection = false
 end
 
 ----------------------------------------------------------------------------------------
@@ -477,8 +488,8 @@ function GState:createMainItems()
     local isAutoCrossfadeEnabled = reaper.GetToggleCommandState(40041)
     local isOverlapTrimmingEnabled = reaper.GetToggleCommandState(41117)
 
-    if isAutoCrossfadeEnabled == 1 then
-        reaper.Main_OnCommand(41119, 0)
+    if isAutoCrossfadeEnabled == 1 and not self.settings.dontDisableAutoCF then
+        reaper.Main_OnCommand(41119, 0) -- Disable Auto Crossfade
     end
 
     if isOverlapTrimmingEnabled == 1 then
@@ -515,7 +526,7 @@ function GState:createMainItems()
     end
 
     -- Re-enable crossfade and trimming if applicable
-    if isAutoCrossfadeEnabled == 1 then
+    if isAutoCrossfadeEnabled == 1 and not self.settings.dontDisableAutoCF then
         reaper.Main_OnCommand(41118, 0)
     end
 
@@ -670,5 +681,6 @@ function GState:updateSettings()
     self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0 -- Default: 0 
     self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0 -- Default: 0 
     self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~= 0 -- Default: 0 
+    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~= 0 -- Default: 0 
     self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~= 0 -- Default: 0 
 end

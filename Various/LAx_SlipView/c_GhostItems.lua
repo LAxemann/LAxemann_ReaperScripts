@@ -4,7 +4,7 @@
 local tables = require("LAx_Shared_Tables")
 
 ----------------------------------------------------------------------------------------
--- Declaration + Constructor 
+-- Declaration + Constructor
 GhostItems = {}
 GhostItems.__index = GhostItems
 
@@ -21,7 +21,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	createGhostItem: Creates a new Ghost Item and registers it
     @return1: Successful creation [Bool]
 --]]
@@ -41,7 +41,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	getNextTransientInDirection:
     @return1: New transient found [Bool]
 --]]
@@ -55,7 +55,6 @@ function GhostItems:getNextTransientInDirection(movementDirection)
 
     reaper.PreventUIRefresh(1)
     for ghostItemObject, item in pairs(self.allGhostItemObjects) do
-
         -- With neighborRestriction, we need to bring the ghost item to full length so all transients can get detected.
         local isRestricted = (not State.settings.createGhostTrack) and State.settings.restrictToNeighbors
         if isRestricted then
@@ -78,6 +77,8 @@ function GhostItems:getNextTransientInDirection(movementDirection)
         local transientPosition = reaper.GetCursorPosition()
         local offset = transientPosition - ghostItemObject.startPos
 
+        State.noTransientInCurrentDirection = math.abs(transientPosition - ghostItemObject.originalItemStartPos) == 0
+
         --[[
         -- DEBUG
         reaper.ClearConsole()
@@ -88,17 +89,18 @@ function GhostItems:getNextTransientInDirection(movementDirection)
 
         -- Create takeStretchMarker on ghostItem
         local take = reaper.GetActiveTake(ghostItemObject.item)
-        if not reaper.TakeIsMIDI(take) then
+        if not reaper.TakeIsMIDI(take) and not State.noTransientInCurrentDirection then
             ghostItemObject.transientTakeStretchMarkerID = reaper.SetTakeStretchMarker(take, -1, offset *
                 ghostItemObject.playRate)
 
             self.transientTakeMarkerGhostItemObject = ghostItemObject
 
             reaper.SetEditCurPos(cursorStartPos, false, false)
-            reaper.GetSet_ArrangeView2(0, true, 0, 0, arrangeViewStart, arrangeViewEnd) -- Undo view shift form moving cursor to transient
+            reaper.GetSet_ArrangeView2(0, true, 0, 0, arrangeViewStart, arrangeViewEnd) -- Undo the view shift from moving cursor to transient
             reaper.PreventUIRefresh(-1)
             return true
         end
+        reaper.SetEditCurPos(cursorStartPos, false, false)
     end
     reaper.PreventUIRefresh(-1)
 
@@ -106,7 +108,7 @@ function GhostItems:getNextTransientInDirection(movementDirection)
 end
 
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	refreshValues: Forces all registered Ghost Items to refresh their transient detection-related values.
 --]]
 function GhostItems:refreshValues()
@@ -118,7 +120,7 @@ function GhostItems:refreshValues()
 end
 
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	snapToTransient: Executes the snapToTransient function on all ghostItems.
     @arg1: Distance to transient [Float]
 --]]
@@ -130,7 +132,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	clear: Clears the saved Ghost Items
 --]]
 function GhostItems:clear()

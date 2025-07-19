@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.33
+Version 1.34
 
 //====================================================================================================================================================
 Summary:
@@ -89,6 +89,10 @@ Settings:
 		- Show transient guides [Default: Off]
 			If checked, SlipView will create Reaper's transient guides on the ghost items,
 			allowing you to see all transients it will snap to.
+
+		- Don't disable auto-crossfade [Default: Off]
+			If checked, SlipView will not disable auto-crossfade. 
+			Do NOT check it unless you have a reason to do so.
 
 
 //====================================================================================================================================================
