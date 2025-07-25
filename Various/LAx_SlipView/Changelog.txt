@@ -2,7 +2,8 @@
  Noindex: true
 ]]
 
-1.35  - Fixed: Changing the selection wouldn't cause a refresh
+1.36: - Fixed: SlipView would stop detecting transients when the mouse was moving into a direction without transients once
+1.35: - Fixed: Changing the selection wouldn't cause a refresh
 1.34: - Tweaked: Added the ability to not disable auto-crossfade (though it's not recommended)
 	- Fixed: Performance drop when transient snap was on but the item had no snappable transients
 1.33: - Tweaked: Complete overhaul of the settings menu, now using ReaImGui

@@ -39,8 +39,8 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.35
-      + Fixed: Changing the selection wouldn't cause a refresh
+    * v1.36
+      + Fixed: SlipView would stop detecting transients when the mouse was moving into a direction without transients once
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false

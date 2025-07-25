@@ -22,16 +22,18 @@ function GState:init(ghostItems, ghostTracks)
 
     -- Settings & keybinds
     self.settings = {}
-    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                       -- Default: ALT (18)
-    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)                    -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0       -- Default: 0
-    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0       -- Default: 0
+    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                 -- Default: ALT (18)
+    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)              -- Default: nil (no modifier)
+    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~=
+    0                                                                                                      -- Default: 0
+    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~=
+    0                                                                                                      -- Default: 0
     self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~=
-    0                                                                                                            -- Default: 0
+        0                                                                                                  -- Default: 0
     self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~=
-    0                                                                                                            -- Default: 0
+        0                                                                                                  -- Default: 0
     self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~=
-    0                                                                                                            -- Default: 0
+        0                                                                                                  -- Default: 0
 
     -- Main variables
     self.delayTimeElapsed = 0
@@ -66,7 +68,7 @@ function GState:init(ghostItems, ghostTracks)
 
     -- Cleanup
     self.lastCleanUp = reaper.time_precise()
-    self.cleanUpInterval = 1
+    self.cleanUpInterval = 0.75
 end
 
 ----------------------------------------------------------------------------------------
@@ -157,14 +159,12 @@ function GState:handleTransientSnap()
         return false
     end
 
-    if directionChange then
-        if State.noTransientInCurrentDirection then
-            return false
-        elseif not self.gotNextTransient then
-            self:resetTransientSnapVariables()
-            self.gotNextTransient = self.ghostItems:getNextTransientInDirection(mouseMovementDirectionX)
-            return false
-        end
+    if not directionChange and State.noTransientInCurrentDirection then
+        return false
+    elseif directionChange and not self.gotNextTransient then
+        self:resetTransientSnapVariables()
+        self.gotNextTransient = self.ghostItems:getNextTransientInDirection(mouseMovementDirectionX)
+        return false
     else
         if self.noTransientInCurrentDirection or not self.ghostItems.transientTakeMarkerGhostItemObject then
             return false
@@ -680,14 +680,16 @@ end
 	updateSettings: Updates the Settings
 --]]
 function GState:updateSettings()
-    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                       -- Default: ALT (18)
-    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)                    -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0       -- Default: 0
-    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0       -- Default: 0
+    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                 -- Default: ALT (18)
+    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)              -- Default: nil (no modifier)
+    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~=
+    0                                                                                                      -- Default: 0
+    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~=
+    0                                                                                                      -- Default: 0
     self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~=
-    0                                                                                                            -- Default: 0
+        0                                                                                                  -- Default: 0
     self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~=
-    0                                                                                                            -- Default: 0
+        0                                                                                                  -- Default: 0
     self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~=
-    0                                                                                                            -- Default: 0
+        0                                                                                                  -- Default: 0
 end
