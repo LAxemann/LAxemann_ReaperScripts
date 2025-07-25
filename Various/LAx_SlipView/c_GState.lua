@@ -6,7 +6,7 @@ local tables = require("LAx_Shared_Tables")
 local utility = require("LAx_Shared_Utility")
 
 ----------------------------------------------------------------------------------------
--- Declaration + Constructor 
+-- Declaration + Constructor
 GState = {}
 GState.__index = GState
 
@@ -22,13 +22,16 @@ function GState:init(ghostItems, ghostTracks)
 
     -- Settings & keybinds
     self.settings = {}
-    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18) -- Default: ALT (18)
-    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil) -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0 -- Default: 0 
-    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0 -- Default: 0 
-    self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~= 0 -- Default: 0 
-    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~= 0 -- Default: 0 
-    self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~= 0 -- Default: 0 
+    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                       -- Default: ALT (18)
+    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)                    -- Default: nil (no modifier)
+    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0       -- Default: 0
+    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0       -- Default: 0
+    self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~=
+    0                                                                                                            -- Default: 0
+    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~=
+    0                                                                                                            -- Default: 0
+    self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~=
+    0                                                                                                            -- Default: 0
 
     -- Main variables
     self.delayTimeElapsed = 0
@@ -68,7 +71,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	mainRoute: Main routine
 --]]
 function GState:mainRoutine()
@@ -129,7 +132,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	simulateNewKeyPress: Simulates releasing and re-pressing the shortcut.
         Basically a refresh.
 --]]
@@ -142,12 +145,12 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	handleTransientSnap: Handles transient snapping.
     @return1: Did a snap happen [Bool]
 --]]
 function GState:handleTransientSnap()
-    -- Check which direction the mouse is moving. Skip if it's the first frame of mouse movement, 
+    -- Check which direction the mouse is moving. Skip if it's the first frame of mouse movement,
     -- we need to get movement data first.
     local mouseMovementDirectionX, firstFrameMoving, directionChange = self:handleMouseMovement()
     if firstFrameMoving or mouseMovementDirectionX == 0 then
@@ -170,10 +173,10 @@ function GState:handleTransientSnap()
         local ghostItem = self.ghostItems.transientTakeMarkerGhostItemObject.item
         local take = reaper.GetActiveTake(ghostItem)
         local originalItemStartPosRelative = self.ghostItems.transientTakeMarkerGhostItemObject
-                                                 .originalItemStartPosRelative
+            .originalItemStartPosRelative
         local _, posOut = reaper.GetTakeStretchMarker(take, 0)
         local distance = originalItemStartPosRelative - posOut *
-                             self.ghostItems.transientTakeMarkerGhostItemObject.playRateFactor
+            self.ghostItems.transientTakeMarkerGhostItemObject.playRateFactor
 
         -- Debug
         --[[
@@ -201,7 +204,7 @@ function GState:handleTransientSnap()
         -- Perform the snap if distance to transient is close enough (may the gods forgive this unholy equation)
         local zoomLevel = reaper.GetHZoomLevel()
         local snapDistanceAdjusted = 0.25 - 0.23 * utility.interpolate(zoomLevel, 20, 4000, 0, 1) ^ 0.25 - 0.017 *
-                                         utility.interpolate(zoomLevel, 4000, 100000, 0, 1) ^ 0.40
+            utility.interpolate(zoomLevel, 4000, 100000, 0, 1) ^ 0.40
 
         if math.abs(distance) <= snapDistanceAdjusted then
             -- We simulate the user lifting the left mouse button to prevent further dragging after snap.
@@ -218,7 +221,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	resetTransientSnapVariables: Resets variables related to transient snapping.
 --]]
 function GState:resetTransientSnapVariables()
@@ -231,7 +234,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	resetMouseDirectionTrackingVariables: Resets variables related to mouse direction tracking.
 --]]
 function GState:resetMouseDirectionTrackingVariables()
@@ -241,7 +244,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	onKeyPress: Executes when all required keys are pressed and other prerequisites are met.
 --]]
 function GState:onKeyPress()
@@ -273,7 +276,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	onKeyRelease: Executes when the required keys are released
 --]]
 function GState:onKeyRelease()
@@ -285,7 +288,7 @@ function GState:onKeyRelease()
         return
     end
 
-    -- If ghostTracks are present, delete them (which will delete all items with them). 
+    -- If ghostTracks are present, delete them (which will delete all items with them).
     -- Otherwise delete GhostItems within the existing tracks.
     if (self.hasGhostTracks) then
         for ghostTrack, v in pairs(self.ghostTracks.allGhostTracks) do
@@ -319,7 +322,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	isKeyDown: Checks whether the SlipView shortcuts have been pressed
 	@return1: Whether shortcuts are pressed and additional conditions are met [Bool]
 --]]
@@ -328,7 +331,7 @@ function GState:isKeyDown()
     local primaryKeyDown = keyboardState:byte(self.settings.primaryKey) & 1 ~= 0
     local modifierKeyDown = not self.settings.modifierKey or (keyboardState:byte(self.settings.modifierKey) & 1 ~= 0)
 
-    local onlyOnDrag = (tonumber(reaper.GetExtState("LAx_SlipView", "ShowOnlyOnDrag")) or 0) ~= 0 -- Default: 0 
+    local onlyOnDrag = (tonumber(reaper.GetExtState("LAx_SlipView", "ShowOnlyOnDrag")) or 0) ~= 0 -- Default: 0
     local dragGate = not onlyOnDrag or self:isMouseClickOverSelectedItem()
 
     return ((primaryKeyDown and modifierKeyDown) and dragGate)
@@ -336,7 +339,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	isMouseClickOverSelectedItem: Checks if the mouse click happened over a selected item
     @arg1: Whether to check even if items were already created [Bool] (Optional)
 	@return1: Whether the mouse was clicked over a selected item [Bool]
@@ -424,7 +427,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	hasSelectionChanged: Checks whether or not the selection has changed.
 	@return1: Whether the selection has changed [Bool]
 --]]
@@ -461,14 +464,15 @@ function GState:hasSelectionChanged()
         "Takes\nCurrent: " .. tostring(currentTakePseudoHash) .. "\nOriginal: " .. tostring(self.originalTakePseudoHash) ..
             "\n\nSelection\nCurrent:" .. tostring(totalSelectionCount) .. "\nReaperCount: " .. tostring(reaper.CountSelectedMediaItems(0)) .. "\nOriginal: " ..
             tostring(self.originalSelectionCount))
-    return ((reaper.CountSelectedMediaItems(0) ~= totalSelectionCount) or
-               (currentTakePseudoHash ~= self.originalTakePseudoHash))
     --]]
+
+    return ((reaper.CountSelectedMediaItems(0) ~= totalSelectionCount) or
+        (currentTakePseudoHash ~= self.originalTakePseudoHash))
 end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	isMouseInArrangeView: Checks whether or not the mouse is in the arrange view.
 	@return1: Mouse is in arrange view [Bool]
 --]]
@@ -480,7 +484,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	createMainItems: Creates the Ghost Items and Ghost Tracks based on the gathered data
 --]]
 function GState:createMainItems()
@@ -553,7 +557,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	handleMouseMovement: Gets the movement direction of the mouse in the x axis
     @return1: MouseMovementDirection [Integer] (-1 = Left, 0 = None, 1 = Right)
     @return2: Is first frame of movement [Bool]
@@ -598,7 +602,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	cleanUp: Deletes all existing Ghost Items and Ghost Tracks
 --]]
 function GState:cleanUp()
@@ -672,15 +676,18 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[     
+--[[
 	updateSettings: Updates the Settings
 --]]
 function GState:updateSettings()
-    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18) -- Default: ALT (18)
-    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil) -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0 -- Default: 0 
-    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0 -- Default: 0 
-    self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~= 0 -- Default: 0 
-    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~= 0 -- Default: 0 
-    self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~= 0 -- Default: 0 
+    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                       -- Default: ALT (18)
+    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)                    -- Default: nil (no modifier)
+    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~= 0       -- Default: 0
+    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~= 0       -- Default: 0
+    self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~=
+    0                                                                                                            -- Default: 0
+    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~=
+    0                                                                                                            -- Default: 0
+    self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~=
+    0                                                                                                            -- Default: 0
 end

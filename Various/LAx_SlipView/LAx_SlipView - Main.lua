@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.34
+-- @version 1.35
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -39,9 +39,8 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.34
-      + Tweaked: Added the ability to not disable auto-crossfade (though it's not recommended)
-      + Fixed: Performance drop when transient snap was on but the item had no snappable transients
+    * v1.35
+      + Fixed: Changing the selection wouldn't cause a refresh
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false

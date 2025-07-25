@@ -2,40 +2,39 @@
  Noindex: true
 ]]
 
---	 1.34: - Tweaked: Added the ability to not disable auto-crossfade (though it's not recommended)
-		   - Fixed: Performance drop when transient snap was on but the item had no snappable transients
---	 1.33: - Tweaked: Complete overhaul of the settings menu, now using ReaImGui
-		   - Tweaked: Keybind functionality is no available in the main settings
-		   - Tweaked: Effectively disabled the dedicated shortcut action as its functionality was merged with main settings
---	 1.32: - Fixed: "On new track" functionality was not working properly
---	 1.31: - Added: Transient snapping functionality (Optional)
-		   - Added: LAx_SlipView - Configure Shortcut.lua for easier shortcut configuration
-		   - Added: LAx_SlipView - Toggle Snap To Transients.lua
-		   - Added: LAx_SlipView - Toggle Show Transient Guides.lua
-		   - Tweaked: Switched to a more object-oriented coding structure, rewritten large chunks of the code
-		   - Tweaked: A shortcut change no longer requires a restart of the script
-		   - Fixed: Various issues if SlipView was run on empty items
---	 1.23: - Tweaked: DummyVersion because last commit didn't sync for some reason
---	 1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
---	 1.21: - Fixed: Buggy new track creation if anything but the first take was selected
---	 1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
---   1.19: - Tweaked: Now also shows items properly in free item positioning
---	 1.18: - Fixed: Crash when using SlipView on a completely empty item
---   1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
---   1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
---   1.15: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
---	 1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled
---         - Toggle states should now update once the main routine starts
---         - Lowered cleanup interval from 2 to 1s
---	 1.13: - Added toolbar icons
---	 1.12: - Preview will stay if the mouse cursor leaves the arrange window
---	 1.11: - Added toggle state to main function
---	 1.10: - Preview will only be shown if the cursor is within the arrange view
---         - Preview will now carry over custom colors of items
---         - Removed unused function
---         - Fixed a small bug in settings
---         - Trivial tidying-up of code 
---   1.03: Updated ReadMe for release
---   1.02: Updated credits for release
---   1.01: Tweaked settings names
---   1.00: Initial version  
+1.35  - Fixed: Changing the selection wouldn't cause a refresh
+1.34: - Tweaked: Added the ability to not disable auto-crossfade (though it's not recommended)
+	- Fixed: Performance drop when transient snap was on but the item had no snappable transients
+1.33: - Tweaked: Complete overhaul of the settings menu, now using ReaImGui
+	- Tweaked: Keybind functionality is no available in the main settings
+	- Tweaked: Effectively disabled the dedicated shortcut action as its functionality was merged with main settings
+1.32: - Fixed: "On new track" functionality was not working properly
+1.31: - Added: Transient snapping functionality (Optional)
+	- Added: LAx_SlipView - Configure Shortcut.lua for easier shortcut configuration
+	- Added: LAx_SlipView - Toggle Snap To Transients.lua
+	- Added: LAx_SlipView - Toggle Show Transient Guides.lua
+	- Tweaked: Switched to a more object-oriented coding structure, rewritten large chunks of the code
+	- Tweaked: A shortcut change no longer requires a restart of the script
+	- Fixed: Various issues if SlipView was run on empty items
+1.23: - Tweaked: DummyVersion because last commit didn't sync for some reason
+1.22: - Fixed: Auto crossfade would not re-enable if ALT was pressed with no items selected
+1.21: - Fixed: Buggy new track creation if anything but the first take was selected
+1.20: - Neighbor restriction will no longer consider items on other fixed lanes or free-positioned items that wouldn't clip vertically
+1.19: - Tweaked: Now also shows items properly in free item positioning
+1.18: - Fixed: Crash when using SlipView on a completely empty item
+1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
+1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled
+	- Toggle states should now update once the main routine starts
+	- Lowered cleanup interval from 2 to 1s
+1.13: - Added toolbar icons
+1.12: - Preview will stay if the mouse cursor leaves the arrange window
+1.11: - Added toggle state to main function
+1.10: - Preview will only be shown if the cursor is within the arrange view
+	- Preview will now carry over custom colors of items
+	- Removed unused function
+	- Fixed a small bug in settings
+	- Trivial tidying-up of code 
+1.03: Updated ReadMe for release
+1.02: Updated credits for release
+1.01: Tweaked settings names
+1.00: Initial version  
