@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="LAxemann_ReaperScripts" commit="d1292da13e14e15a98c3e27276fc75947555d396">
+<index version="1" name="LAxemann_ReaperScripts" commit="7fd8ca39a6fa49054525baacc7fcc8cdc3704253">
   <category name="Various/LAx_Shared">
     <reapack name="LAx_Shared - Main.lua" type="script" desc="LAx_ReaperScripts_Shared">
       <metadata>
@@ -42,6 +42,17 @@
         <source file="functions/LAx_Shared_Render.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f3d59dd2720b385c097ee5d15b84df36e575d399/Various/LAx_Shared/functions/LAx_Shared_Render.lua</source>
         <source file="functions/LAx_Shared_Tables.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f3d59dd2720b385c097ee5d15b84df36e575d399/Various/LAx_Shared/functions/LAx_Shared_Tables.lua</source>
         <source file="functions/LAx_Shared_Utility.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f3d59dd2720b385c097ee5d15b84df36e575d399/Various/LAx_Shared/functions/LAx_Shared_Utility.lua</source>
+      </version>
+      <version name="1.03" author="Leon 'LAxemann' Beilmann" time="2025-07-31T11:51:30Z">
+        <changelog><![CDATA[+ Added: LAx_Shared_Transients.lua]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/LAx_Shared%20-%20Main.lua</source>
+        <source file="functions/LAx_Shared_Colors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_Colors.lua</source>
+        <source file="functions/LAx_Shared_ExtState.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_ExtState.lua</source>
+        <source file="functions/LAx_Shared_Items.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_Items.lua</source>
+        <source file="functions/LAx_Shared_Render.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_Render.lua</source>
+        <source file="functions/LAx_Shared_Tables.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_Tables.lua</source>
+        <source file="functions/LAx_Shared_Transients.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_Transients.lua</source>
+        <source file="functions/LAx_Shared_Utility.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_Shared/functions/LAx_Shared_Utility.lua</source>
       </version>
     </reapack>
   </category>
@@ -708,6 +719,27 @@
         <source type="data" file="toolbar_icons/200/LAx_TableTracker_RunWithPreviousSettings.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ff10013b285ad6267e76b2dcb61aec973806a40/Various/LAx_TableTracker/toolbar_icons/200/LAx_TableTracker_RunWithPreviousSettings.png</source>
         <source type="data" file="toolbar_icons/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ff10013b285ad6267e76b2dcb61aec973806a40/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker.png</source>
         <source type="data" file="toolbar_icons/LAx_TableTracker_RunWithPreviousSettings.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ff10013b285ad6267e76b2dcb61aec973806a40/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker_RunWithPreviousSettings.png</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Various/LAx_TransientTools">
+    <reapack name="LAx_TransientTools - Move item content to next transient.lua" type="script" desc="LAx_TransientTools">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 About\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Simple scripts for transient-based workflows\par}
+}
+]]></description>
+        <link rel="website" href="https://www.youtube.com/@LAxemann">Website</link>
+      </metadata>
+      <version name="1.00" author="Leon 'LAxemann' Beilmann" time="2025-07-31T11:51:30Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_TransientTools/LAx_TransientTools%20-%20Move%20item%20content%20to%20next%20transient.lua</source>
+        <source main="main" file="LAx_TransientTools - Move item content to previous transient.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_TransientTools/LAx_TransientTools%20-%20Move%20item%20content%20to%20previous%20transient.lua</source>
+        <source file="runShared.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fd8ca39a6fa49054525baacc7fcc8cdc3704253/Various/LAx_TransientTools/runShared.lua</source>
       </version>
     </reapack>
   </category>
