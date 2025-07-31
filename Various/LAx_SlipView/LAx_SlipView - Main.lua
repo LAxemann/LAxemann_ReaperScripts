@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.36
+-- @version 1.37
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -39,8 +39,8 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.36
-      + Fixed: SlipView would stop detecting transients when the mouse was moving into a direction without transients once
+    * v1.37
+      + Tweaked: SlipView can now also show take markers in the preview item(s) (optional)
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false

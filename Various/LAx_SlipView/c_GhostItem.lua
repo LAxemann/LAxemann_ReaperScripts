@@ -4,7 +4,7 @@
 local colors = require("LAx_Shared_Colors")
 
 ----------------------------------------------------------------------------------------
--- Declaration + Constructor 
+-- Declaration + Constructor
 GhostItem = {}
 GhostItem.__index = GhostItem
 
@@ -14,7 +14,7 @@ function GhostItem.new()
 end
 
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     create: Creates the ghostItem and sets its properties
     @arg1: item [Media item]
     @arg2: itemTrack [Track]
@@ -71,6 +71,15 @@ function GhostItem:create(item, itemTrack)
         reaper.SetMediaItemTakeInfo_Value(ghostTake, "I_CUSTOMCOLOR",
             reaper.GetMediaItemTakeInfo_Value(itemTake, "I_CUSTOMCOLOR"))
         reaper.GetSetMediaItemTakeInfo_String(ghostTake, "P_NAME", State.ghostItemName, true)
+
+        if State.settings.showTakeMarkers then
+            local takeMarkerCount = reaper.GetNumTakeMarkers(itemTake)
+
+            for i = 0, takeMarkerCount - 1 do
+                local takeMarkerOffset, takeMarkerName, takeMarkerColor = reaper.GetTakeMarker(itemTake, i)
+                reaper.SetTakeMarker(ghostTake, i, takeMarkerName, takeMarkerOffset, takeMarkerColor)
+            end
+        end
     end
 
     State.originalTakePseudoHash = State.originalTakePseudoHash + takeNumber
@@ -93,7 +102,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[    
+--[[
     calculateGhostItemValues: Calculates offset, position and length of the GhostItem.
     @arg1: selectedItem [Media Item]
     @arg2: take [Take]
@@ -138,22 +147,25 @@ function GhostItem:calculateGhostItemValues(selectedItem, take, itemPos, itemTra
 
         if leftNeighborItem then
             leftNeighborEndPos = reaper.GetMediaItemInfo_Value(leftNeighborItem, "D_POSITION") +
-                                     reaper.GetMediaItemInfo_Value(leftNeighborItem, "D_LENGTH")
+                reaper.GetMediaItemInfo_Value(leftNeighborItem, "D_LENGTH")
         end
     end
 
     -- Calculate start offset if GhostItem collides with a left neighbor.
     -- If no neighbor, the timeline start (0) is considered our neighbor.
     local ghostItemStartOffset = 0
-    local ghostItemTargetPos = leftNeighborEndPos -- Set Ghost Item position to end of left neighbor/timeline start by default
+    local ghostItemTargetPos =
+    leftNeighborEndPos                            -- Set Ghost Item position to end of left neighbor/timeline start by default
 
     local spaceToLeft = itemPos - leftNeighborEndPos
-    local isClippingLeft = takeOffsetCompensated > spaceToLeft -- Would offsetting the Ghost Item make it clip into an item/the timeline start to the left?
+    local isClippingLeft = takeOffsetCompensated >
+    spaceToLeft                                                -- Would offsetting the Ghost Item make it clip into an item/the timeline start to the left?
 
     if isClippingLeft then
         ghostItemStartOffset = (takeOffsetCompensated - spaceToLeft) / playRateFactor
     else
-        ghostItemTargetPos = itemPos - takeOffsetCompensated -- Allow full expansion if not clipping by shifting to full offset length
+        ghostItemTargetPos = itemPos -
+        takeOffsetCompensated                                -- Allow full expansion if not clipping by shifting to full offset length
     end
 
     -- Check if GhostItem clips into the right neighbor. If so, look for available space to the left to fill
@@ -179,7 +191,7 @@ function GhostItem:calculateGhostItemValues(selectedItem, take, itemPos, itemTra
 end
 
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     getNonClippingRightNeighbor: go through items to the right and check if the entire item isn't clipping inside of the original item
     @arg1: indexStart [Int]
     @arg2: track [Track]
@@ -190,7 +202,7 @@ end
     @return1: non-clipping right neighbor or nil [Item]
 --]]
 function GhostItem:getNonClippingRightNeighbor(indexStart, track, itemEndPos, itemFixedLane, itemFreeModeStart,
-    itemFreeModeEnd)
+                                               itemFreeModeEnd)
     local nonClippingRightNeighbor = nil
 
     local itemsOnTrackCount = reaper.CountTrackMediaItems(track)
@@ -201,12 +213,11 @@ function GhostItem:getNonClippingRightNeighbor(indexStart, track, itemEndPos, it
 
         -- No need to do further checks if the two items are not on the same fixed lane
         if currentItemFixedLane == itemFixedLane then
-
             local itemsOverlap = self:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
 
             if itemsOverlap then
                 local currentItemEnd = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION") +
-                                           reaper.GetMediaItemInfo_Value(currentItem, "D_LENGTH")
+                    reaper.GetMediaItemInfo_Value(currentItem, "D_LENGTH")
 
                 -- Check if the current item's start position is greater than the reference item's end position
                 if currentItemEnd > itemEndPos then
@@ -222,7 +233,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     getNonClippingLeftNeighbor: go through items to the left and check if the entire item isn't clipping inside of the original item
     @arg1: indexStart [Int]
     @arg2: track [Track]
@@ -233,7 +244,7 @@ end
     @return1: non-clipping left neighbor or nil [Item]
 --]]
 function GhostItem:getNonClippingLeftNeighbor(indexStart, track, itemEndPos, itemFixedLane, itemFreeModeStart,
-    itemFreeModeEnd)
+                                              itemFreeModeEnd)
     local nonClippingLeftNeighbor = nil
 
     for i = indexStart - 1, 0, -1 do
@@ -242,7 +253,6 @@ function GhostItem:getNonClippingLeftNeighbor(indexStart, track, itemEndPos, ite
 
         -- No need to do further checks if the two items are not on the same fixed lane
         if currentItemFixedLane == itemFixedLane then
-
             local itemsOverlap = self:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
 
             if itemsOverlap then
@@ -257,7 +267,7 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     doItemsOverlapInFreeMode: Check if two items would overlap vertically in free mode
     @arg1: itemFreeModeStart [Float]
     @arg2: itemFreeModeEnd [Float]
@@ -274,13 +284,13 @@ function GhostItem:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, 
     -- DEBUG
 	reaper.ClearConsole()
 	reaper.ShowConsoleMsg(
-		"1 Start: " .. 
-		tostring(itemFreeModeStart) .. 
-		"\n1 End: " .. 
+		"1 Start: " ..
+		tostring(itemFreeModeStart) ..
+		"\n1 End: " ..
 		tostring(itemFreeModeEnd) ..
-		"\n2 Start: " .. 
+		"\n2 Start: " ..
 		tostring(currentItemFreeModeStart) ..
-		"\n2 End: " .. 
+		"\n2 End: " ..
 		tostring(currentItemFreeModeEnd) ..
 		"\nOverlaps: " ..
 		tostring(doesOverlap)
@@ -292,8 +302,8 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
-    snapToTransient: Snaps the Ghost Item and the original item to the transient 
+--[[
+    snapToTransient: Snaps the Ghost Item and the original item to the transient
         by offsetting by distance.
     @arg1: distance [Float]
     @return1: Snap successful [Bool]
@@ -320,8 +330,8 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
-    refresh: Refreshes variables 
+--[[
+    refresh: Refreshes variables
     @return1: Refresh successful [Bool]
 --]]
 function GhostItem:refresh()

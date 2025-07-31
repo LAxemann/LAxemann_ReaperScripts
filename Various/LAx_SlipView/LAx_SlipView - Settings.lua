@@ -35,25 +35,28 @@ function applyToggle(extStateString, originalValue, newValue, cmdID)
                 reaper.Main_OnCommand(commandID, 0)
             end
         else
-            reaper.SetExtState("LAx_SlipView", extStateString, tostring(newValue), true)
+            reaper.SetExtState(LAx_ProductData.name, extStateString, tostring(newValue), true)
         end
     end
 end
 
 -- Get settings
-local primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)
-local modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", "")
-local restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) == 1
-local restrictToNeighborsToggleCmdID = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighborsToggleCmdID", "")
-local createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) == 1
-local createGhostTrackToggleCmdID = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrackToggleCmdID", "")
-local showOnlyOnDrag = extState.getExtStateValue("LAx_SlipView", "ShowOnlyOnDrag", 0) == 1
-local delay = extState.getExtStateValue("LAx_SlipView", "Delay", 0)
-local snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) == 1
-local snapToTransientsToggleCmdID = extState.getExtStateValue("LAx_SlipView", "SnapToTransientsToggleCmdID", "")
-local showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) == 1
-local dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) == 1
-local showTransientGuidesToggleCmdID = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuidesToggleCmdID", "")
+local primaryKey = extState.getExtStateValue(LAx_ProductData.name, "PrimaryKey", 18)
+local modifierKey = extState.getExtStateValue(LAx_ProductData.name, "ModifierKey", "")
+local restrictToNeighbors = extState.getExtStateValue(LAx_ProductData.name, "RestrictToNeighbors", 0) == 1
+local restrictToNeighborsToggleCmdID = extState.getExtStateValue(LAx_ProductData.name, "RestrictToNeighborsToggleCmdID",
+    "")
+local createGhostTrack = extState.getExtStateValue(LAx_ProductData.name, "CreateGhostTrack", 0) == 1
+local createGhostTrackToggleCmdID = extState.getExtStateValue(LAx_ProductData.name, "CreateGhostTrackToggleCmdID", "")
+local showOnlyOnDrag = extState.getExtStateValue(LAx_ProductData.name, "ShowOnlyOnDrag", 0) == 1
+local delay = extState.getExtStateValue(LAx_ProductData.name, "Delay", 0)
+local snapToTransients = extState.getExtStateValue(LAx_ProductData.name, "SnapToTransients", 0) == 1
+local snapToTransientsToggleCmdID = extState.getExtStateValue(LAx_ProductData.name, "SnapToTransientsToggleCmdID", "")
+local showTransientGuides = extState.getExtStateValue(LAx_ProductData.name, "ShowTransientGuides", 0) == 1
+local dontDisableAutoCF = extState.getExtStateValue(LAx_ProductData.name, "DontDisableAutoCF", 0) == 1
+local showTransientGuidesToggleCmdID = extState.getExtStateValue(LAx_ProductData.name, "ShowTransientGuidesToggleCmdID",
+    "")
+local showTakeMarkers = extState.getExtStateValue(LAx_ProductData.name, "ShowTakeMarkers", 1) == 1
 
 -- Transfer settings for comparison
 local primaryKeyStart = primaryKey
@@ -65,6 +68,7 @@ local delayStart = delay
 local snapToTransientsStart = snapToTransients
 local showTransientGuidesStart = showTransientGuides
 local dontDisableAutoCFStart = dontDisableAutoCF
+local showTakeMarkersStart = showTakeMarkers
 local primaryKeyChoice = nil
 
 ----------------------------------------------------------------------------------------
@@ -83,6 +87,7 @@ function wereSettingsUpdated()
     if snapToTransientsStart ~= snapToTransients then return true end
     if showTransientGuidesStart ~= showTransientGuides then return true end
     if dontDisableAutoCFStart ~= dontDisableAutoCF then return true end
+    if showTakeMarkersStart ~= showTakeMarkers then return true end
 
     return false
 end
@@ -95,7 +100,7 @@ local ImGui = require 'imgui' '0.9.3'
 local ctx = ImGui.CreateContext('My script')
 local windowName = LAx_ProductData.name .. " Settings"
 local guiW = 280
-local guiH = 310
+local guiH = 340
 local isSettingShortcut = true
 local madePrimaryChoice = false
 
@@ -191,11 +196,14 @@ function guiLoop()
         -- Bools
         _, restrictToNeighbors = ImGui.Checkbox(ctx, "Restrict to neighbors", restrictToNeighbors)
         ImGui.SetItemTooltip(ctx, 'If checked, the preview item will "stop" at the next item in each direction.')
+
         _, createGhostTrack = ImGui.Checkbox(ctx, "Create previews on new tracks", createGhostTrack)
         ImGui.SetItemTooltip(ctx, 'If checked, the preview item will be created on a new, temporary track.')
+
         _, showOnlyOnDrag = ImGui.Checkbox(ctx, "Show preview only when dragging", showOnlyOnDrag)
         ImGui.SetItemTooltip(ctx,
             'If checked, the preview item will only appear once you actually start dragging the (clicked) mouse.')
+
         _, snapToTransients = ImGui.Checkbox(ctx, "Snap to transients", snapToTransients)
         ImGui.SetItemTooltip(ctx,
             'If checked, the items will snap to transients.\nNote: Transient detection can be adjusted with Reaper\'s own settings.')
@@ -205,9 +213,15 @@ function guiLoop()
         end
         ImGui.SetItemTooltip(ctx,
             'Opens Reaper\'s default transient detection settings.\n(Command name: Transient detection sensitivity/threshold: Adjust...)')
+
         _, showTransientGuides = ImGui.Checkbox(ctx, "Show transient guides", showTransientGuides)
         ImGui.SetItemTooltip(ctx,
             'If checked, Reaper will calculate "transient guides" for the preview item.\nNote: May take a while.')
+
+        _, showTakeMarkers = ImGui.Checkbox(ctx, "Show take markers", showTakeMarkers)
+        ImGui.SetItemTooltip(ctx,
+            'If checked, SlipView will show take markers in the preview item.')
+
         _, dontDisableAutoCF = ImGui.Checkbox(ctx, "Don't disable auto-crossfade", dontDisableAutoCF)
         ImGui.SetItemTooltip(ctx,
             'NOTE: Not recommended!\nIf checked, SlipView will not temporarily disable auto-crossfade.')
@@ -221,20 +235,20 @@ function guiLoop()
         if settingsWereUpdated then
             ImGui.NewLine(ctx)
             if ImGui.Button(ctx, 'Save changes') then
-                reaper.SetExtState("LAx_SlipView", "PrimaryKey", tostring(primaryKey), true)
-                reaper.SetExtState("LAx_SlipView", "ModifierKey", tostring(modifierKey or ""), true)
+                reaper.SetExtState(LAx_ProductData.name, "PrimaryKey", tostring(primaryKey), true)
+                reaper.SetExtState(LAx_ProductData.name, "ModifierKey", tostring(modifierKey or ""), true)
                 applyToggle("RestrictToNeighbors", restrictToNeighborsStart and 1 or 0, restrictToNeighbors and 1 or 0,
                     restrictToNeighborsToggleCmdID)
                 applyToggle("CreateGhostTrack", createGhostTrackStart and 1 or 0, createGhostTrack and 1 or 0,
                     createGhostTrackToggleCmdID)
-                reaper.SetExtState("LAx_SlipView", "ShowOnlyOnDrag", showOnlyOnDrag and "1" or "0", true)
-                reaper.SetExtState("LAx_SlipView", "Delay", tostring(delay), true)
+                reaper.SetExtState(LAx_ProductData.name, "ShowOnlyOnDrag", showOnlyOnDrag and "1" or "0", true)
+                reaper.SetExtState(LAx_ProductData.name, "ShowTakeMarkers", showTakeMarkers and "1" or "0", true)
                 applyToggle("SnapToTransients", snapToTransientsStart and 1 or 0, snapToTransients and 1 or 0,
                     snapToTransientsToggleCmdID)
                 applyToggle("ShowTransientGuides", showTransientGuidesStart and 1 or 0, showTransientGuides and 1 or 0,
                     showTransientGuidesToggleCmdID)
-                reaper.SetExtState("LAx_SlipView", "DontDisableAutoCF", dontDisableAutoCF and "1" or "0", true)
-                reaper.SetExtState("LAx_SlipView", "Delay", tostring(delay), true)
+                reaper.SetExtState(LAx_ProductData.name, "DontDisableAutoCF", dontDisableAutoCF and "1" or "0", true)
+                reaper.SetExtState(LAx_ProductData.name, "Delay", tostring(delay), true)
 
                 primaryKeyStart = primaryKey
                 modifierKeyStart = modifierKey
@@ -245,9 +259,10 @@ function guiLoop()
                 snapToTransientsStart = snapToTransients
                 showTransientGuidesStart = showTransientGuides
                 dontDisableAutoCFStart = dontDisableAutoCF
+                showTakeMarkersStart = showTakeMarkers
 
                 -- Update save time
-                reaper.SetExtState("LAx_SlipView", "LastSettingsUpdate", tostring(os.clock()), false)
+                reaper.SetExtState(LAx_ProductData.name, "LastSettingsUpdate", tostring(os.clock()), false)
             end
         end
 

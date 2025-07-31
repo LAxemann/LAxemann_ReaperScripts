@@ -5,7 +5,7 @@
 SlipView
 by Leon "LAxemann" Beilmann
 
-Version 1.36
+Version 1.37
 
 //====================================================================================================================================================
 Summary:
@@ -90,6 +90,9 @@ Settings:
 			If checked, SlipView will create Reaper's transient guides on the ghost items,
 			allowing you to see all transients it will snap to.
 
+		- Show take markers [Default: On]
+			If checked, SlipView will show take markers in the preview item.
+
 		- Don't disable auto-crossfade [Default: Off]
 			If checked, SlipView will not disable auto-crossfade. 
 			Do NOT check it unless you have a reason to do so.
@@ -100,9 +103,8 @@ Known issues:
 	- If neighbor restriction is on and the waveform preview has to compensate to the left, the area behind the sample start might be blank.
 		This can be fixed by sweeping the waveform around a bit. It's a "Reaper issue" and likely not really "fixable".
 	- If neither a track nor an item have a custom color, the preview item's color will be brown.
-			
-			
-			
+
+
 //====================================================================================================================================================
 Credits:
 - Andrej Novosad for the initial idea of finding a way to "preview" a full waveform, as well as testing!

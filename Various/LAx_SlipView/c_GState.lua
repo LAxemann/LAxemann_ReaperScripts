@@ -22,18 +22,20 @@ function GState:init(ghostItems, ghostTracks)
 
     -- Settings & keybinds
     self.settings = {}
-    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                 -- Default: ALT (18)
-    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)              -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~=
-    0                                                                                                      -- Default: 0
-    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~=
-    0                                                                                                      -- Default: 0
-    self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~=
-        0                                                                                                  -- Default: 0
-    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~=
-        0                                                                                                  -- Default: 0
-    self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~=
-        0                                                                                                  -- Default: 0
+    self.settings.primaryKey = extState.getExtStateValue(LAx_ProductData.name, "PrimaryKey", 18)    -- Default: ALT (18)
+    self.settings.modifierKey = extState.getExtStateValue(LAx_ProductData.name, "ModifierKey", nil) -- Default: nil (no modifier)
+    self.settings.createGhostTrack = extState.getExtStateValue(LAx_ProductData.name, "CreateGhostTrack", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.snapToTransients = extState.getExtStateValue(LAx_ProductData.name, "SnapToTransients", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.showTransientGuides = extState.getExtStateValue(LAx_ProductData.name, "ShowTransientGuides", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.dontDisableAutoCF = extState.getExtStateValue(LAx_ProductData.name, "DontDisableAutoCF", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.restrictToNeighbors = extState.getExtStateValue(LAx_ProductData.name, "RestrictToNeighbors", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.showTakeMarkers = extState.getExtStateValue(LAx_ProductData.name, "ShowTakeMarkers", 1) ~=
+        0                                                                                     -- Default: 1
 
     -- Main variables
     self.delayTimeElapsed = 0
@@ -79,9 +81,9 @@ end
 function GState:mainRoutine()
     -- Check for settings update
     if reaper.time_precise() >= self.nextSettingsUpdateCheck then
-        if reaper.GetExtState("LAx_SlipView", "LastSettingsUpdate") ~= "0" then
+        if reaper.GetExtState(LAx_ProductData.name, "LastSettingsUpdate") ~= "0" then
             self:updateSettings()
-            reaper.SetExtState("LAx_SlipView", "LastSettingsUpdate", "0", false)
+            reaper.SetExtState(LAx_ProductData.name, "LastSettingsUpdate", "0", false)
         end
 
         self.nextSettingsUpdateCheck = reaper.time_precise() + 0.75
@@ -103,7 +105,7 @@ function GState:mainRoutine()
 
         if keyDown and not self.keyWasPressed then
             -- Check if delay is set and if so, track elapsed time
-            local delay = tonumber(reaper.GetExtState("LAx_SlipView", "Delay")) or 0 -- Default: 0
+            local delay = tonumber(reaper.GetExtState(LAx_ProductData.name, "Delay")) or 0 -- Default: 0
 
             -- If a delay is set, activate the timer before the action is shown
             if (delay > 0) then
@@ -331,7 +333,7 @@ function GState:isKeyDown()
     local primaryKeyDown = keyboardState:byte(self.settings.primaryKey) & 1 ~= 0
     local modifierKeyDown = not self.settings.modifierKey or (keyboardState:byte(self.settings.modifierKey) & 1 ~= 0)
 
-    local onlyOnDrag = (tonumber(reaper.GetExtState("LAx_SlipView", "ShowOnlyOnDrag")) or 0) ~= 0 -- Default: 0
+    local onlyOnDrag = (tonumber(reaper.GetExtState(LAx_ProductData.name, "ShowOnlyOnDrag")) or 0) ~= 0 -- Default: 0
     local dragGate = not onlyOnDrag or self:isMouseClickOverSelectedItem()
 
     return ((primaryKeyDown and modifierKeyDown) and dragGate)
@@ -680,16 +682,18 @@ end
 	updateSettings: Updates the Settings
 --]]
 function GState:updateSettings()
-    self.settings.primaryKey = extState.getExtStateValue("LAx_SlipView", "PrimaryKey", 18)                 -- Default: ALT (18)
-    self.settings.modifierKey = extState.getExtStateValue("LAx_SlipView", "ModifierKey", nil)              -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValue("LAx_SlipView", "CreateGhostTrack", 0) ~=
-    0                                                                                                      -- Default: 0
-    self.settings.snapToTransients = extState.getExtStateValue("LAx_SlipView", "SnapToTransients", 0) ~=
-    0                                                                                                      -- Default: 0
-    self.settings.showTransientGuides = extState.getExtStateValue("LAx_SlipView", "ShowTransientGuides", 0) ~=
-        0                                                                                                  -- Default: 0
-    self.settings.dontDisableAutoCF = extState.getExtStateValue("LAx_SlipView", "DontDisableAutoCF", 0) ~=
-        0                                                                                                  -- Default: 0
-    self.settings.restrictToNeighbors = extState.getExtStateValue("LAx_SlipView", "RestrictToNeighbors", 0) ~=
-        0                                                                                                  -- Default: 0
+    self.settings.primaryKey = extState.getExtStateValue(LAx_ProductData.name, "PrimaryKey", 18)    -- Default: ALT (18)
+    self.settings.modifierKey = extState.getExtStateValue(LAx_ProductData.name, "ModifierKey", nil) -- Default: nil (no modifier)
+    self.settings.createGhostTrack = extState.getExtStateValue(LAx_ProductData.name, "CreateGhostTrack", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.snapToTransients = extState.getExtStateValue(LAx_ProductData.name, "SnapToTransients", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.showTransientGuides = extState.getExtStateValue(LAx_ProductData.name, "ShowTransientGuides", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.dontDisableAutoCF = extState.getExtStateValue(LAx_ProductData.name, "DontDisableAutoCF", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.restrictToNeighbors = extState.getExtStateValue(LAx_ProductData.name, "RestrictToNeighbors", 0) ~=
+        0                                                                                     -- Default: 0
+    self.settings.showTakeMarkers = extState.getExtStateValue(LAx_ProductData.name, "ShowTakeMarkers", 0) ~=
+        0                                                                                     -- Default: 0
 end
