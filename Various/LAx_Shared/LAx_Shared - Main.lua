@@ -3,7 +3,7 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.02
+ Version: 1.03
  Provides:
   **/*.lua
  About:
@@ -13,9 +13,8 @@
 
 --[[
  * Changelog:
-    * v1.02
-      + getKeyNameFromDecimal: Optional second parameter to return a string of the original decimal if no fitting key name was found
-      + getKeyNameFromDecimal: Added some more key lookups
+    * v1.03
+      + Added: LAx_Shared_Transients.lua
 ]]
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
