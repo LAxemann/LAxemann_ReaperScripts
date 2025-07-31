@@ -35,7 +35,7 @@ if val == 0 or not newValue then
 end
 
 if string.match(contextStr, "hwheel") then
-    local scrollDelayMin = 0.225
+    local scrollDelayMin = 0.15
     local lastScroll = tonumber(extState.getExtStateValue(LAx_ProductData.name, "LastScroll", "0"))
 
     if os.clock() - lastScroll < scrollDelayMin then
