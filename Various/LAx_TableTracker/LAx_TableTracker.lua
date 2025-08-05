@@ -22,6 +22,7 @@
 -- @provides
 --   [nomain] fnc/functions.lua
 --   [nomain] fnc/gui.lua
+--   [nomain] runShared.lua
 --   [nomain] ReadMe.txt
 --   [nomain] Changelog.txt
 --   [nomain] Example.csv
