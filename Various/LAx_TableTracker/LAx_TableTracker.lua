@@ -29,7 +29,7 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.50
+    * v1.50 
       + Tweaked: Complete, GUI-based overhaul.
 ]] ----------------------------------------------------------------------------------------
 LAx_Shared_Installed = false
