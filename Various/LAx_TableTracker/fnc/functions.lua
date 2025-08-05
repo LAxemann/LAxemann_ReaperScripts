@@ -1,3 +1,4 @@
+-- @noindex
 local utility = require("LAx_Shared_Utility")
 local extState = require("LAx_Shared_ExtState")
 
