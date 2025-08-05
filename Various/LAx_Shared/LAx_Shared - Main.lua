@@ -3,7 +3,7 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.03
+ Version: 1.04
  Provides:
   **/*.lua
  About:
@@ -13,8 +13,8 @@
 
 --[[
  * Changelog:
-    * v1.03
-      + Added: LAx_Shared_Transients.lua
+    * v1.04
+      + Added: getExtStateValueStr to LAx_Shared_ExtState
 ]]
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------

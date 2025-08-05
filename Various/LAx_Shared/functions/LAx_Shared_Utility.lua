@@ -154,6 +154,16 @@ end
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 --[[
+    stringIsNumber: Checks whether or not a string only consists of numbers.
+	@arg1: String [String]
+--]]
+function M.stringIsNumber(str)
+    return str:match("^%d+$") ~= nil
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
     getKeyNameFromDecimal: Tries to get a keyboard key name based on a decimal value.
         Returns an empty string if no matching key was found.
 	@arg1: Decimal [Integer]

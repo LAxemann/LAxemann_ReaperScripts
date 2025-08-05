@@ -3,7 +3,7 @@ local M = {}
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
     getExtStateValue: Checks a stored ExtState value and returns it, returns a default value if original return was nil
     @arg1: extStateID [String]
     @arg2: valueID [String]
@@ -16,7 +16,20 @@ end
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
---[[ 
+--[[
+    getExtStateValueStr: Checks a stored ExtState value and returns it as a string, returns a default value if original return was nil
+    @arg1: extStateID [String]
+    @arg2: valueID [String]
+    @arg3: default [Any]
+    @return1: stored value or defaultValue [String]
+--]]
+function M.getExtStateValueStr(extStateID, valueID, defaultValue)
+    return reaper.GetExtState(extStateID, valueID) or defaultValue
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
     toggleCommand: Toggles the toggle command state of an action and updates ExtState values
     @arg1: productName [String]
     @arg2: actionExtStateName [String]
