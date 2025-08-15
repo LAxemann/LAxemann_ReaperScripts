@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="LAxemann_ReaperScripts" commit="763f7802348ae7b682cac3cddcc8fa0cee75c9d5">
+<index version="1" name="LAxemann_ReaperScripts" commit="adf0eee51fbc28cfb6105e52bf817c4a50b69d78">
   <category name="Various/LAx_Shared">
     <reapack name="LAx_Shared - Main.lua" type="script" desc="LAx_ReaperScripts_Shared">
       <metadata>
@@ -775,6 +775,21 @@
         <source type="data" file="toolbar_icons/150/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/toolbar_icons/150/LAx_TableTracker.png</source>
         <source type="data" file="toolbar_icons/200/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/toolbar_icons/200/LAx_TableTracker.png</source>
         <source type="data" file="toolbar_icons/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker.png</source>
+      </version>
+      <version name="1.51" author="Leon 'LAxemann' Beilmann" time="2025-08-15T13:56:01Z">
+        <changelog><![CDATA[:
+* v1.51
+  + Tweaked: No need to run the script twice after "user tracks" got deleted for proper re-ordering]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/LAx_TableTracker.lua</source>
+        <source file="fnc/functions.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/fnc/functions.lua</source>
+        <source file="fnc/gui.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/fnc/gui.lua</source>
+        <source file="runShared.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/runShared.lua</source>
+        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/ReadMe.txt</source>
+        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/Changelog.txt</source>
+        <source file="Example.csv">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/Example.csv</source>
+        <source type="data" file="toolbar_icons/150/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/toolbar_icons/150/LAx_TableTracker.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/toolbar_icons/200/LAx_TableTracker.png</source>
+        <source type="data" file="toolbar_icons/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/adf0eee51fbc28cfb6105e52bf817c4a50b69d78/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker.png</source>
       </version>
     </reapack>
   </category>
