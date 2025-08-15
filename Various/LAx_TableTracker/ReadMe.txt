@@ -12,6 +12,7 @@ Summary:
 	TableTracker allows it to import and continuously manage tracks in Reaper based on .CSV files encoded in plain UTF-8.
 	
 	Key features:
+	- GUI-based as of version 1.50
 	- Ability to import a .CSV file and automatically generate a track structure
 	- Complex nested structures are no problem thanks to parenting support
 	- Comfortable import and configuration via file selection and input fields
@@ -30,8 +31,8 @@ Installation:
 	1. Drag the contents of the .zip archive into AppData\Roaming\REAPER\Scripts
 	   (You can get to the REAPER folder by clicking on "Options > Show resource path in explorer/finder")
 	
-	2. Open the Actions List (Actions > Show actions list), click on "New action... > Load ReaScript..." and load all scripts this way.
-	   The scripts should now be in the Actions List as with their respective file names.
+	2. Open the Actions List (Actions > Show actions list), click on "New action... > Load ReaScript..." and load the script this way.
+	   The script should now be in the Actions List as with its filename.
 
 
 
@@ -46,5 +47,4 @@ Usage:
 //====================================================================================================================================================
 Known issues:
 	- The script expects each track to have a unique name. Having multiple tracks with the same name will very likely lead to issues and unexpected behavior.
-	- If the script deletes tracks (because they are no longer in the CSV or they were "user tracks", the nearest folders might become children. Re-running the script will fix this.
 	- Allowing empty track names is possible for convenience and/or one-time exports, but will likely break continuous imports.

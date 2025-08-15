@@ -1,6 +1,6 @@
 -- @description Allows it to import and continuously update tracks based on a CSV table encoded in plain UTF-8.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.50
+-- @version 1.51
 -- @about
 --   # About
 --	 TableTracker allows it to import and continuously manage tracks in Reaper based on .CSV files encoded in plain UTF-8.	
@@ -28,9 +28,9 @@
 --   [nomain] Example.csv
 --   [data] toolbar_icons/**/*.png
 --[[
- * Changelog:
-    * v1.50 
-      + Tweaked: Complete, GUI-based overhaul.
+ @Changelog:
+    * v1.51
+      + Tweaked: No need to run the script twice after "user tracks" got deleted for proper re-ordering
 ]] ----------------------------------------------------------------------------------------
 LAx_Shared_Installed = false
 local currentFolder = (debug.getinfo(1).source:match("@?(.*[\\|/])"))
@@ -91,7 +91,7 @@ Data = {
 	headers = { "" },
 	parentHeaderName = "",
 	trackHeaderName = "",
-	headerString = ""
+	headerString = "",
 }
 
 guiLoop()

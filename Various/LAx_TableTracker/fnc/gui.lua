@@ -10,6 +10,7 @@ local windowName = LAx_ProductData.name
 local guiW = 600
 local guiH = 350
 local ranScript = false
+local didDeleteTracks = false
 local init = true
 local firstStartup = not reaper.HasExtState(LAx_ProductData.name, "EnableParenting")
 
@@ -21,14 +22,6 @@ function guiLoop()
     if init then
         updateHeaderInfo()
         init = false
-    end
-
-    if ranScript then
-        if Settings.closeOnRun then
-            return
-        else
-            ranScript = false
-        end
     end
 
     local window_flags = ImGui.WindowFlags_NoResize | ImGui.WindowFlags_NoCollapse | ImGui.WindowFlags_MenuBar |
@@ -132,7 +125,11 @@ function guiLoop()
 
         if ImGui.Button(ctx, "Run", 400, 60) then
             getHeaders(Settings.filetxt)
-            ranScript = main()
+            ranScript, didDeleteTracks = main()
+
+            if didDeleteTracks then
+                ranScript, didDeleteTracks = main()
+            end
         end
 
         if Data.headerString == "\0" then
@@ -140,6 +137,14 @@ function guiLoop()
         end
 
         ImGui.End(ctx)
+    end
+
+    if ranScript then
+        if Settings.closeOnRun then
+            return
+        else
+            ranScript = false
+        end
     end
 
     -- Run loop while window is considered open

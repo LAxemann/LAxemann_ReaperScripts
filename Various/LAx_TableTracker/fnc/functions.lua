@@ -242,10 +242,13 @@ end
 ----------------------------------------------------------------------------------------
 --[[
 	deleteNonMatching: Deletes non-matching usertracks
+    @arg1: config [Integer]
+    @return1: Something got deleted? [Bool]
 --]]
 function deleteNonMatchingTracks(deleteNonMatching)
     reaper.PreventUIRefresh(1)
     local trackCount = reaper.CountTracks(0)
+    local didDeleteTracks = false;
 
     -- We loop through tracks in reverse order to prevent indexing issues
     for i = trackCount - 1, 0, -1 do
@@ -259,14 +262,18 @@ function deleteNonMatchingTracks(deleteNonMatching)
 
                     if itemCount == 0 then
                         reaper.DeleteTrack(track)
+                        didDeleteTracks = true
                     end
                 elseif deleteNonMatching == 2 then
                     reaper.DeleteTrack(track)
+                    didDeleteTracks = true
                 end
             end
         end
     end
     reaper.PreventUIRefresh(-1)
+
+    return didDeleteTracks
 end
 
 ----------------------------------------------------------------------------------------
@@ -284,158 +291,6 @@ function registerExistingTracks()
         -- Store track name in table
         Data.trackMap[trackName] = track
     end
-end
-
-----------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------
---[[
-	Main:
-    @return1: Executed successfully [Bool]
---]]
-function main()
-    -- Read CSV file
-    local csvData = readCSV(Settings.filetxt)
-
-    if csvData then
-        reaper.Undo_BeginBlock()
-
-        if Settings.considerExisting then
-            registerExistingTracks()
-        end
-
-        Data.parentHeaderName = Settings.enableParenting and Data.headers[Settings.parentHeaderIDX + 1] or ""
-        Data.trackHeaderName = Data.headers[Settings.trackHeaderIDX + 1]
-
-        if Data.parentHeaderName == Data.trackHeaderName then
-            reaper.ShowMessageBox("Parent and track headers can't be the same.",
-                LAx_ProductData.name .. " Error", 0)
-            return false
-        end
-
-        --debugShowSettings()
-
-        local hasParentHeader = Data.parentHeaderName ~= ""
-        local parentNameHeaderColumn, trackNameHeaderColumn = getHeaderColumns(csvData, hasParentHeader)
-
-        -- Check if headers match and if not, name the ones that don't
-        local errorSum = 0
-
-        if (hasParentHeader and parentNameHeaderColumn == -1) then errorSum = errorSum + 2 end
-        if (trackNameHeaderColumn == -1) then errorSum = errorSum + 1 end
-
-        if errorSum == 3 then
-            reaper.ShowMessageBox("No matching headers found.\nMake sure the .csv file uses UTF-8 encoding.",
-                LAx_ProductData.name .. " Error", 0)
-            return false
-        elseif errorSum == 2 then
-            reaper.ShowMessageBox("No matching parent name headers found.\nMake sure the .csv file uses UTF-8 encoding.",
-                LAx_ProductData.name .. " Error", 0)
-            return false
-        elseif errorSum == 1 then
-            reaper.ShowMessageBox("No matching track name headers found.\nMake sure the .csv file uses UTF-8 encoding.",
-                LAx_ProductData.name .. " Error", 0)
-            return false
-        end
-
-        reaper.PreventUIRefresh(1)
-
-        -- Create the tracks
-        for i, _ in ipairs(csvData) do
-            if (i > 1) then
-                createAndStoreTrack(tostring(csvData[i][trackNameHeaderColumn]),
-                    tostring(csvData[i][parentNameHeaderColumn]))
-            end
-        end
-
-        -- Register remaining tracks (meaning user-generated)
-        if Settings.considerExisting then
-            registerUserTracks()
-        end
-
-        -- Sort the elements if desired
-        if Settings.sortOrder == 1 then
-            table.sort(Data.trackIDAndParentNamePairs, function(a, b)
-                return a[3] < b[3]
-            end)
-        elseif Settings.sortOrder == 2 then
-            table.sort(Data.trackIDAndParentNamePairs, function(a, b)
-                return a[3] > b[3]
-            end)
-        end
-
-        -- Sort master folders first. Leads to running through the table twice but sorting would be a nightmare otherwise.
-        for i, pair in ipairs(Data.trackIDAndParentNamePairs) do
-            local track = pair[1]
-            local parentName = pair[2]
-
-            if not Data.trackMap[parentName] then
-                table.insert(Data.masterFolders, track)
-            end
-        end
-
-
-        for i, track in ipairs(Data.masterFolders) do
-            if (i > 1) then
-                local previousTrack = Data.masterFolders[i - 1]
-                local previousTrackIndex = reaper.GetMediaTrackInfo_Value(previousTrack, "IP_TRACKNUMBER")
-                reaper.SetOnlyTrackSelected(track)
-                reaper.ReorderSelectedTracks(previousTrackIndex, 0)
-                reaper.SetMediaTrackInfo_Value(track, "I_FOLDERDEPTH", 0)
-                reaper.SetMediaTrackInfo_Value(previousTrack, "I_FOLDERDEPTH", 0)
-                reaper.SetTrackSelected(track, false)
-            end
-        end
-
-        -- Assign tracks to parents using ReOrder if a valid parent header was specified
-        if hasParentHeader then
-            for i = #Data.trackIDAndParentNamePairs, 1, -1 do
-                local pair = Data.trackIDAndParentNamePairs[i]
-                local track = pair[1]
-                local parentName = pair[2]
-
-                if Data.trackMap[parentName] then
-                    local parentTrack = Data.trackMap[parentName];
-                    local parentTrackIndex = reaper.GetMediaTrackInfo_Value(parentTrack, "IP_TRACKNUMBER")
-
-                    reaper.SetOnlyTrackSelected(track)
-                    reaper.ReorderSelectedTracks(parentTrackIndex, 1)
-                    reaper.SetTrackSelected(track, false)
-                end
-            end
-
-            -- Bring user-created tracks back in correct position
-            for i, pair in ipairs(Data.userTrackPairs) do
-                local track = pair[1]
-                local previousTrack = pair[2]
-
-                reaper.SetOnlyTrackSelected(track)
-                local previousTrackIndex = reaper.GetMediaTrackInfo_Value(previousTrack, "IP_TRACKNUMBER")
-
-                if contains(Data.masterFolders, previousTrack) then
-                    reaper.ReorderSelectedTracks(previousTrackIndex, 1)
-                else
-                    reaper.ReorderSelectedTracks(previousTrackIndex, 0)
-                end
-
-                reaper.SetTrackSelected(track, false)
-            end
-        end
-
-        -- Delete non-matching tracks if desired
-        if (Settings.deleteNonMatching ~= 0) then
-            deleteNonMatchingTracks(Settings.deleteNonMatching)
-        end
-
-        -- Update tracklist, arrange window and reset variables
-        reaper.TrackList_AdjustWindows(false)
-        reaper.UpdateArrange()
-        reaper.Undo_EndBlock("LAx_TableTracker CSV import", -1)
-        resetVariables()
-        saveExtState()
-        reaper.PreventUIRefresh(-1)
-    end
-
-    return true
 end
 
 ----------------------------------------------------------------------------------------
@@ -508,4 +363,160 @@ end
 function updateHeaderInfo()
     Data.headers = getHeaders(Settings.filetxt)
     getHeaderString()
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
+	Main:
+    @return1: Executed successfully [Bool]
+    @return2: Did delete elements [Bool]
+--]]
+function main()
+    -- Read CSV file
+    local csvData = readCSV(Settings.filetxt)
+
+    local completedRun = false;
+    local didDeleteTracks = false;
+
+    if csvData then
+        reaper.Undo_BeginBlock()
+
+        if Settings.considerExisting then
+            registerExistingTracks()
+        end
+
+        Data.parentHeaderName = Settings.enableParenting and Data.headers[Settings.parentHeaderIDX + 1] or ""
+        Data.trackHeaderName = Data.headers[Settings.trackHeaderIDX + 1]
+
+        if Data.parentHeaderName == Data.trackHeaderName then
+            reaper.ShowMessageBox("Parent and track headers can't be the same.",
+                LAx_ProductData.name .. " Error", 0)
+            return completedRun, didDeleteTracks
+        end
+
+        --debugShowSettings()
+
+        local hasParentHeader = Data.parentHeaderName ~= ""
+        local parentNameHeaderColumn, trackNameHeaderColumn = getHeaderColumns(csvData, hasParentHeader)
+
+        -- Check if headers match and if not, name the ones that don't
+        local errorSum = 0
+
+        if (hasParentHeader and parentNameHeaderColumn == -1) then errorSum = errorSum + 2 end
+        if (trackNameHeaderColumn == -1) then errorSum = errorSum + 1 end
+
+        if errorSum == 3 then
+            reaper.ShowMessageBox("No matching headers found.\nMake sure the .csv file uses UTF-8 encoding.",
+                LAx_ProductData.name .. " Error", 0)
+            return completedRun, didDeleteTracks
+        elseif errorSum == 2 then
+            reaper.ShowMessageBox("No matching parent name headers found.\nMake sure the .csv file uses UTF-8 encoding.",
+                LAx_ProductData.name .. " Error", 0)
+            return completedRun, didDeleteTracks
+        elseif errorSum == 1 then
+            reaper.ShowMessageBox("No matching track name headers found.\nMake sure the .csv file uses UTF-8 encoding.",
+                LAx_ProductData.name .. " Error", 0)
+            return completedRun, didDeleteTracks
+        end
+
+        reaper.PreventUIRefresh(1)
+
+        -- Create the tracks
+        for i, _ in ipairs(csvData) do
+            if (i > 1) then
+                createAndStoreTrack(tostring(csvData[i][trackNameHeaderColumn]),
+                    tostring(csvData[i][parentNameHeaderColumn]))
+            end
+        end
+
+        -- Register remaining tracks (meaning user-generated)
+        if Settings.considerExisting then
+            registerUserTracks()
+        end
+
+        -- Sort the elements if desired
+        if Settings.sortOrder == 1 then
+            table.sort(Data.trackIDAndParentNamePairs, function(a, b)
+                return a[3] < b[3]
+            end)
+        elseif Settings.sortOrder == 2 then
+            table.sort(Data.trackIDAndParentNamePairs, function(a, b)
+                return a[3] > b[3]
+            end)
+        end
+
+        -- Sort master folders first. Leads to running through the table twice but sorting would be a nightmare otherwise.
+        for i, pair in ipairs(Data.trackIDAndParentNamePairs) do
+            local track = pair[1]
+            local parentName = pair[2]
+
+            if not Data.trackMap[parentName] then
+                table.insert(Data.masterFolders, track)
+            end
+        end
+
+        for i, track in ipairs(Data.masterFolders) do
+            if (i > 1) then
+                local previousTrack = Data.masterFolders[i - 1]
+                local previousTrackIndex = reaper.GetMediaTrackInfo_Value(previousTrack, "IP_TRACKNUMBER")
+                reaper.SetOnlyTrackSelected(track)
+                reaper.ReorderSelectedTracks(previousTrackIndex, 0)
+                reaper.SetMediaTrackInfo_Value(track, "I_FOLDERDEPTH", 0)
+                reaper.SetMediaTrackInfo_Value(previousTrack, "I_FOLDERDEPTH", 0)
+                reaper.SetTrackSelected(track, false)
+            end
+        end
+
+        -- Assign tracks to parents using ReOrder if a valid parent header was specified
+        if hasParentHeader then
+            for i = #Data.trackIDAndParentNamePairs, 1, -1 do
+                local pair = Data.trackIDAndParentNamePairs[i]
+                local track = pair[1]
+                local parentName = pair[2]
+
+                if Data.trackMap[parentName] then
+                    local parentTrack = Data.trackMap[parentName];
+                    local parentTrackIndex = reaper.GetMediaTrackInfo_Value(parentTrack, "IP_TRACKNUMBER")
+
+                    reaper.SetOnlyTrackSelected(track)
+                    reaper.ReorderSelectedTracks(parentTrackIndex, 1)
+                    reaper.SetTrackSelected(track, false)
+                end
+            end
+
+            -- Bring user-created tracks back in correct position
+            for i, pair in ipairs(Data.userTrackPairs) do
+                local track = pair[1]
+                local previousTrack = pair[2]
+
+                reaper.SetOnlyTrackSelected(track)
+                local previousTrackIndex = reaper.GetMediaTrackInfo_Value(previousTrack, "IP_TRACKNUMBER")
+
+                if contains(Data.masterFolders, previousTrack) then
+                    reaper.ReorderSelectedTracks(previousTrackIndex, 1)
+                else
+                    reaper.ReorderSelectedTracks(previousTrackIndex, 0)
+                end
+
+                reaper.SetTrackSelected(track, false)
+            end
+        end
+
+        -- Delete non-matching tracks if desired
+        if (Settings.deleteNonMatching ~= 0) then
+            didDeleteTracks = deleteNonMatchingTracks(Settings.deleteNonMatching)
+        end
+
+        -- Update tracklist, arrange window and reset variables
+        reaper.TrackList_AdjustWindows(false)
+        reaper.UpdateArrange()
+        reaper.Undo_EndBlock("LAx_TableTracker CSV import", -1)
+        resetVariables()
+        saveExtState()
+        reaper.PreventUIRefresh(-1)
+        completedRun = true
+    end
+
+    return true, didDeleteTracks
 end
