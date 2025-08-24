@@ -167,6 +167,10 @@ function getHeaders(filepath)
         return { "" }
     end
 
+    if not reaper.file_exists(filepath) then
+        return { "" }
+    end
+
     local csvData = readCSV(filepath, true)
 
     if not csvData then

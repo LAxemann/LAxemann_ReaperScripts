@@ -2,6 +2,7 @@
  Noindex: true
 ]]
 
+--   1.52: Fixed: TableTracker would crash if the last used file was deleted
 --   1.51: Tweaked: No need to run the script twice after "user tracks" got deleted for proper re-ordering
 --   1.50: Complete, GUI-based Rework, removed "Run with last settings" script
 --	 1.03: Minor script improvement
