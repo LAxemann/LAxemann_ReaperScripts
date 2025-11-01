@@ -38,7 +38,7 @@ if not utility.checkRequiredExtensions("LAx_TransientTools", { "JS_VKeys_GetStat
 end
 
 ----------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 local selectedItemCount = reaper.CountSelectedMediaItems(0)
 
 if selectedItemCount == 0 then

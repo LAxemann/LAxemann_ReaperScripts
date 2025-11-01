@@ -39,8 +39,8 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.37
-      + Tweaked: SlipView can now also show take markers in the preview item(s) (optional)
+    * v1.38
+      + Tweaked: Under-the-hood changes to how settings work
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false
