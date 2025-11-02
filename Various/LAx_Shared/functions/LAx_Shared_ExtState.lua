@@ -8,7 +8,7 @@ local M = {}
     @arg1: extStateID [String]
     @arg2: valueID [String]
     @arg3: default [Float]
-    @return1: stored value or defaultValue [Float]
+    @return1: stored value or defaultValue [Number]
 --]]
 function M.getExtStateValue(extStateID, valueID, defaultValue)
     return tonumber(reaper.GetExtState(extStateID, valueID)) or defaultValue
@@ -39,7 +39,7 @@ end
 function M.getExtStateValueBool(extStateID, valueID, defaultValue)
     local value = reaper.GetExtState(extStateID, valueID)
 
-    if not value then
+    if value == "" then
         return defaultValue
     end
 
@@ -82,6 +82,33 @@ end
 --]]
 function M.getProjExtStateValue(proj, extStateID, valueID, defaultValue)
     return tonumber(select(2, reaper.GetProjExtState(proj, extStateID, valueID))) or defaultValue
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
+    toggleCommand: Toggles the toggle command state of an action and updates ExtState values
+    @arg1: productName [String]
+    @arg2: actionExtStateName [String]
+    @return1: NewState [Integer]
+--]]
+function M.toggleCommand(productName, actionExtStateName, sectionID, cmdID)
+    local currentState = M.getExtStateValueBool(productName, actionExtStateName, false)
+
+    if currentState == nil then
+        currentState = false
+    end
+
+    local newState = (currentState == false) and 1 or 0
+
+    reaper.SetExtState(productName, actionExtStateName, tostring(newState == 1), true)
+    reaper.SetExtState(productName, actionExtStateName .. "ToggleCmdID", tostring(cmdID), true)
+    reaper.SetToggleCommandState(sectionID, cmdID, newState)
+    reaper.RefreshToolbar2(sectionID, cmdID)
+
+    reaper.SetExtState(productName, "LastSettingsUpdate", tostring(os.clock()), false)
+
+    return newState
 end
 
 return M

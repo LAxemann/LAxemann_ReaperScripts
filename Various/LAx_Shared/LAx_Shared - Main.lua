@@ -3,7 +3,7 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.05
+ Version: 1.06
  Provides:
   **/*.lua
  About:
@@ -13,8 +13,9 @@
 
 --[[
  * Changelog:
-    * v1.05
+    * v1.06
       + Added: LAx_Shared_Settings for handling settings
+      + Added: LAx_Shared_Styles for handling menu styling across scripts
       + Added: new type-based functions to ExtState
 ]]
 ----------------------------------------------------------------------------------------

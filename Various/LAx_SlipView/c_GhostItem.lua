@@ -31,6 +31,7 @@ function GhostItem:create(item, itemTrack)
     end
 
     local itemPos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+    local itemLength = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 
     local ghostItemStartOffset, ghostItemTargetPos, sourceItemLength, ghostItemLength, ghostItemPlayRate =
         self:calculateGhostItemValues(item, itemTake, itemPos, itemTrack)
@@ -89,6 +90,7 @@ function GhostItem:create(item, itemTrack)
     self.originalItem = item
     self.originalItemStartPos = itemPos
     self.originalItemStartPosRelative = itemPos - ghostItemTargetPos
+    self.originalItemLength = itemLength
     self.startPos = ghostItemTargetPos
     self.playRate = ghostItemPlayRate
     self.playRateFactor = 1 / ghostItemPlayRate
@@ -155,17 +157,17 @@ function GhostItem:calculateGhostItemValues(selectedItem, take, itemPos, itemTra
     -- If no neighbor, the timeline start (0) is considered our neighbor.
     local ghostItemStartOffset = 0
     local ghostItemTargetPos =
-    leftNeighborEndPos                            -- Set Ghost Item position to end of left neighbor/timeline start by default
+        leftNeighborEndPos -- Set Ghost Item position to end of left neighbor/timeline start by default
 
     local spaceToLeft = itemPos - leftNeighborEndPos
     local isClippingLeft = takeOffsetCompensated >
-    spaceToLeft                                                -- Would offsetting the Ghost Item make it clip into an item/the timeline start to the left?
+        spaceToLeft -- Would offsetting the Ghost Item make it clip into an item/the timeline start to the left?
 
     if isClippingLeft then
         ghostItemStartOffset = (takeOffsetCompensated - spaceToLeft) / playRateFactor
     else
         ghostItemTargetPos = itemPos -
-        takeOffsetCompensated                                -- Allow full expansion if not clipping by shifting to full offset length
+            takeOffsetCompensated -- Allow full expansion if not clipping by shifting to full offset length
     end
 
     -- Check if GhostItem clips into the right neighbor. If so, look for available space to the left to fill
@@ -209,20 +211,22 @@ function GhostItem:getNonClippingRightNeighbor(indexStart, track, itemEndPos, it
 
     for i = indexStart + 1, itemsOnTrackCount - 1 do
         local currentItem = reaper.GetTrackMediaItem(track, i)
-        local currentItemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
+        if currentItem ~= self.item then
+            local currentItemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
 
-        -- No need to do further checks if the two items are not on the same fixed lane
-        if currentItemFixedLane == itemFixedLane then
-            local itemsOverlap = self:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
+            -- No need to do further checks if the two items are not on the same fixed lane
+            if currentItemFixedLane == itemFixedLane then
+                local itemsOverlap = self:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
 
-            if itemsOverlap then
-                local currentItemEnd = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION") +
-                    reaper.GetMediaItemInfo_Value(currentItem, "D_LENGTH")
+                if itemsOverlap then
+                    local currentItemEnd = reaper.GetMediaItemInfo_Value(currentItem, "D_POSITION") +
+                        reaper.GetMediaItemInfo_Value(currentItem, "D_LENGTH")
 
-                -- Check if the current item's start position is greater than the reference item's end position
-                if currentItemEnd > itemEndPos then
-                    nonClippingRightNeighbor = currentItem
-                    break
+                    -- Check if the current item's start position is greater than the reference item's end position
+                    if currentItemEnd > itemEndPos then
+                        nonClippingRightNeighbor = currentItem
+                        break
+                    end
                 end
             end
         end
@@ -249,15 +253,17 @@ function GhostItem:getNonClippingLeftNeighbor(indexStart, track, itemEndPos, ite
 
     for i = indexStart - 1, 0, -1 do
         local currentItem = reaper.GetTrackMediaItem(track, i)
-        local currentItemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
+        if currentItem ~= self.item then
+            local currentItemFixedLane = reaper.GetMediaItemInfo_Value(currentItem, "I_FIXEDLANE")
 
-        -- No need to do further checks if the two items are not on the same fixed lane
-        if currentItemFixedLane == itemFixedLane then
-            local itemsOverlap = self:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
+            -- No need to do further checks if the two items are not on the same fixed lane
+            if currentItemFixedLane == itemFixedLane then
+                local itemsOverlap = self:doItemsOverlapInFreeMode(itemFreeModeStart, itemFreeModeEnd, currentItem)
 
-            if itemsOverlap then
-                nonClippingLeftNeighbor = currentItem
-                break
+                if itemsOverlap then
+                    nonClippingLeftNeighbor = currentItem
+                    break
+                end
             end
         end
     end
@@ -326,6 +332,44 @@ function GhostItem:snapToTransient(distance)
     reaper.SetMediaItemTakeInfo_Value(originalTake, "D_STARTOFFS", originalTakeOffset - distance * self.playRate)
 
     return true
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
+    checkAndUpdateValues: Refreshes variables
+    @return1: Updated length [Bool]
+    @return2: Updated playRate [Bool]
+--]]
+function GhostItem:checkAndUpdateValues()
+    if not reaper.ValidatePtr(self.originalItem, 'MediaItem*') then
+        return false, false
+    end
+
+    local itemLength = reaper.GetMediaItemInfo_Value(self.originalItem, "D_LENGTH")
+    local take = reaper.GetActiveTake(self.originalItem)
+    local playRate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
+
+    if self.originalItemLength ~= itemLength or self.playRate ~= playRate then
+        local ghostItemStartOffset, ghostItemTargetPos, sourceItemLength, ghostItemLength, ghostItemPlayRate =
+            self:calculateGhostItemValues(self.originalItem, reaper.GetActiveTake(self.originalItem),
+                reaper.GetMediaItemInfo_Value(self.originalItem, "D_POSITION"),
+                reaper.GetMediaItem_Track(self.originalItem))
+
+        self.playRate = ghostItemPlayRate
+        self.startOffsetCompensated = ghostItemStartOffset
+        self.startPos = ghostItemTargetPos
+        self.playRate = ghostItemPlayRate
+        self.playRateFactor = 1 / ghostItemPlayRate
+        self.originalItemLength = itemLength
+
+        reaper.SetMediaItemInfo_Value(self.item, "D_POSITION", ghostItemTargetPos)
+        reaper.SetMediaItemInfo_Value(self.item, "D_LENGTH", ghostItemLength)
+
+        local ghostTake = reaper.GetActiveTake(self.item)
+        reaper.SetMediaItemTakeInfo_Value(ghostTake, "D_STARTOFFS", ghostItemStartOffset)
+        reaper.SetMediaItemTakeInfo_Value(ghostTake, "D_PLAYRATE", ghostItemPlayRate)
+    end
 end
 
 ----------------------------------------------------------------------------------------

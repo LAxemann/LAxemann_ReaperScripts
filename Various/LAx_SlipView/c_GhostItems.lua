@@ -131,6 +131,17 @@ function GhostItems:snapToTransient(distance)
 end
 
 ----------------------------------------------------------------------------------------
+--[[
+	updateAllItemValues:
+    @arg1: Distance to transient [Float]
+--]]
+function GhostItems:updateAllItemValues()
+    for ghostItem, v in pairs(self.allGhostItemObjects) do
+        ghostItem:checkAndUpdateValues()
+    end
+end
+
+----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 --[[
 	clear: Clears the saved Ghost Items

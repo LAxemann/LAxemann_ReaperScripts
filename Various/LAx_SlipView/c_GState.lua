@@ -28,7 +28,7 @@ function GState:init(ghostItems, ghostTracks)
     self.settings.snapToTransients = extState.getExtStateValueBool(LAx_ProductData.name, "SnapToTransients", false)
     self.settings.showTransientGuides = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTransientGuides", false)
     self.settings.dontDisableAutoCF = extState.getExtStateValueBool(LAx_ProductData.name, "DontDisableAutoCF", false)
-    self.settings.restrictToNeighbors = extState.getExtStateValueBool(LAx_ProductData.name, "RestrictToNeighbors", false)
+    self.settings.restrictToNeighbors = extState.getExtStateValueBool(LAx_ProductData.name, "RestrictToNeighbors", true)
     self.settings.showTakeMarkers = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTakeMarkers", true)
 
     -- Main variables
@@ -81,6 +81,11 @@ function GState:mainRoutine()
         end
 
         self.nextSettingsUpdateCheck = reaper.time_precise() + 0.75
+    end
+
+    -- Update GhostItemStartPos if neccessary
+    if self.actionWasTriggered then
+        self.ghostItems:updateAllItemValues()
     end
 
     -- Transient Snap
@@ -682,6 +687,6 @@ function GState:updateSettings()
     self.settings.snapToTransients = extState.getExtStateValueBool(LAx_ProductData.name, "SnapToTransients", false)
     self.settings.showTransientGuides = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTransientGuides", false)
     self.settings.dontDisableAutoCF = extState.getExtStateValueBool(LAx_ProductData.name, "DontDisableAutoCF", false)
-    self.settings.restrictToNeighbors = extState.getExtStateValueBool(LAx_ProductData.name, "RestrictToNeighbors", false)
+    self.settings.restrictToNeighbors = extState.getExtStateValueBool(LAx_ProductData.name, "RestrictToNeighbors", true)
     self.settings.showTakeMarkers = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTakeMarkers", true)                                                                                  -- Default: 0
 end

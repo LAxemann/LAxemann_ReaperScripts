@@ -2,6 +2,10 @@
  Noindex: true
 ]]
 
+1.50: - Added: "Restore Defaults" to Settings
+      - Added: Style menu to Settings
+      - Tweaked: Preview items will now adapt to on-the-fly length and playRate changes
+      - Tweaked: Under-the-hood changes to how settings work
 1.37: - Tweaked: SlipView can now also show take markers in the preview item(s) (optional)
 1.36: - Fixed: SlipView would stop detecting transients when the mouse was moving into a direction without transients once
 1.35: - Fixed: Changing the selection wouldn't cause a refresh
@@ -26,8 +30,8 @@
 1.18: - Fixed: Crash when using SlipView on a completely empty item
 1.17: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
 1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled
-	- Toggle states should now update once the main routine starts
-	- Lowered cleanup interval from 2 to 1s
+	  - Toggle states should now update once the main routine starts
+	  - Lowered cleanup interval from 2 to 1s
 1.13: - Added toolbar icons
 1.12: - Preview will stay if the mouse cursor leaves the arrange window
 1.11: - Added toggle state to main function

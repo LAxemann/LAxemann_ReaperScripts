@@ -1,12 +1,18 @@
 -- @noindex
 
+----------------------------------------------------------------------------------------
+-- Requirements
+local styles = require("LAx_Shared_Styles")
+
 -- ImGui init
 package.path = package.path .. ";" .. reaper.ImGui_GetBuiltinPath() .. '/?.lua'
-local ImGui = require 'imgui' '0.9.3'
+ImGui = require 'imgui' '0.10'
 
 -- Menu ctx init
 local ctx = ImGui.CreateContext("Test")
 local windowName = LAx_ProductData.name
+local windowFlags = ImGui.WindowFlags_NoResize | ImGui.WindowFlags_NoCollapse | ImGui.WindowFlags_MenuBar |
+    ImGui.WindowFlags_AlwaysAutoResize
 local guiW = 600
 local guiH = 350
 local ranScript = false
@@ -14,26 +20,29 @@ local didDeleteTracks = false
 local init = true
 local firstStartup = not reaper.HasExtState(LAx_ProductData.name, "EnableParenting")
 
+-- Style object
+local styleObject = styles.createStyleObject()
+
 ----------------------------------------------------------------------------------------
 --[[
     guiLoop: Main gui loop/defer function
 --]]
 function guiLoop()
+    local doPopFont, styleVarCount, styleColorCount, styleName = styles.applyVarsAndStyles(ctx, styleObject)
     if init then
         updateHeaderInfo()
         init = false
     end
 
-    local window_flags = ImGui.WindowFlags_NoResize | ImGui.WindowFlags_NoCollapse | ImGui.WindowFlags_MenuBar |
-        ImGui.WindowFlags_AlwaysAutoResize
-
     ImGui.SetNextWindowSize(ctx, guiW, guiH, ImGui.Cond_Once)
-    local guiIsVisible, guiIsOpen = ImGui.Begin(ctx, windowName, true, window_flags)
+    local guiIsVisible, guiIsOpen = ImGui.Begin(ctx, windowName, true, windowFlags)
 
     -- Main GUI body
     if guiIsVisible then
         if ImGui.BeginMenuBar(ctx) then
             _, Settings.closeOnRun = ImGui.Checkbox(ctx, "Close window after running script", Settings.closeOnRun)
+            ImGui.Separator(ctx)
+            styles.addStyleMenu(ctx, styleObject)
             ImGui.EndMenuBar(ctx)
         end
 
@@ -136,6 +145,7 @@ function guiLoop()
             ImGui.EndDisabled(ctx)
         end
 
+        styles.popVarsAndStyles(ctx, doPopFont, styleVarCount, styleColorCount)
         ImGui.End(ctx)
     end
 

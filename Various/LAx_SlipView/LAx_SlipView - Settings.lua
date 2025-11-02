@@ -13,31 +13,10 @@ end
 -- Requirements
 local utility = require("LAx_Shared_Utility")
 local settings = require("LAx_Shared_Settings")
+local styles = require("LAx_Shared_Styles")
 
 if not utility.checkRequiredExtensions("LAx_SplipView", { "JS_VKeys_GetState", "CF_GetSWSVersion", "ImGui_GetVersion" }) then
     return
-end
-
-----------------------------------------------------------------------------------------
---[[
-    applyToggle: Checks if a toggle function command ID is stored. Triggers the command if yes, simply sets the new value if not
-    @arg1: extStateString [String]
-    @arg2: originalValue [String]
-    @arg3: newValue [Float/Int]
-	@arg4: cmdID [String]
---]]
-function applyToggle(extStateString, originalValue, newValue, cmdID)
-    if tonumber(originalValue) ~= newValue then
-        if cmdID ~= "" then
-            local commandID = reaper.NamedCommandLookup(cmdID)
-
-            if commandID ~= 0 then
-                reaper.Main_OnCommand(commandID, 0)
-            end
-        else
-            reaper.SetExtState(LAx_ProductData.name, extStateString, tostring(newValue), true)
-        end
-    end
 end
 
 -- Add settings
@@ -47,24 +26,16 @@ local _, primaryKey = settings.addSetting(settingsData, LAx_ProductData.name, "P
 local _, modifierKey = settings.addSetting(settingsData, LAx_ProductData.name, "ModifierKey",
     settings.settingsTypes.number, "")
 local _, delay = settings.addSetting(settingsData, LAx_ProductData.name, "Delay", settings.settingsTypes.number, 0)
-local _, restrictToNeighborsToggleCmdID = settings.addSetting(settingsData, LAx_ProductData.name,
-    "RestrictToNeighborsToggleCmdID", settings.settingsTypes.number, "")
-local _, createGhostTrackToggleCmdID = settings.addSetting(settingsData, LAx_ProductData.name,
-    "CreateGhostTrackToggleCmdID", settings.settingsTypes.number, "")
-local _, snapToTransientsToggleCmdID = settings.addSetting(settingsData, LAx_ProductData.name,
-    "SnapToTransientsToggleCmdID", settings.settingsTypes.number, "")
-local _, showTransientGuidesToggleCmdID = settings.addSetting(settingsData, LAx_ProductData.name,
-    "ShowTransientGuidesToggleCmdID", settings.settingsTypes.number, "")
 local _, restrictToNeighbors = settings.addSetting(settingsData, LAx_ProductData.name, "RestrictToNeighbors",
-    settings.settingsTypes.bool, false)
+    settings.settingsTypes.bool, true, true)
 local _, createGhostTrack = settings.addSetting(settingsData, LAx_ProductData.name, "CreateGhostTrack",
-    settings.settingsTypes.bool, false)
+    settings.settingsTypes.bool, false, true)
 local _, showOnlyOnDrag = settings.addSetting(settingsData, LAx_ProductData.name, "ShowOnlyOnDrag",
     settings.settingsTypes.bool, false)
 local _, snapToTransients = settings.addSetting(settingsData, LAx_ProductData.name, "SnapToTransients",
-    settings.settingsTypes.bool, false)
+    settings.settingsTypes.bool, false, true)
 local _, showTransientGuides = settings.addSetting(settingsData, LAx_ProductData.name, "ShowTransientGuides",
-    settings.settingsTypes.bool, false)
+    settings.settingsTypes.bool, false, true)
 local _, dontDisableAutoCF = settings.addSetting(settingsData, LAx_ProductData.name, "DontDisableAutoCF",
     settings.settingsTypes.bool, false)
 local _, showTakeMarkers = settings.addSetting(settingsData, LAx_ProductData.name, "ShowTakeMarkers",
@@ -79,11 +50,15 @@ ImGui = require 'imgui' '0.10'
 -- Menu ctx init
 local ctx = ImGui.CreateContext('My script')
 local windowName = LAx_ProductData.name .. " Settings"
-local baseWindowFlags = ImGui.WindowFlags_NoResize | ImGui.WindowFlags_NoCollapse | ImGui.WindowFlags_AlwaysAutoResize
+local baseWindowFlags = ImGui.WindowFlags_NoResize | ImGui.WindowFlags_NoCollapse | ImGui.WindowFlags_AlwaysAutoResize |
+ImGui.WindowFlags_MenuBar
 local guiW = 280
 local guiH = 340
 local isSettingShortcut = true
 local madePrimaryChoice = false
+
+-- Style object
+local styleObject = styles.createStyleObject()
 
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
@@ -127,6 +102,7 @@ end
     guiLoop: Main gui loop/defer function
 --]]
 function guiLoop()
+    local doPopFont, styleVarCount, styleColorCount, styleName = styles.applyVarsAndStyles(ctx, styleObject)
     local windowFlags = baseWindowFlags
     local settingsWereUpdated = settings.wereSettingsUpdated(settingsData)
 
@@ -138,6 +114,25 @@ function guiLoop()
     local guiIsVisible, guiIsOpen = ImGui.Begin(ctx, windowName, true, windowFlags)
 
     if guiIsVisible then
+        -- Menu bar
+        if ImGui.BeginMenuBar(ctx) then
+            if ImGui.MenuItem(ctx, "Options##optionsButton") then
+                ImGui.OpenPopup(ctx, 'OptionsMenu')
+            end
+
+            if ImGui.BeginPopup(ctx, 'OptionsMenu', ImGui.WindowFlags_AlwaysAutoResize) then
+                if ImGui.MenuItem(ctx, 'Restore defaults') then
+                    settings.restoreDefaults(settingsData)
+                end
+
+                styles.addStyleMenu(ctx, styleObject)
+
+                ImGui.EndPopup(ctx)
+            end
+
+            ImGui.EndMenuBar(ctx)
+        end
+
         -- Shortcut setting
         ImGui.SeparatorText(ctx, "Shortcut")
 
@@ -213,7 +208,7 @@ function guiLoop()
             'NOTE: Not recommended!\nIf checked, SlipView will not temporarily disable auto-crossfade.')
 
         -- Ints
-        ImGui.SetNextItemWidth(ctx, 100)
+        ImGui.SetNextItemWidth(ctx, 130)
         _, delay.runtimeSetting = ImGui.InputDouble(ctx, "Delay", math.max(delay.runtimeSetting, 0), 0.25, 0.75, "%.2f s")
         ImGui.SetItemTooltip(ctx, 'How long the shortcut needs to be held before previews appear.')
 
@@ -235,6 +230,7 @@ function guiLoop()
             end
         end
 
+        styles.popVarsAndStyles(ctx, doPopFont, styleVarCount, styleColorCount)
         ImGui.End(ctx)
     end
 

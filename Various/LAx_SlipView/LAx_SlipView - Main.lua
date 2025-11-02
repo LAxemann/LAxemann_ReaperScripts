@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.37
+-- @version 1.50
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -39,7 +39,10 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.38
+    * v1.50
+      + Added: "Restore Defaults" to Settings
+      + Added: Style menu to Settings
+      + Tweaked: Preview items will now adapt to on-the-fly length and playRate changes
       + Tweaked: Under-the-hood changes to how settings work
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
@@ -113,7 +116,7 @@ function setToggleState(state)
 end
 
 ----------------------------------------------------------------------------------------
-versionCheck(130)
+versionCheck(150)
 
 -- Create + init GhostItem, GhostTracks and GlobalState "objects"
 GhostItems = GhostItems.new()
