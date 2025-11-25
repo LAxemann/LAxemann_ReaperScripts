@@ -37,13 +37,13 @@
       </metadata>
       <version name="1.00" author="Leon 'LAxemann' Beilmann" time="2025-07-07T09:14:40Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
-        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/LAx_Shared%20-%20Main.lua</source>
-        <source file="functions/LAx_Shared_Colors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/functions/LAx_Shared_Colors.lua</source>
-        <source file="functions/LAx_Shared_ExtState.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/functions/LAx_Shared_ExtState.lua</source>
-        <source file="functions/LAx_Shared_Items.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/functions/LAx_Shared_Items.lua</source>
-        <source file="functions/LAx_Shared_Render.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/functions/LAx_Shared_Render.lua</source>
-        <source file="functions/LAx_Shared_Tables.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/functions/LAx_Shared_Tables.lua</source>
-        <source file="functions/LAx_Shared_Utility.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ef24cf0dcdb406abb881e6e020fd2c10ce18707/Various/LAx_Shared/functions/LAx_Shared_Utility.lua</source>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/LAx_Shared%20-%20Main.lua</source>
+        <source file="functions/LAx_Shared_Colors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Colors.lua</source>
+        <source file="functions/LAx_Shared_ExtState.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_ExtState.lua</source>
+        <source file="functions/LAx_Shared_Items.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Items.lua</source>
+        <source file="functions/LAx_Shared_Render.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Render.lua</source>
+        <source file="functions/LAx_Shared_Tables.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Tables.lua</source>
+        <source file="functions/LAx_Shared_Utility.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/148f378c11c886c3aaa9a1b29e042c365dfd819d/Various/LAx_Shared/functions/LAx_Shared_Utility.lua</source>
       </version>
       <version name="1.01" author="Leon 'LAxemann' Beilmann" time="2025-07-07T09:32:26Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -224,15 +224,15 @@
         <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
         <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/ReadMe.txt</source>
         <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Changelog.txt</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/20fee151f8169898a4d1d5955d88082d82e6d833/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_RestrictToNeighbors.png</source>
       </version>
       <version name="1.14" author="Leon 'LAxemann' Beilmann" time="2024-12-01T13:37:17Z">
         <changelog><![CDATA[1.14: - Tweaked: Now works properly even if "Trim content behind media items when editing" is enabled]]></changelog>
@@ -242,15 +242,15 @@
         <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
         <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/ReadMe.txt</source>
         <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Changelog.txt</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/f9b73ed5508f4d825a71e1a41982271669489bed/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_RestrictToNeighbors.png</source>
       </version>
       <version name="1.15" author="Leon 'LAxemann' Beilmann" time="2024-12-01T14:48:32Z">
         <changelog><![CDATA[1.15: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
@@ -261,15 +261,15 @@
         <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
         <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/ReadMe.txt</source>
         <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Changelog.txt</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_Main.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="Toolbar_Icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/192135a2bba4565575883fa11a0352c5db90c1de/Various/LAx_SlipView/Toolbar_Icons/LAx_SlipView_RestrictToNeighbors.png</source>
       </version>
       <version name="1.16" author="Leon 'LAxemann' Beilmann" time="2024-12-01T14:53:43Z">
         <changelog><![CDATA[1.16: - Tweaked: Toolbar icons folder is now lowercase (MAC compatibility)
@@ -467,36 +467,30 @@
 + Tweaked: A shortcut change no longer requires a restart of the script
 + Fixed: Various issues if SlipView was run on empty items
 + Known issue: If neither a track nor an item have a custom color, the preview item's color will be brown.]]></changelog>
-        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Main.lua</source>
-        <source main="main" file="LAx_SlipView - Settings.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Settings.lua</source>
-        <source main="main" file="LAx_SlipView - Toggle On New Track.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20On%20New%20Track.lua</source>
-        <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
-        <source main="main" file="LAx_SlipView - Configure Shortcut.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Configure%20Shortcut.lua</source>
-        <source main="main" file="LAx_SlipView - Toggle Snap To Transients.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Snap%20To%20Transients.lua</source>
-        <source main="main" file="LAx_SlipView - Toggle Show Transient Guides.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Show%20Transient%20Guides.lua</source>
-        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/ReadMe.txt</source>
-        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/Changelog.txt</source>
-        <source file="runShared.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/runShared.lua</source>
-        <source file="c_GState.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/c_GState.lua</source>
-        <source file="c_GhostTracks.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/c_GhostTracks.lua</source>
-        <source file="c_GhostTrack.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/c_GhostTrack.lua</source>
-        <source file="c_GhostItems.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/c_GhostItems.lua</source>
-        <source file="c_GhostItem.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/c_GhostItem.lua</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_ShowTransientGuides.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_ShowTransientGuides.png</source>
-        <source type="data" file="toolbar_icons/150/LAx_SlipView_SnapToTransients.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_SnapToTransients.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_ShowTransientGuides.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_ShowTransientGuides.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_SlipView_SnapToTransients.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_SnapToTransients.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_ShowTransientGuides.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_ShowTransientGuides.png</source>
-        <source type="data" file="toolbar_icons/LAx_SlipView_SnapToTransients.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/8deccb4bb8d320e7626c963cbba330ec1d88483b/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_SnapToTransients.png</source>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Main.lua</source>
+        <source main="main" file="LAx_SlipView - Settings.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Settings.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle On New Track.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20On%20New%20Track.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle Restrict To Neighbors.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Restrict%20To%20Neighbors.lua</source>
+        <source main="main" file="LAx_SlipView - Configure Shortcut.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Configure%20Shortcut.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle Snap To Transients.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Snap%20To%20Transients.lua</source>
+        <source main="main" file="LAx_SlipView - Toggle Show Transient Guides.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/LAx_SlipView%20-%20Toggle%20Show%20Transient%20Guides.lua</source>
+        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/ReadMe.txt</source>
+        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/Changelog.txt</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_Main.png</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_ShowTransientGuides.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_ShowTransientGuides.png</source>
+        <source type="data" file="toolbar_icons/150/LAx_SlipView_SnapToTransients.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/150/LAx_SlipView_SnapToTransients.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_Main.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_ShowTransientGuides.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_ShowTransientGuides.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_SlipView_SnapToTransients.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/200/LAx_SlipView_SnapToTransients.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_Main.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_Main.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_OnNewTrack.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_OnNewTrack.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_RestrictToNeighbors.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_RestrictToNeighbors.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_ShowTransientGuides.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_ShowTransientGuides.png</source>
+        <source type="data" file="toolbar_icons/LAx_SlipView_SnapToTransients.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3eb91b94380f07e0a52d116ca511aad33f42bb04/Various/LAx_SlipView/toolbar_icons/LAx_SlipView_SnapToTransients.png</source>
       </version>
       <version name="1.31" author="Leon 'LAxemann' Beilmann" time="2025-07-07T09:32:26Z">
         <changelog><![CDATA[+ Added: Transient snapping functionality (Optional)
@@ -885,16 +879,16 @@
         <source type="data" file="toolbar_icons/LAx_TableTracker_RunWithPreviousSettings.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/9ff10013b285ad6267e76b2dcb61aec973806a40/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker_RunWithPreviousSettings.png</source>
       </version>
       <version name="1.50" author="Leon 'LAxemann' Beilmann" time="2025-08-05T14:38:03Z">
-        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/LAx_TableTracker.lua</source>
-        <source file="fnc/functions.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/fnc/functions.lua</source>
-        <source file="fnc/gui.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/fnc/gui.lua</source>
-        <source file="runShared.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/runShared.lua</source>
-        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/ReadMe.txt</source>
-        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/Changelog.txt</source>
-        <source file="Example.csv">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/Example.csv</source>
-        <source type="data" file="toolbar_icons/150/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/toolbar_icons/150/LAx_TableTracker.png</source>
-        <source type="data" file="toolbar_icons/200/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/toolbar_icons/200/LAx_TableTracker.png</source>
-        <source type="data" file="toolbar_icons/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/763f7802348ae7b682cac3cddcc8fa0cee75c9d5/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker.png</source>
+        <changelog><![CDATA[+ Tweaked: Complete, GUI-based overhaul.]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/LAx_TableTracker.lua</source>
+        <source file="fnc/functions.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/fnc/functions.lua</source>
+        <source file="fnc/gui.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/fnc/gui.lua</source>
+        <source file="ReadMe.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/ReadMe.txt</source>
+        <source file="Changelog.txt">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/Changelog.txt</source>
+        <source file="Example.csv">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/Example.csv</source>
+        <source type="data" file="toolbar_icons/150/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/toolbar_icons/150/LAx_TableTracker.png</source>
+        <source type="data" file="toolbar_icons/200/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/toolbar_icons/200/LAx_TableTracker.png</source>
+        <source type="data" file="toolbar_icons/LAx_TableTracker.png">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/3c13b0fdc408e480a73902d6d5da73a0d0407222/Various/LAx_TableTracker/toolbar_icons/LAx_TableTracker.png</source>
       </version>
       <version name="1.51" author="Leon 'LAxemann' Beilmann" time="2025-08-15T13:56:01Z">
         <changelog><![CDATA[:
@@ -995,20 +989,4 @@
       </version>
     </reapack>
   </category>
-  <metadata>
-    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Reaper scripts by Leon "LAxemann" Beilmann\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Also check out {\field{\*\fldinst{HYPERLINK "https://www.youtube.com/@LAxemann"}}{\fldrslt{\ul
-my YouTube Channel
-}}}
-, where I talk about (Game) Audio, as well as {\field{\*\fldinst{HYPERLINK "https://leonbeilmann.gumroad.com"}}{\fldrslt{\ul
-my Gumroad page for more stuff
-}}}
-.\par}
-}
-]]></description>
-  </metadata>
 </index>
