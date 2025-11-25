@@ -5,9 +5,9 @@
  Extensions: SWS, JS_ReaScript_API
  Version: 1.21
  Provides:
-  [main] LAx_ReaperScripts - Settings Test.lua
+  [main] LAx_ReaperScripts - Settings.lua
   [nomain] runShared.lua
-  **/*.lua
+  functions/*.lua
  About:
   # LAx_Shared
 
