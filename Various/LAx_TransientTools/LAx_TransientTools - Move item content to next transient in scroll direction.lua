@@ -22,10 +22,6 @@ local transients = require("LAx_Shared_Transients")
 local utility = require("LAx_Shared_Utility")
 local extState = require("LAx_Shared_ExtState")
 
-if not utility.checkRequiredExtensions("LAx_TransientTools", { "JS_VKeys_GetState", "CF_GetSWSVersion" }) then
-    return
-end
-
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 local newValue, _, _, _, _, _, val, contextStr = reaper.get_action_context()
@@ -35,8 +31,8 @@ if val == 0 or not newValue then
 end
 
 if string.match(contextStr, "hwheel") then
-    local scrollDelayMin = 0.15
-    local lastScroll = tonumber(extState.getExtStateValue(LAx_ProductData.name, "LastScroll", "0"))
+    local scrollDelayMin = extState.getExtStateValue(LAx_ProductData.name, "ScrollDelayMin", 0.15)
+    local lastScroll = extState.getExtStateValue(LAx_ProductData.name, "LastScroll", 0)
 
     if os.clock() - lastScroll < scrollDelayMin then
         return

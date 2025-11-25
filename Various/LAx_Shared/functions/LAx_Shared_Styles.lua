@@ -17,9 +17,9 @@ M.Styles.renderBuddy = {
         menuBarBackground = 0x11201EFF,
         activeElementPink = 0xDB67D1FF,
         activeElementPinkHighlighted = 0xF4CAF0FF,
-        interactionLightGreen = 0x8F7C2E4F,
-        interactionLightGreenHovered = 0xB59D384F,
-        interactionLightGreenActive = 0xDB67D1FF,
+        interactionLightGreen = 0x65663EFF,
+        interactionLightGreenHovered = 0xB4B56EFF,
+        interactionLightGreenActive = 0x81824FFF,
         headerActive = 0x594F5BFF,
         separator = 0xDB67D142,
         separatorHovered = 0xF576EA73,
@@ -99,7 +99,7 @@ end
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 --[[
-    getDefaultStyleName: 
+    getDefaultStyleName:
 --]]
 function getDefaultStyleName()
     if LAx_ProductData.name == "LAx_RenderBuddy" then
@@ -112,7 +112,7 @@ end
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 --[[
-    addStyleMenu: 
+    addStyleMenu:
 --]]
 function M.addStyleMenu(ctx, styleObject)
     if ImGui.BeginMenu(ctx, 'Menu style') then
@@ -129,8 +129,8 @@ function M.addStyleMenu(ctx, styleObject)
         --[[
         for k, style in pairs(M.Styles) do
             if ImGui.MenuItem(ctx, style.name) then
-                
-                M.applyStyle(styleObject, style.name)
+
+                M.applyStyle(styleObject, style.name) -- ToDo: Needs to be sorted first
             end
         end
         --]]
@@ -221,7 +221,7 @@ function M.applyStyle(styleObject, styleName)
             SliderGrabActive = M.Styles.renderBuddy.colors.activeElementPink,
             Button = M.Styles.renderBuddy.colors.interactionLightGreen,
             ButtonHovered = M.Styles.renderBuddy.colors.interactionLightGreenHovered,
-            ButtonActive = M.Styles.renderBuddy.colors.activeElementPink,
+            ButtonActive = M.Styles.renderBuddy.colors.interactionLightGreenActive,
             Header = M.Styles.renderBuddy.colors.interactionLightGreen,
             HeaderHovered = M.Styles.renderBuddy.colors.interactionLightGreenHovered,
             HeaderActive = M.Styles.renderBuddy.colors.headerActive,

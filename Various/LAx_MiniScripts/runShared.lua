@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------------------
 -- Run shared functions
 LAx_ProductData = {}
-LAx_ProductData.name = "LAx_TableTracker"
+LAx_ProductData.name = "LAx_MiniScripts"
 LAx_ProductData.requirements = {"JS_VKeys_GetState", "CF_GetSWSVersion", "ImGui_GetVersion"}
 
 local function fileExists(path)
@@ -24,8 +24,11 @@ if fileExists(sharedMainFile .. ".lua") then
     dofile(sharedMainFile .. ".lua")
     LAx_Shared_Installed = true
 else
-    reaper.ShowMessageBox("LAx_ReaperScripts_Shared package not found.\nPlease install it from the same repository as " ..
-                              LAx_ProductData.name .. ".\n\nReaPack will try to open the repository so you can install the LAx_ReaperScripts_Shared package.", LAx_ProductData.name .. ": Error", 0)
+    reaper.ShowMessageBox(
+        "LAx_ReaperScripts_Shared package not found.\nPlease install it from the same repository as " ..
+        LAx_ProductData.name ..
+        ".\n\nReaPack will try to open the repository so you can install the LAx_ReaperScripts_Shared package.",
+        LAx_ProductData.name .. ": Error", 0)
     reaper.ReaPack_BrowsePackages("LAxemann_ReaperScripts")
 
     return

@@ -1,6 +1,6 @@
 -- @description LAx_TransientTools
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.01
+-- @version 1.02
 -- @about
 --   # About
 --   Simple scripts for transient-based workflows
@@ -12,11 +12,13 @@
 -- @provides
 --   [main] LAx_TransientTools - Move item content to previous transient.lua
 --   [main] LAx_TransientTools - Move item content to next transient in scroll direction.lua
+--   [main] LAx_TransientTools - Settings.lua
 --   [nomain] runShared.lua
 --[[
  * Changelog:
-    * v1.01
-      + Added: "LAx_TransientTools - Move item content to next transient in scroll direction.lua" allowing to scroll through transients
+    * v1.02
+      + Added: Settings action linking to shared settings
+      + Tweaked: Scroll delay can now be set in settings
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false

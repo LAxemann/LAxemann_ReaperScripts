@@ -3,6 +3,7 @@
 -- Run shared functions
 LAx_ProductData = {}
 LAx_ProductData.name = "LAx_TransientTools"
+LAx_ProductData.requirements = {"JS_VKeys_GetState", "CF_GetSWSVersion", "ImGui_GetVersion"}
 
 local function fileExists(path)
     return reaper.file_exists(path) or reaper.file_exists(path:lower())

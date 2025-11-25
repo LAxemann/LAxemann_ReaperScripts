@@ -13,4 +13,4 @@ end
 -- Requirements
 local settingsGui = require("LAx_Shared_SettingsGui")
 
-settingsGui.openSettingsGui("SlipView")
+settingsGui.openSettingsGui("Mini Scripts")

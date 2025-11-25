@@ -36,13 +36,14 @@ end
 --[[
     checkRequiredExtensions: Checks if all required extensions are installed
 	@arg1: ProductName [String]
-	@arg2: Extensions [Table of strings]
 	@return1: All extensions installed [Bool]
 --]]
 function M.checkRequiredExtensions(productName, requiredExtensions)
     if #requiredExtensions == 0 then
         return true
     end
+
+    requiredExtensions = LAx_ProductData.requirements
 
     for i, extensionName in ipairs(requiredExtensions) do
         if not reaper.APIExists(extensionName) then
@@ -69,10 +70,11 @@ function M.checkRequiredExtensions(productName, requiredExtensions)
             -- ImGui
             if extensionName == "ImGui_GetVersion" then
                 reaper.ShowMessageBox(productName ..
-                    " requires the free ReaImGui extension.\nReaPack will try to fetch the package. Right-click it and choose 'install'.",
+                    " requires the free ImGui API.\nReaPack will try to fetch the package. Right-click it and choose 'install'.",
                     productName .. ": Missing requirement", 0)
-
-                reaper.ReaPack_BrowsePackages [[^"ReaImGui: ReaScript binding for Dear ImGui"]]
+                if reaper.ReaPack_GetRepositoryInfo and reaper.ReaPack_GetRepositoryInfo "ReaTeam Extensions" then
+                    reaper.ReaPack_BrowsePackages [[^"ReaImGui: ReaScript binding for Dear ImGui"$ ^"ReaTeam Extensions"$]]
+                end
             end
 
             -- Exit, at least one extension isn't installed

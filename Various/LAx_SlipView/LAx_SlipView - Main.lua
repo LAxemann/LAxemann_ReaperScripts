@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.50
+-- @version 1.51
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -25,7 +25,6 @@
 --   [main] LAx_SlipView - Settings.lua
 --   [main] LAx_SlipView - Toggle On New Track.lua
 --   [main] LAx_SlipView - Toggle Restrict To Neighbors.lua
---   [main] LAx_SlipView - Configure Shortcut.lua
 --   [main] LAx_SlipView - Toggle Snap To Transients.lua
 --   [main] LAx_SlipView - Toggle Show Transient Guides.lua
 --   [nomain] ReadMe.txt
@@ -39,11 +38,9 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.50
-      + Added: "Restore Defaults" to Settings
-      + Added: Style menu to Settings
-      + Tweaked: Preview items will now adapt to on-the-fly length and playRate changes
-      + Tweaked: Under-the-hood changes to how settings work
+    * v1.51
+      + Added: Implemented the shared Settings framework
+      + Removed: Obsolete "Configure Shortcut" action
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false
@@ -59,10 +56,6 @@ end
 -- Requirements
 local extState = require("LAx_Shared_ExtState")
 local utility = require("LAx_Shared_Utility")
-
-if not utility.checkRequiredExtensions("LAx_SplipView", { "JS_VKeys_GetState", "CF_GetSWSVersion" }) then
-    return
-end
 
 runFile(currentFolder .. "c_GhostItem", true)
 runFile(currentFolder .. "c_GhostItems", true)

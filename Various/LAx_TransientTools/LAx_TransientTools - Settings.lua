@@ -11,8 +11,6 @@ end
 
 ----------------------------------------------------------------------------------------
 -- Requirements
-local extState = require("LAx_Shared_ExtState")
-local utility = require("LAx_Shared_Utility")
+local settingsGui = require("LAx_Shared_SettingsGui")
 
-reaper.ShowMessageBox("As of version 1.33, the shortcut can be comfortably configured via the main settings.\nThis script might be removed in a few versions.", "LAx_SlipView: Info", 0)
-
+settingsGui.openSettingsGui("Transient Tools")

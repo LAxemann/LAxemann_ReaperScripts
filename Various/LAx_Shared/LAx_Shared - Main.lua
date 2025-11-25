@@ -3,8 +3,10 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.06
+ Version: 1.2
  Provides:
+  [main] LAx_ReaperScripts - Settings.lua
+  [nomain] runShared.lua
   **/*.lua
  About:
   # LAx_Shared
@@ -13,10 +15,8 @@
 
 --[[
  * Changelog:
-    * v1.06
-      + Added: LAx_Shared_Settings for handling settings
-      + Added: LAx_Shared_Styles for handling menu styling across scripts
-      + Added: new type-based functions to ExtState
+    * v1.2
+      + Added: Centralized Settings GUI for all scripts
 ]]
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
@@ -35,7 +35,6 @@ local sep = package.config:sub(1, 1) -- OS path separator
 local currentFolder = pathNorm(debug.getinfo(1).source:match("@?(.*[\\|/])"))
 
 local function addSubfoldersToPackagePath(rootPath)
-    local sep = package.config:sub(1, 1) -- OS path separator
     local index = 0
 
     while true do
@@ -154,3 +153,6 @@ function openURL(url)
         os.execute("start " .. url)
     end
 end
+
+local utility = require("LAx_Shared_Utility")
+LAx_Shared_Installed = utility.checkRequiredExtensions(LAx_ProductData.name, LAx_ProductData.requirements)

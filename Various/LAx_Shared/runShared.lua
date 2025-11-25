@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------------------
 -- Run shared functions
 LAx_ProductData = {}
-LAx_ProductData.name = "LAx_TableTracker"
+LAx_ProductData.name = "LAx_Settings"
 LAx_ProductData.requirements = {"JS_VKeys_GetState", "CF_GetSWSVersion", "ImGui_GetVersion"}
 
 local function fileExists(path)
