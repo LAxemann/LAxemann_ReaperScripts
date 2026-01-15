@@ -88,7 +88,7 @@ function settingsGuiLoop()
 
                 if ImGui.MenuItem(M.gui.ctx, 'More scripts') then
                     utility.openURL(
-                    "https://leonbeilmann.gumroad.com/?section=csoQqCxvgrTEhTLkFXsyZw==#csoQqCxvgrTEhTLkFXsyZw==")
+                        "https://leonbeilmann.gumroad.com/?section=csoQqCxvgrTEhTLkFXsyZw==#csoQqCxvgrTEhTLkFXsyZw==")
                 end
 
                 ImGui.EndPopup(M.gui.ctx)
@@ -189,32 +189,14 @@ function tabSlipView()
 
     if M.gui.firstOpen and M.gui.currentTab == M.productTabs.SLIPVIEW then
         tabBarFlags = ImGui.TabItemFlags_SetSelected
+        addSettingsSlipview()
+        M.gui.firstOpen = false
     end
 
     if ImGui.BeginTabItem(M.gui.ctx, M.productTabs.SLIPVIEW, nil, tabBarFlags) then
         if LAx_ProductData.name ~= M.extStateIDs.SLIPVIEW then
             LAx_ProductData.name = M.extStateIDs.SLIPVIEW
-
-            M.gui.settingsData = {}
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "PrimaryKey", settings.settingsTypes.number,
-                18)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ModifierKey", settings.settingsTypes.number,
-                "")
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "Delay", settings.settingsTypes.number, 0)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "RestrictToNeighbors",
-                settings.settingsTypes.bool, true, true)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "CreateGhostTrack",
-                settings.settingsTypes.bool, false, true)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowOnlyOnDrag", settings.settingsTypes
-                .bool, false)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "SnapToTransients",
-                settings.settingsTypes.bool, false, true)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowTransientGuides",
-                settings.settingsTypes.bool, false, true)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "DontDisableAutoCF",
-                settings.settingsTypes.bool, false)
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowTakeMarkers",
-                settings.settingsTypes.bool, true)
+            addSettingsSlipview()
         end
 
         -- Shortcut setting
@@ -311,6 +293,34 @@ end
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 --[[
+    addSettingsSlipview:
+--]]
+function addSettingsSlipview()
+    M.gui.settingsData = {}
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "PrimaryKey", settings.settingsTypes.number,
+        18)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ModifierKey", settings.settingsTypes.number,
+        "")
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "Delay", settings.settingsTypes.number, 0)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "RestrictToNeighbors",
+        settings.settingsTypes.bool, true, true)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "CreateGhostTrack",
+        settings.settingsTypes.bool, false, true)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowOnlyOnDrag", settings.settingsTypes
+        .bool, false)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "SnapToTransients",
+        settings.settingsTypes.bool, false, true)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowTransientGuides",
+        settings.settingsTypes.bool, false, true)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "DontDisableAutoCF",
+        settings.settingsTypes.bool, false)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowTakeMarkers",
+        settings.settingsTypes.bool, true)
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
     tabTransientTools:
 --]]
 function tabTransientTools()
@@ -318,16 +328,14 @@ function tabTransientTools()
 
     if M.gui.firstOpen and M.gui.currentTab == M.productTabs.TRANSIENTTOOLS then
         tabBarFlags = ImGui.TabItemFlags_SetSelected
+        addSettingsTransientTools()
+        M.gui.firstOpen = false
     end
 
     if ImGui.BeginTabItem(M.gui.ctx, M.productTabs.TRANSIENTTOOLS, nil, tabBarFlags) then
         if LAx_ProductData.name ~= M.extStateIDs.TRANSIENTTOOLS then
             LAx_ProductData.name = M.extStateIDs.TRANSIENTTOOLS
-
-            M.gui.settingsData = {}
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.TRANSIENTTOOLS, "ScrollDelayMin",
-                settings.settingsTypes.number, 0.15)
-            M.gui.firstOpen = false
+            addSettingsTransientTools()
         end
 
         ImGui.SetNextItemWidth(M.gui.ctx, 130)
@@ -347,6 +355,17 @@ end
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 --[[
+    addSettingsTransientTools:
+--]]
+function addSettingsTransientTools()
+    M.gui.settingsData = {}
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.TRANSIENTTOOLS, "ScrollDelayMin",
+        settings.settingsTypes.number, 0.15)
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
     tabMiniScripts:
 --]]
 function tabMiniScripts()
@@ -354,29 +373,14 @@ function tabMiniScripts()
 
     if M.gui.firstOpen and M.gui.currentTab == M.productTabs.MINISCRIPTS then
         tabBarFlags = ImGui.TabItemFlags_SetSelected
+        addSettingsMiniScripts()
+        M.gui.firstOpen = false
     end
 
     if ImGui.BeginTabItem(M.gui.ctx, M.productTabs.MINISCRIPTS, nil, tabBarFlags) then
         if LAx_ProductData.name ~= M.extStateIDs.MINISCRIPTS then
             LAx_ProductData.name = M.extStateIDs.MINISCRIPTS
-
-            M.gui.settingsData = {}
-
-            -- LAx_Adjust selected item volume by mousewheel.lua
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS, "MouseWheelVolume_VolMin",
-                settings.settingsTypes.number, 0)
-
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS, "MouseWheelVolume_ChangeDB",
-                settings.settingsTypes.number, 0.5)
-
-            -- LAx_Move stretch markers to nearest transients on selected items (In time selection if available).lua
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS,
-                "StretchMarkersToNearestTransients_RandomOffset",
-                settings.settingsTypes.number, 70)
-
-            settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS,
-                "StretchMarkersToNearestTransients_Mode",
-                settings.settingsTypes.number, 0)
+            addSettingsMiniScripts()
         end
 
         -- LAx_Adjust selected item volume by mousewheel.lua
@@ -419,6 +423,31 @@ function tabMiniScripts()
     if ImGui.IsItemActivated(M.gui.ctx) then
         M.gui.currentTab = M.productTabs.MINISCRIPTS
     end
+end
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--[[
+    addSettingsMiniScripts:
+--]]
+function addSettingsMiniScripts()
+    M.gui.settingsData = {}
+
+    -- LAx_Adjust selected item volume by mousewheel.lua
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS, "MouseWheelVolume_VolMin",
+        settings.settingsTypes.number, 0)
+
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS, "MouseWheelVolume_ChangeDB",
+        settings.settingsTypes.number, 0.5)
+
+    -- LAx_Move stretch markers to nearest transients on selected items (In time selection if available).lua
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS,
+        "StretchMarkersToNearestTransients_RandomOffset",
+        settings.settingsTypes.number, 70)
+
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.MINISCRIPTS,
+        "StretchMarkersToNearestTransients_Mode",
+        settings.settingsTypes.number, 0)
 end
 
 return M

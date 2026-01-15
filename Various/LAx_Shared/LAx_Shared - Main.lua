@@ -3,7 +3,7 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.21
+ Version: 1.22
  Provides:
   [main] LAx_ReaperScripts - Settings.lua
   [nomain] runShared.lua
@@ -15,8 +15,8 @@
 
 --[[
  * Changelog:
-    * v1.21
-      + Fixed: (Hopefully) fixed settings not included in ReaPack
+    * v1.22
+      + Fixed: Settings not working at times
 ]]
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------
