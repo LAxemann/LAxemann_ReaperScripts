@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="LAxemann_ReaperScripts" commit="0c0f82ec43fefb859b00f1c12130a29fe347f1f5">
+<index version="1" name="LAxemann_ReaperScripts" commit="7fe0159c6c14186e43afcabbaaff43919feb3661">
   <category name="Various/LAx_MiniScripts">
     <reapack name="LAx_Adjust selected item volume by mousewheel.lua" type="script" desc="LAx_MiniScripts">
       <metadata>
@@ -29,6 +29,14 @@
         <source main="main" file="LAx_Replace source of all selected items with last previewed file.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/0c0f82ec43fefb859b00f1c12130a29fe347f1f5/Various/LAx_MiniScripts/LAx_Replace%20source%20of%20all%20selected%20items%20with%20last%20previewed%20file.lua</source>
         <source main="main" file="LAx_MiniScripts - Settings.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/0c0f82ec43fefb859b00f1c12130a29fe347f1f5/Various/LAx_MiniScripts/LAx_MiniScripts%20-%20Settings.lua</source>
         <source file="runShared.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/0c0f82ec43fefb859b00f1c12130a29fe347f1f5/Various/LAx_MiniScripts/runShared.lua</source>
+      </version>
+      <version name="1.02" author="Leon 'LAxemann' Beilmann" time="2026-02-01T12:18:12Z">
+        <changelog><![CDATA[+ Tweaked: "LAx_Replace source of all selected items with last previewed file" now immediately shows correct/replaced waveform]]></changelog>
+        <source main="main">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fe0159c6c14186e43afcabbaaff43919feb3661/Various/LAx_MiniScripts/LAx_Adjust%20selected%20item%20volume%20by%20mousewheel.lua</source>
+        <source main="main" file="LAx_Move stretch markers to nearest transients on selected items (In time selection if available).lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fe0159c6c14186e43afcabbaaff43919feb3661/Various/LAx_MiniScripts/LAx_Move%20stretch%20markers%20to%20nearest%20transients%20on%20selected%20items%20(In%20time%20selection%20if%20available).lua</source>
+        <source main="main" file="LAx_Replace source of all selected items with last previewed file.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fe0159c6c14186e43afcabbaaff43919feb3661/Various/LAx_MiniScripts/LAx_Replace%20source%20of%20all%20selected%20items%20with%20last%20previewed%20file.lua</source>
+        <source main="main" file="LAx_MiniScripts - Settings.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fe0159c6c14186e43afcabbaaff43919feb3661/Various/LAx_MiniScripts/LAx_MiniScripts%20-%20Settings.lua</source>
+        <source file="runShared.lua">https://github.com/LAxemann/LAxemann_ReaperScripts/raw/7fe0159c6c14186e43afcabbaaff43919feb3661/Various/LAx_MiniScripts/runShared.lua</source>
       </version>
     </reapack>
   </category>
