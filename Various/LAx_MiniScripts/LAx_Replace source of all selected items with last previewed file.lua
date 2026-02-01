@@ -29,7 +29,7 @@ for i = 0, selectedItemCount - 1 do
 	local item = reaper.GetSelectedMediaItem(0, i)
 
 	if item then
-		take = reaper.GetMediaItemTake(item, 0)
+		local take = reaper.GetMediaItemTake(item, 0)
 
 		if take then
 			reaper.SetMediaItemTake_Source(take, source)
@@ -38,5 +38,6 @@ for i = 0, selectedItemCount - 1 do
 	end
 end
 
+reaper.Main_OnCommand(40047, 0)
 reaper.UpdateArrange()
 reaper.UpdateTimeline()

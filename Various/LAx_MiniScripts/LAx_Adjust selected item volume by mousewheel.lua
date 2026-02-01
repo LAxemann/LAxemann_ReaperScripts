@@ -1,6 +1,6 @@
 -- @description LAx_MiniScripts
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.01
+-- @version 1.02
 -- @about
 --   # About
 --   A collection of small scripts that usually 'stand on their own'.
@@ -16,9 +16,8 @@
 --   [nomain] runShared.lua
 --[[
  * Changelog:
-    * v1.01
-      + Added: LAx_Split all items below selected track at edit cursor
-	  + Added: LAx_Select all items starting at or after edit cursor
+    * v1.02
+      + Tweaked: "LAx_Replace source of all selected items with last previewed file" now immediately shows correct/replaced waveform
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false
