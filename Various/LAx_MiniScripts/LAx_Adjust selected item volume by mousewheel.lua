@@ -1,6 +1,6 @@
 -- @description LAx_MiniScripts
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.00
+-- @version 1.01
 -- @about
 --   # About
 --   A collection of small scripts that usually 'stand on their own'.
@@ -16,8 +16,9 @@
 --   [nomain] runShared.lua
 --[[
  * Changelog:
-    * v1.00
-      + Initial release
+    * v1.01
+      + Added: LAx_Split all items below selected track at edit cursor
+	  + Added: LAx_Select all items starting at or after edit cursor
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false
