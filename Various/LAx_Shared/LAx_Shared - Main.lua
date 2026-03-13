@@ -3,7 +3,7 @@
  Author: Leon 'LAxemann' Beilmann
  REAPER: 6
  Extensions: SWS, JS_ReaScript_API
- Version: 1.22
+ Version: 1.23
  Provides:
   [main] LAx_ReaperScripts - Settings.lua
   [nomain] runShared.lua
@@ -15,8 +15,8 @@
 
 --[[
  * Changelog:
-    * v1.22
-      + Fixed: Settings not working at times
+    * v1.23
+      + Tweaked: Added SlipView option to mute preview Items
 ]]
 ----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------

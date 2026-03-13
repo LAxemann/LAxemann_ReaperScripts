@@ -41,7 +41,16 @@ function GhostItem:create(item, itemTrack)
     reaper.SetMediaItemInfo_Value(ghostItem, "D_POSITION", ghostItemTargetPos)
     reaper.SetMediaItemInfo_Value(ghostItem, "D_LENGTH", ghostItemLength)
     reaper.SetMediaItemInfo_Value(ghostItem, "D_VOL", reaper.GetMediaItemInfo_Value(item, "D_VOL"))
-    local ghostItemColor = colors.darkenColor(colors.getItemOrTrackCustomColor(item, itemTrack), 0.5)
+
+    -- Either mute or darken the ghost item
+    local ghostItemColor = colors.getItemOrTrackCustomColor(item, itemTrack)
+
+    if State.settings.muteGhostItems then
+        reaper.SetMediaItemInfo_Value(ghostItem, "B_MUTE", 1)
+    else
+        ghostItemColor = colors.darkenColor(ghostItemColor, 0.5)
+    end
+
     reaper.SetMediaItemInfo_Value(ghostItem, "I_CUSTOMCOLOR", ghostItemColor)
     reaper.SetMediaItemInfo_Value(ghostItem, "F_FREEMODE_Y", reaper.GetMediaItemInfo_Value(item, "F_FREEMODE_Y"))
     reaper.SetMediaItemInfo_Value(ghostItem, "F_FREEMODE_H", reaper.GetMediaItemInfo_Value(item, "F_FREEMODE_H"))

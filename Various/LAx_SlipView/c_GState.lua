@@ -30,6 +30,7 @@ function GState:init(ghostItems, ghostTracks)
     self.settings.dontDisableAutoCF = extState.getExtStateValueBool(LAx_ProductData.name, "DontDisableAutoCF", false)
     self.settings.restrictToNeighbors = extState.getExtStateValueBool(LAx_ProductData.name, "RestrictToNeighbors", true)
     self.settings.showTakeMarkers = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTakeMarkers", true)
+    self.settings.muteGhostItems = extState.getExtStateValueBool(LAx_ProductData.name, "MuteGhostItems", false)
 
     -- Main variables
     self.delayTimeElapsed = 0
@@ -683,10 +684,11 @@ end
 function GState:updateSettings()
     self.settings.primaryKey = extState.getExtStateValue(LAx_ProductData.name, "PrimaryKey", 18)    -- Default: ALT (18)
     self.settings.modifierKey = extState.getExtStateValue(LAx_ProductData.name, "ModifierKey", nil) -- Default: nil (no modifier)
-    self.settings.createGhostTrack = extState.getExtStateValueBool(LAx_ProductData.name, "CreateGhostTrack", false)                                                                                -- Default: 0
+    self.settings.createGhostTrack = extState.getExtStateValueBool(LAx_ProductData.name, "CreateGhostTrack", false)
     self.settings.snapToTransients = extState.getExtStateValueBool(LAx_ProductData.name, "SnapToTransients", false)
     self.settings.showTransientGuides = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTransientGuides", false)
     self.settings.dontDisableAutoCF = extState.getExtStateValueBool(LAx_ProductData.name, "DontDisableAutoCF", false)
     self.settings.restrictToNeighbors = extState.getExtStateValueBool(LAx_ProductData.name, "RestrictToNeighbors", true)
-    self.settings.showTakeMarkers = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTakeMarkers", true)                                                                                  -- Default: 0
+    self.settings.showTakeMarkers = extState.getExtStateValueBool(LAx_ProductData.name, "ShowTakeMarkers", true)
+    self.settings.muteGhostItems = extState.getExtStateValueBool(LAx_ProductData.name, "MuteGhostItems", false)
 end

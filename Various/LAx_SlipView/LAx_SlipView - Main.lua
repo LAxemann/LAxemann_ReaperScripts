@@ -1,6 +1,6 @@
 -- @description Allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.51
+-- @version 1.52
 -- @about
 --   # About
 --   SlipView allows it to display the full waveform of one or multiple selected items when pressing a (bindable) key.
@@ -38,9 +38,8 @@
 --   [data] toolbar_icons/**/*.png
 --[[
  * Changelog:
-    * v1.51
-      + Added: Implemented the shared Settings framework
-      + Removed: Obsolete "Configure Shortcut" action
+    * v1.52
+      + Added: Settings option to mute preview items. Activate if you're using NVK FolderItems.
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false

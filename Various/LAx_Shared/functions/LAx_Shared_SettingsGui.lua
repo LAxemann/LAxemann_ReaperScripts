@@ -271,6 +271,11 @@ function tabSlipView()
         ImGui.SetItemTooltip(M.gui.ctx,
             'If checked, SlipView will show take markers in the preview item.')
 
+        _, M.gui.settingsData.MuteGhostItems.runtimeSetting = ImGui.Checkbox(M.gui.ctx, "Mute Preview Items",
+            M.gui.settingsData.MuteGhostItems.runtimeSetting)
+        ImGui.SetItemTooltip(M.gui.ctx,
+            "If checked, preview items will be muted. Acticate if you're using NVK FolderItems.")
+
         _, M.gui.settingsData.DontDisableAutoCF.runtimeSetting = ImGui.Checkbox(M.gui.ctx, "Don't disable auto-crossfade",
             M.gui.settingsData.DontDisableAutoCF.runtimeSetting)
         ImGui.SetItemTooltip(M.gui.ctx,
@@ -316,6 +321,8 @@ function addSettingsSlipview()
         settings.settingsTypes.bool, false)
     settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "ShowTakeMarkers",
         settings.settingsTypes.bool, true)
+    settings.addSetting(M.gui.settingsData, M.extStateIDs.SLIPVIEW, "MuteGhostItems",
+        settings.settingsTypes.bool, false)
 end
 
 ----------------------------------------------------------------------------------------
