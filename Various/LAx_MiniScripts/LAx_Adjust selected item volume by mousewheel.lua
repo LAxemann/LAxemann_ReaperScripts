@@ -1,6 +1,6 @@
 -- @description LAx_MiniScripts
 -- @author Leon 'LAxemann' Beilmann
--- @version 1.02
+-- @version 1.03
 -- @about
 --   # About
 --   A collection of small scripts that usually 'stand on their own'.
@@ -12,12 +12,15 @@
 -- @provides
 --   [main] LAx_Move stretch markers to nearest transients on selected items (In time selection if available).lua
 --   [main] LAx_Replace source of all selected items with last previewed file.lua
+--   [main] LAx_Select all items starting at or after edit cursor.lua
+--   [main] LAx_Split all items below selected track at edit cursor.lua
 --   [main] LAx_MiniScripts - Settings.lua
 --   [nomain] runShared.lua
 --[[
  * Changelog:
-    * v1.02
-      + Tweaked: "LAx_Replace source of all selected items with last previewed file" now immediately shows correct/replaced waveform
+    * v1.03
+      + Added: LAx_Select all items starting at or after edit cursor.lua
+	  + Added: LAx_Split all items below selected track at edit cursor.lua
 ]] ----------------------------------------------------------------------------------------
 -- Run Shared
 LAx_Shared_Installed = false
