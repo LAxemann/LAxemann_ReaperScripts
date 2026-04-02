@@ -27,6 +27,7 @@ function GhostTrack:create(itemTrack)
     reaper.GetSetMediaTrackInfo_String(ghostTrack, "P_NAME", State.ghostTrackName, true)
     reaper.SetMediaTrackInfo_Value(ghostTrack, "I_HEIGHTOVERRIDE", itemTrackHeight)
     reaper.SetMediaTrackInfo_Value(ghostTrack, "I_CUSTOMCOLOR", itemTrackColor)
+    reaper.SetMediaTrackInfo_Value(ghostTrack, "B_MAINSEND", 0)
 
     self.track = ghostTrack
     return self.track
